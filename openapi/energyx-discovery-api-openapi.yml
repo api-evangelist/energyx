@@ -1,0 +1,798 @@
+openapi: 3.1.0
+info:
+  title: EnergyX Discovery API
+  version: wp/v2
+  description: Public, unauthenticated discovery metadata for energyx.com — the self-describing route index (1,233
+    routes across 36 namespaces at capture), the 26 registered content types, the 13 registered taxonomies, the
+    publication statuses, and the public author records. This is the surface that makes the rest of the API machine-readable
+    even though EnergyX publishes no API documentation at all.
+  contact:
+    name: EnergyX
+    url: https://energyx.com/contact/
+  x-derived-from: https://energyx.com/wp-json/ route index + per-route HTTP OPTIONS schema documents
+  x-derived-on: '2026-08-12'
+  x-api-evangelist-note: Third-party profile. EnergyX publishes no developer program; this documents the anonymously
+    readable WordPress REST content API behind energyx.com. Every path, parameter and schema here was read from
+    the server's own published OPTIONS documents on 2026-08-12 — nothing is invented.
+servers:
+- url: https://energyx.com/wp-json
+  description: EnergyX WordPress REST API
+tags:
+- name: Discovery
+  description: Route index, content types, taxonomies, statuses and authors.
+paths:
+  /wp/v2/types:
+    get:
+      operationId: listTypes
+      summary: List content types
+      description: Retrieve every registered content type and its rest_base, taxonomies and capabilities.
+      tags:
+      - Discovery
+      parameters:
+      - name: context
+        in: query
+        schema:
+          type: string
+          enum:
+          - view
+          - embed
+          - edit
+          default: view
+        description: Scope under which the request is made; determines fields present in response.
+      responses:
+        '200':
+          description: List content types
+          headers:
+            X-WP-Total:
+              description: Total records matching the query.
+              schema:
+                type: integer
+            X-WP-TotalPages:
+              description: Total pages available at the current per_page.
+              schema:
+                type: integer
+            Link:
+              description: RFC 8288 web links; rel="next" / rel="prev" pagination.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Type'
+        '400':
+          description: Invalid parameter. WordPress REST error envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                code: rest_invalid_param
+                message: 'Invalid parameter(s): per_page'
+                data:
+                  status: 400
+                  params:
+                    per_page: per_page must be between 1 (inclusive) and 100 (inclusive)
+  /wp/v2/taxonomies:
+    get:
+      operationId: listTaxonomies
+      summary: List taxonomies
+      description: Retrieve every registered taxonomy, the content types it applies to, and its rest_base.
+      tags:
+      - Discovery
+      parameters:
+      - name: context
+        in: query
+        schema:
+          type: string
+          enum:
+          - view
+          - embed
+          - edit
+          default: view
+        description: Scope under which the request is made; determines fields present in response.
+      - name: type
+        in: query
+        schema:
+          type: string
+        description: Limit results to taxonomies associated with a specific post type.
+      responses:
+        '200':
+          description: List taxonomies
+          headers:
+            X-WP-Total:
+              description: Total records matching the query.
+              schema:
+                type: integer
+            X-WP-TotalPages:
+              description: Total pages available at the current per_page.
+              schema:
+                type: integer
+            Link:
+              description: RFC 8288 web links; rel="next" / rel="prev" pagination.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Taxonomy'
+        '400':
+          description: Invalid parameter. WordPress REST error envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                code: rest_invalid_param
+                message: 'Invalid parameter(s): per_page'
+                data:
+                  status: 400
+                  params:
+                    per_page: per_page must be between 1 (inclusive) and 100 (inclusive)
+  /wp/v2/statuses:
+    get:
+      operationId: listStatuses
+      summary: List publication statuses
+      description: Retrieve the registered publication statuses and their visibility.
+      tags:
+      - Discovery
+      parameters:
+      - name: context
+        in: query
+        schema:
+          type: string
+          enum:
+          - view
+          - embed
+          - edit
+          default: view
+        description: Scope under which the request is made; determines fields present in response.
+      responses:
+        '200':
+          description: List publication statuses
+          headers:
+            X-WP-Total:
+              description: Total records matching the query.
+              schema:
+                type: integer
+            X-WP-TotalPages:
+              description: Total pages available at the current per_page.
+              schema:
+                type: integer
+            Link:
+              description: RFC 8288 web links; rel="next" / rel="prev" pagination.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Status'
+        '400':
+          description: Invalid parameter. WordPress REST error envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                code: rest_invalid_param
+                message: 'Invalid parameter(s): per_page'
+                data:
+                  status: 400
+                  params:
+                    per_page: per_page must be between 1 (inclusive) and 100 (inclusive)
+  /wp/v2/users:
+    get:
+      operationId: listUsers
+      summary: List authors
+      description: Retrieve the public author records referenced by posts. Verified live at 10 users.
+      tags:
+      - Discovery
+      parameters:
+      - name: capabilities
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+        description: Limit result set to users matching at least one specific capability provided. Accepts csv list
+          or single capability.
+      - name: context
+        in: query
+        schema:
+          type: string
+          enum:
+          - view
+          - embed
+          - edit
+          default: view
+        description: Scope under which the request is made; determines fields present in response.
+      - name: exclude
+        in: query
+        schema:
+          type: array
+          items:
+            type: integer
+          default: []
+        description: Ensure result set excludes specific IDs.
+      - name: has_published_posts
+        in: query
+        schema:
+          type: boolean
+          items:
+            type: string
+            enum:
+              post: post
+              page: page
+              attachment: attachment
+              nav_menu_item: nav_menu_item
+              wp_block: wp_block
+              wp_template: wp_template
+              wp_template_part: wp_template_part
+              wp_global_styles: wp_global_styles
+              wp_navigation: wp_navigation
+              wp_font_family: wp_font_family
+              wp_font_face: wp_font_face
+              product: product
+              feedback: feedback
+              jetpack_form: jetpack_form
+              energyx-leadership: energyx-leadership
+              energyx-job-position: energyx-job-position
+              enx-press-release: enx-press-release
+              energyx-partner: energyx-partner
+              resource-guide: resource-guide
+              energyx-video: energyx-video
+              energyx-indu-news: energyx-indu-news
+              energyx-in-the-news: energyx-in-the-news
+              energyx-megamenu: energyx-megamenu
+              mailpoet_email: mailpoet_email
+              jp_pay_order: jp_pay_order
+              jp_pay_product: jp_pay_product
+        description: Limit result set to users who have published posts.
+      - name: include
+        in: query
+        schema:
+          type: array
+          items:
+            type: integer
+          default: []
+        description: Limit result set to specific IDs.
+      - name: offset
+        in: query
+        schema:
+          type: integer
+        description: Offset the result set by a specific number of items.
+      - name: order
+        in: query
+        schema:
+          type: string
+          enum:
+          - asc
+          - desc
+          default: asc
+        description: Order sort attribute ascending or descending.
+      - name: orderby
+        in: query
+        schema:
+          type: string
+          enum:
+          - id
+          - include
+          - name
+          - registered_date
+          - slug
+          - include_slugs
+          - email
+          - url
+          default: name
+        description: Sort collection by user attribute.
+      - name: page
+        in: query
+        schema:
+          type: integer
+          minimum: 1
+          default: 1
+        description: Current page of the collection.
+      - name: per_page
+        in: query
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100
+          default: 10
+        description: Maximum number of items to be returned in result set.
+      - name: roles
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+        description: Limit result set to users matching at least one specific role provided. Accepts csv list or
+          single role.
+      - name: search
+        in: query
+        schema:
+          type: string
+        description: Limit results to those matching a string.
+      - name: search_columns
+        in: query
+        schema:
+          type: array
+          items:
+            enum:
+            - email
+            - name
+            - id
+            - username
+            - slug
+            type: string
+          default: []
+        description: Array of column names to be searched.
+      - name: slug
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+        description: Limit result set to users with one or more specific slugs.
+      - name: who
+        in: query
+        schema:
+          type: string
+          enum:
+          - authors
+        description: Limit result set to users who are considered authors.
+      responses:
+        '200':
+          description: List authors
+          headers:
+            X-WP-Total:
+              description: Total records matching the query.
+              schema:
+                type: integer
+            X-WP-TotalPages:
+              description: Total pages available at the current per_page.
+              schema:
+                type: integer
+            Link:
+              description: RFC 8288 web links; rel="next" / rel="prev" pagination.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+        '400':
+          description: Invalid parameter. WordPress REST error envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                code: rest_invalid_param
+                message: 'Invalid parameter(s): per_page'
+                data:
+                  status: 400
+                  params:
+                    per_page: per_page must be between 1 (inclusive) and 100 (inclusive)
+  /wp/v2/users/{id}:
+    get:
+      operationId: getUser
+      summary: Get an author
+      description: Retrieve a single public author record by its numeric id.
+      tags:
+      - Discovery
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: Unique identifier for the resource.
+        schema:
+          type: integer
+      - name: context
+        in: query
+        schema:
+          type: string
+          enum:
+          - view
+          - embed
+          - edit
+          default: view
+        description: Scope under which the request is made; determines fields present in response.
+      responses:
+        '200':
+          description: Get an author
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '404':
+          description: No route matched, or the identifier does not resolve to a published object.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                code: rest_post_invalid_id
+                message: Invalid post ID.
+                data:
+                  status: 404
+  /:
+    get:
+      operationId: getRouteIndex
+      summary: Get the API route index
+      description: 'Retrieve the self-describing root document: site name and description, the registered namespaces,
+        every route with its methods and args, the declared authentication methods, and the site icon. 1,233 routes
+        across 36 namespaces at capture. This is the document that makes the whole surface machine-readable without
+        any published documentation.'
+      tags:
+      - Discovery
+      parameters:
+      - name: context
+        in: query
+        description: Scope under which the request is made.
+        schema:
+          type: string
+          enum:
+          - view
+          - embed
+          - edit
+          default: view
+      - name: namespace
+        in: query
+        description: Limit the index to a single namespace, e.g. wp/v2.
+        schema:
+          type: string
+      - name: _fields
+        in: query
+        description: Comma-separated allowlist of top-level fields to return.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: The API root document.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RouteIndex'
+components:
+  schemas:
+    Error:
+      type: object
+      description: WordPress REST error envelope. Match on `code`, never on `message`.
+      properties:
+        code:
+          type: string
+          description: Machine-readable error slug. The stable identifier.
+        message:
+          type: string
+          description: Human-readable, localized message. Not stable; do not parse.
+        data:
+          type: object
+          properties:
+            status:
+              type: integer
+              description: HTTP status, repeated in the body.
+            params:
+              type: object
+              description: 'Present on rest_invalid_param: parameter name to validation message.'
+            details:
+              type: object
+              description: 'Present on rest_invalid_param: per-parameter code/message/data detail.'
+      required:
+      - code
+      - message
+    Type:
+      $schema: http://json-schema.org/draft-04/schema#
+      title: type
+      type: object
+      properties:
+        capabilities:
+          description: All capabilities used by the post type.
+          type: object
+        description:
+          description: A human-readable description of the post type.
+          type: string
+        hierarchical:
+          description: Whether or not the post type should have children.
+          type: boolean
+        viewable:
+          description: Whether or not the post type can be viewed.
+          type: boolean
+        labels:
+          description: Human-readable labels for the post type for various contexts.
+          type: object
+        name:
+          description: The title for the post type.
+          type: string
+        slug:
+          description: An alphanumeric identifier for the post type.
+          type: string
+        supports:
+          description: All features, supported by the post type.
+          type: object
+        has_archive:
+          description: If the value is a string, the value will be used as the archive slug. If the value is false
+            the post type has no archive.
+          type:
+          - string
+          - boolean
+        taxonomies:
+          description: Taxonomies associated with post type.
+          type: array
+          items:
+            type: string
+        rest_base:
+          description: REST base route for the post type.
+          type: string
+        rest_namespace:
+          description: REST route's namespace for the post type.
+          type: string
+        visibility:
+          description: The visibility settings for the post type.
+          type: object
+          properties:
+            show_ui:
+              description: Whether to generate a default UI for managing this post type.
+              type: boolean
+            show_in_nav_menus:
+              description: Whether to make the post type available for selection in navigation menus.
+              type: boolean
+        icon:
+          description: The icon for the post type.
+          type:
+          - string
+          - 'null'
+        template:
+          type:
+          - array
+          description: The block template associated with the post type.
+        template_lock:
+          type:
+          - string
+          - boolean
+          enum:
+          - all
+          - insert
+          - contentOnly
+          - false
+          description: The template_lock associated with the post type, or false if none.
+    Taxonomy:
+      $schema: http://json-schema.org/draft-04/schema#
+      title: taxonomy
+      type: object
+      properties:
+        capabilities:
+          description: All capabilities used by the taxonomy.
+          type: object
+        description:
+          description: A human-readable description of the taxonomy.
+          type: string
+        hierarchical:
+          description: Whether or not the taxonomy should have children.
+          type: boolean
+        labels:
+          description: Human-readable labels for the taxonomy for various contexts.
+          type: object
+        name:
+          description: The title for the taxonomy.
+          type: string
+        slug:
+          description: An alphanumeric identifier for the taxonomy.
+          type: string
+        show_cloud:
+          description: Whether or not the term cloud should be displayed.
+          type: boolean
+        types:
+          description: Types associated with the taxonomy.
+          type: array
+          items:
+            type: string
+        rest_base:
+          description: REST base route for the taxonomy.
+          type: string
+        rest_namespace:
+          description: REST namespace route for the taxonomy.
+          type: string
+        visibility:
+          description: The visibility settings for the taxonomy.
+          type: object
+          properties:
+            public:
+              description: Whether a taxonomy is intended for use publicly either via the admin interface or by
+                front-end users.
+              type: boolean
+            publicly_queryable:
+              description: Whether the taxonomy is publicly queryable.
+              type: boolean
+            show_ui:
+              description: Whether to generate a default UI for managing this taxonomy.
+              type: boolean
+            show_admin_column:
+              description: Whether to allow automatic creation of taxonomy columns on associated post-types table.
+              type: boolean
+            show_in_nav_menus:
+              description: Whether to make the taxonomy available for selection in navigation menus.
+              type: boolean
+            show_in_quick_edit:
+              description: Whether to show the taxonomy in the quick/bulk edit panel.
+              type: boolean
+        radio_no_term:
+          description: Radio taxonomy should show no term option.
+          type: bool
+        default_term:
+          description: Taxonomy default term ID.
+          type: int
+    Status:
+      $schema: http://json-schema.org/draft-04/schema#
+      title: status
+      type: object
+      properties:
+        name:
+          description: The title for the status.
+          type: string
+        private:
+          description: Whether posts with this status should be private.
+          type: boolean
+        protected:
+          description: Whether posts with this status should be protected.
+          type: boolean
+        public:
+          description: Whether posts of this status should be shown in the front end of the site.
+          type: boolean
+        queryable:
+          description: Whether posts with this status should be publicly-queryable.
+          type: boolean
+        show_in_list:
+          description: Whether to include posts in the edit listing for their post type.
+          type: boolean
+        slug:
+          description: An alphanumeric identifier for the status.
+          type: string
+        date_floating:
+          description: Whether posts of this status may have floating published dates.
+          type: boolean
+    User:
+      $schema: http://json-schema.org/draft-04/schema#
+      title: user
+      type: object
+      properties:
+        id:
+          description: Unique identifier for the user.
+          type: integer
+        username:
+          description: Login name for the user.
+          type: string
+        name:
+          description: Display name for the user.
+          type: string
+        first_name:
+          description: First name for the user.
+          type: string
+        last_name:
+          description: Last name for the user.
+          type: string
+        email:
+          description: The email address for the user.
+          type: string
+          format: email
+        url:
+          description: URL of the user.
+          type: string
+          format: uri
+        description:
+          description: Description of the user.
+          type: string
+        link:
+          description: Author URL of the user.
+          type: string
+          format: uri
+        locale:
+          description: Locale for the user.
+          type: string
+          enum:
+          - ''
+          - en_US
+        nickname:
+          description: The nickname for the user.
+          type: string
+        slug:
+          description: An alphanumeric identifier for the user.
+          type: string
+        registered_date:
+          description: Registration date for the user.
+          type: string
+          format: date-time
+        roles:
+          description: Roles assigned to the user.
+          type: array
+          items:
+            type: string
+        password:
+          description: Password for the user (never included).
+          type: string
+        capabilities:
+          description: All capabilities assigned to the user.
+          type: object
+        extra_capabilities:
+          description: Any extra capabilities assigned to the user.
+          type: object
+        avatar_urls:
+          description: Avatar URLs for the user.
+          type: object
+          properties:
+            '24':
+              description: Avatar URL with image size of 24 pixels.
+              type: string
+              format: uri
+            '48':
+              description: Avatar URL with image size of 48 pixels.
+              type: string
+              format: uri
+            '96':
+              description: Avatar URL with image size of 96 pixels.
+              type: string
+              format: uri
+        meta:
+          description: Meta fields.
+          type: object
+          properties:
+            persisted_preferences:
+              type: object
+              title: ''
+              description: ''
+              properties:
+                _modified:
+                  description: The date and time the preferences were updated.
+                  type: string
+                  format: date-time
+              additionalProperties: true
+            jetpack_donation_warning_dismissed:
+              type: boolean
+              title: ''
+              description: ''
+    RouteIndex:
+      type: object
+      description: The WordPress REST API root document, served at the server root of the API.
+      properties:
+        name:
+          type: string
+          description: Site name.
+        description:
+          type: string
+          description: Site tagline.
+        url:
+          type: string
+          format: uri
+          description: Site URL.
+        home:
+          type: string
+          format: uri
+          description: Site home URL.
+        gmt_offset:
+          type: number
+          description: Site timezone offset from UTC in hours.
+        timezone_string:
+          type: string
+        namespaces:
+          type: array
+          items:
+            type: string
+          description: Every registered API namespace.
+        authentication:
+          type: object
+          description: Authentication methods the server declares. energyx.com declares application-passwords only.
+        routes:
+          type: object
+          description: Map of route pattern to its namespace, methods, endpoints and args.
+        site_icon_url:
+          type: string
+          format: uri
+        _links:
+          type: object

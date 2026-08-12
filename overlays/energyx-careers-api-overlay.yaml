@@ -1,0 +1,30 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for EnergyX Careers API
+  version: 1.0.0
+extends: openapi/energyx-careers-api-openapi.yml
+x-generated: '2026-08-12'
+x-method: generated
+x-note: EnergyX publishes no OpenAPI. The document this overlay extends was derived by API Evangelist from the server's
+  own HTTP OPTIONS schema documents on 2026-08-12. This overlay records the enhancements API Evangelist added on
+  top of that mechanical derivation — titles, descriptions, tag definitions and provenance extensions — so the derived
+  spec can be regenerated from the live host without losing them.
+actions:
+- target: $.info
+  update:
+    x-apievangelist-profile: https://apis.io/provider/energyx/
+    x-apievangelist-derived: true
+    x-apievangelist-derived-on: '2026-08-12'
+    x-apievangelist-source: https://energyx.com/wp-json/ (route index + per-route HTTP OPTIONS)
+    x-apievangelist-provider-published-spec: false
+- target: $.servers[0]
+  update:
+    x-anonymous-read: true
+    x-write-requires: WordPress application password (no public issuance path)
+- target: $.tags[?(@.name=='Job Positions')]
+  update:
+    x-apievangelist-curated: true
+- target: $.paths.*.get
+  update:
+    x-rate-limit-signal: none — no RateLimit-*, X-RateLimit-* or Retry-After header is returned
+    x-idempotency: not applicable — read-only GET; the host offers no idempotency contract

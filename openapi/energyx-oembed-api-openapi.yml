@@ -1,0 +1,126 @@
+openapi: 3.1.0
+info:
+  title: EnergyX oEmbed API
+  version: oembed/1.0
+  description: Public oEmbed 1.0 provider endpoint for energyx.com URLs, returning embeddable rich metadata — title,
+    author, thumbnail and iframe HTML — for any post, page, press release, video or product on the site.
+  contact:
+    name: EnergyX
+    url: https://energyx.com/contact/
+  x-derived-from: https://energyx.com/wp-json/oembed/1.0/embed HTTP OPTIONS document
+  x-derived-on: '2026-08-12'
+  x-api-evangelist-note: Third-party profile. Parameters read from the server's own OPTIONS document; nothing invented.
+servers:
+- url: https://energyx.com/wp-json
+  description: EnergyX WordPress REST API
+tags:
+- name: oEmbed
+  description: oEmbed 1.0 provider endpoint.
+paths:
+  /oembed/1.0/embed:
+    get:
+      operationId: getOembed
+      summary: Get oEmbed data for a URL
+      description: Retrieve oEmbed 1.0 rich metadata — title, author, provider, thumbnail and iframe embed HTML
+        — for any energyx.com URL.
+      tags:
+      - oEmbed
+      parameters:
+      - name: format
+        in: query
+        schema:
+          default: json
+          type: string
+      - name: maxwidth
+        in: query
+        schema:
+          default: 600
+          type: string
+      - name: url
+        in: query
+        schema:
+          type: string
+          format: uri
+        description: The URL of the resource for which to fetch oEmbed data.
+        required: true
+      responses:
+        '200':
+          description: oEmbed 1.0 response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OembedResponse'
+        '404':
+          description: No route matched, or the identifier does not resolve to a published object.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                code: rest_post_invalid_id
+                message: Invalid post ID.
+                data:
+                  status: 404
+components:
+  schemas:
+    Error:
+      type: object
+      description: WordPress REST error envelope. Match on `code`, never on `message`.
+      properties:
+        code:
+          type: string
+          description: Machine-readable error slug. The stable identifier.
+        message:
+          type: string
+          description: Human-readable, localized message. Not stable; do not parse.
+        data:
+          type: object
+          properties:
+            status:
+              type: integer
+              description: HTTP status, repeated in the body.
+            params:
+              type: object
+              description: 'Present on rest_invalid_param: parameter name to validation message.'
+            details:
+              type: object
+              description: 'Present on rest_invalid_param: per-parameter code/message/data detail.'
+      required:
+      - code
+      - message
+    OembedResponse:
+      type: object
+      description: oEmbed 1.0 rich response.
+      properties:
+        version:
+          type: string
+        provider_name:
+          type: string
+        provider_url:
+          type: string
+          format: uri
+        author_name:
+          type: string
+        author_url:
+          type: string
+          format: uri
+        title:
+          type: string
+        type:
+          type: string
+        width:
+          type: integer
+        height:
+          type:
+          - integer
+          - 'null'
+        html:
+          type: string
+          description: Iframe embed markup.
+        thumbnail_url:
+          type: string
+          format: uri
+        thumbnail_width:
+          type: integer
+        thumbnail_height:
+          type: integer

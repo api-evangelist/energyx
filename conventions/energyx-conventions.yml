@@ -1,0 +1,144 @@
+generated: '2026-08-12'
+method: probed
+source: live responses from https://energyx.com/wp-json/ + openapi/ derived parameters
+description: >-
+  Cross-cutting request/response semantics for the WordPress REST content API behind energyx.com.
+  EnergyX publishes no API documentation of any kind, so every convention below was read off live
+  responses and the server's own HTTP OPTIONS schema documents on 2026-08-12, or is the documented
+  WordPress core behaviour the surface inherits.
+authentication:
+  style: none for reads
+  detail: >-
+    Anonymous read. No key, token or account. Writes require a WordPress application password
+    (Basic over TLS) that has no public issuance path.
+  artifact: authentication/energyx-authentication.yml
+idempotency:
+  supported: false
+  idempotency_key_header: null
+  detail: >-
+    There is no idempotency contract. No Idempotency-Key header, parameter or replay window is
+    accepted or documented anywhere on this surface. Every public operation is a GET and is
+    therefore idempotent by HTTP method semantics alone, which is not the same thing as an
+    idempotency guarantee for retried writes. No Idempotency pointer is emitted in apis.yml,
+    because there is nothing to point at.
+pagination:
+  style: page-number with offset alternative
+  params:
+    page: 1-based page number. Default 1.
+    per_page: Records per page. Default 10, minimum 1, maximum 100 — exceeding it returns 400 rest_invalid_param.
+    offset: Alternative to page; skip N records.
+    order: asc or desc.
+    orderby: Sort field; varies per resource (date, id, title, slug, relevance, include, ...).
+  response_headers:
+    X-WP-Total: Total records matching the query.
+    X-WP-TotalPages: Total pages available at the current per_page.
+    Link: RFC 8288 rel="next" / rel="prev" links.
+  detail: >-
+    Verified live: GET /wp/v2/posts?per_page=2 returned X-WP-Total 69, X-WP-TotalPages 35 and a
+    Link header carrying rel="next". Both counter headers are listed in
+    Access-Control-Expose-Headers, so they are readable from a browser. The largest collection on
+    the surface is media at 2,639 records (27 pages at the 100 maximum); the largest content
+    collection is the in-the-news archive at 275.
+  cursor: false
+field_selection:
+  supported: true
+  params:
+    _fields: Comma-separated allowlist of top-level response fields — a real sparse-fieldset control.
+    _embed: Inline embeddable linked resources (author, featured media, terms) under _embedded.
+    _links: HAL-style link relations are present on every record by default.
+  detail: >-
+    Worth using. An unfiltered energyx-in-the-news record carries rendered content plus every
+    registered meta field; `_fields=id,date,link,title` reduces a page of 100 records to a few KB.
+filtering:
+  detail: >-
+    Per-resource query parameters are declared in the OPTIONS document for each route and carried
+    into the derived OpenAPI. Common across post types: search, slug, include, exclude, after,
+    before, modified_after, modified_before, status, order, orderby, offset.
+  taxonomy_filters:
+  - 'GET /wp/v2/posts?categories=<id>'
+  - 'GET /wp/v2/energyx-leadership?leadership-type=<id>'
+  - 'GET /wp/v2/energyx-job-position?position-area=<id>&position-location=<id>'
+  - 'GET /wp/v2/energyx-partner?partner-type=<id>'
+  - 'GET /wp/v2/resource-guide?resource-guide-category=<id>'
+  - 'GET /wp/v2/product?product_cat=<id>'
+context_parameter:
+  param: context
+  values: [view, embed, edit]
+  default: view
+  detail: >-
+    `view` is the full public record, `embed` a trimmed subset for embedding. `edit` requires
+    authentication and returns 401 anonymously. Field visibility per context is declared in each
+    property of the published schemas.
+request_tracing:
+  request_id_header: null
+  detail: >-
+    No correlation or request-id header is returned. There is nothing to quote in a support ticket,
+    and no API support channel exists to quote it to.
+versioning:
+  scheme: uri-path namespace
+  current: wp/v2
+  detail: >-
+    The version is a namespace segment in the path. 36 namespaces are registered at capture
+    (wp/v2, wc/store/v1, wc/v3, oembed/1.0, yoast/v1, jetpack/v4, wpcom/v2, mailpoet/v1, gf/v2,
+    klaviyo/v1, redirection/v1, ...). EnergyX publishes no versioning or deprecation policy of its
+    own; the version moves when the site's WordPress core and plugins are upgraded, with no
+    announcement.
+  artifact: lifecycle/energyx-lifecycle.yml
+error_envelope:
+  format: wp-rest-error
+  rfc9457: false
+  shape: '{code, message, data:{status, params?, details?}}'
+  detail: Match on `code`, never on `message`. Full catalog in errors/energyx-problem-types.yml.
+  artifact: errors/energyx-problem-types.yml
+rate_limiting:
+  documented: false
+  response_headers: []
+  detail: >-
+    No RateLimit-*, X-RateLimit-* or Retry-After header appeared on any observed response, and no
+    limits are published. An agent has no runtime signal here and must self-throttle.
+  artifact: rate-limits/energyx-rate-limits.yml
+caching:
+  observed_headers:
+    X-Cache-Status: BYPASS
+  detail: >-
+    Observed on GET /wp/v2/posts. No Cache-Control, ETag, Last-Modified or Expires header is
+    returned on API responses — the edge cache reports BYPASS for the wp-json paths, so every read
+    is served from origin. Conditional requests are therefore not available: an agent polling this
+    surface for change has no cheap 304 path and must re-read and diff, or use the
+    `modified_after` query parameter that every post-type collection accepts.
+  conditional_requests: not available
+cors:
+  access_control_expose_headers: [X-WP-Total, X-WP-TotalPages, Link]
+  access_control_allow_headers: [Authorization, X-WP-Nonce, Content-Disposition, Content-MD5, Content-Type]
+indexing:
+  x_robots_tag: noindex
+  detail: >-
+    Every API response carries `X-Robots-Tag: noindex`. The data is public and machine-readable but
+    the provider signals it should not be indexed as content. robots.txt disallows exactly one path
+    (/operation-obey) and does not disallow /wp-json — nothing in this pass was blocked by robots.
+server_identification:
+  detail: >-
+    The host returns deliberately falsified server headers — `Server: Coffee Machine 1.2.4`,
+    `X-Backend-Server: Windows 98 SE`, `X-Powered-By: Commodore 64 BASIC`. This is joke
+    fingerprint-obfuscation, not a contract, and an agent must not infer anything about the stack
+    from them. `X-Content-Type-Options: nosniff` is set correctly.
+cookies:
+  detail: >-
+    API responses set two cookies on an anonymous read — `_fbp` (Meta pixel, 90 days) and
+    `anspress_session` (the site's Q&A forum plugin, 24 hours). Neither is required to read the
+    API. A machine consumer should discard them; a browser consumer should be aware the content
+    API is setting a tracking cookie.
+content_type:
+  request: application/json
+  response: application/json; charset=UTF-8
+evidence:
+- url: https://energyx.com/wp-json/wp/v2/posts?per_page=2
+  http_status: 200
+  headers_observed: [x-wp-total, x-wp-totalpages, link, allow, x-robots-tag, x-content-type-options,
+    access-control-expose-headers, access-control-allow-headers, x-cache-status, set-cookie]
+- url: https://energyx.com/wp-json/wp/v2/posts?per_page=999
+  http_status: 400
+- url: https://energyx.com/wp-json/
+  http_status: 200
+- url: https://energyx.com/robots.txt
+  http_status: 200

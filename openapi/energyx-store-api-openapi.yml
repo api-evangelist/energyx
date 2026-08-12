@@ -1,0 +1,1682 @@
+openapi: 3.1.0
+info:
+  title: EnergyX Store API
+  version: wp/v2
+  description: 'Public, unauthenticated read access to the EnergyX merchandise catalog behind energyx.com/shop/,
+    exposed twice: through the WooCommerce Store API (wc/store/v1), which is the anonymous storefront contract,
+    and through the WordPress core product post type (wp/v2/product). Verified live at 15 products in 4 categories
+    on both. The WooCommerce admin API (wc/v3) on the same host returns 401 to an anonymous caller and is deliberately
+    not modelled.'
+  contact:
+    name: EnergyX
+    url: https://energyx.com/contact/
+  x-derived-from: https://energyx.com/wp-json/ route index + per-route HTTP OPTIONS schema documents
+  x-derived-on: '2026-08-12'
+  x-api-evangelist-note: Third-party profile. EnergyX publishes no developer program; this documents the anonymously
+    readable WordPress REST content API behind energyx.com. Every path, parameter and schema here was read from
+    the server's own published OPTIONS documents on 2026-08-12 — nothing is invented.
+servers:
+- url: https://energyx.com/wp-json
+  description: EnergyX WordPress REST API
+tags:
+- name: Store
+  description: WooCommerce Store API — the anonymous storefront catalog.
+- name: Products
+  description: The product catalog as WordPress core content records.
+paths:
+  /wc/store/v1/products:
+    get:
+      operationId: listStoreProducts
+      summary: List store products
+      description: Retrieve the anonymous storefront product catalog with prices, images and stock.
+      tags:
+      - Store
+      parameters:
+      - name: after
+        in: query
+        schema:
+          type: string
+          format: date-time
+        description: Limit response to resources created after a given ISO8601 compliant date.
+      - name: attribute_relation
+        in: query
+        schema:
+          type: string
+          enum:
+          - in
+          - and
+          default: and
+        description: The logical relationship between attributes when filtering across multiple at once.
+      - name: attributes
+        in: query
+        schema:
+          type: array
+          items:
+            type: object
+            properties:
+              attribute:
+                description: Attribute taxonomy name.
+                type: string
+              term_id:
+                description: List of attribute term IDs.
+                type: array
+                items:
+                  type: integer
+              slug:
+                description: List of attribute slug(s). If a term ID is provided, this will be ignored.
+                type: array
+                items:
+                  type: string
+              operator:
+                description: Operator to compare product attribute terms.
+                type: string
+                enum:
+                - in
+                - not_in
+                - and
+          default: []
+        description: Limit result set to products with selected global attributes.
+      - name: before
+        in: query
+        schema:
+          type: string
+          format: date-time
+        description: Limit response to resources created before a given ISO8601 compliant date.
+      - name: brand
+        in: query
+        schema:
+          type: string
+        description: Limit result set to products assigned a set of brand IDs or slugs, separated by commas.
+      - name: brand_operator
+        in: query
+        schema:
+          type: string
+          enum:
+          - in
+          - not_in
+          - and
+          default: in
+        description: Operator to compare product brand terms.
+      - name: catalog_visibility
+        in: query
+        schema:
+          type: string
+          enum:
+          - any
+          - visible
+          - catalog
+          - search
+          - hidden
+        description: Determines if hidden or visible catalog products are shown.
+      - name: category
+        in: query
+        schema:
+          type: string
+        description: Limit result set to products assigned a set of category IDs or slugs, separated by commas.
+      - name: category_operator
+        in: query
+        schema:
+          type: string
+          enum:
+          - in
+          - not_in
+          - and
+          default: in
+        description: Operator to compare product category terms.
+      - name: context
+        in: query
+        schema:
+          type: string
+          enum:
+          - view
+          - embed
+          - edit
+          default: view
+        description: Scope under which the request is made; determines fields present in response.
+      - name: date_column
+        in: query
+        schema:
+          type: string
+          enum:
+          - date
+          - date_gmt
+          - modified
+          - modified_gmt
+          default: date
+        description: When limiting response using after/before, which date column to compare against.
+      - name: exclude
+        in: query
+        schema:
+          type: array
+          items:
+            type: integer
+          default: []
+        description: Ensure result set excludes specific IDs.
+      - name: featured
+        in: query
+        schema:
+          type: boolean
+        description: Limit result set to featured products.
+      - name: include
+        in: query
+        schema:
+          type: array
+          items:
+            type: integer
+          default: []
+        description: Limit result set to specific ids.
+      - name: max_price
+        in: query
+        schema:
+          type: string
+        description: Limit result set to products based on a maximum price, provided using the smallest unit of
+          the currency.
+      - name: min_price
+        in: query
+        schema:
+          type: string
+        description: Limit result set to products based on a minimum price, provided using the smallest unit of
+          the currency.
+      - name: offset
+        in: query
+        schema:
+          type: integer
+        description: Offset the result set by a specific number of items.
+      - name: on_sale
+        in: query
+        schema:
+          type: boolean
+        description: Limit result set to products on sale.
+      - name: order
+        in: query
+        schema:
+          type: string
+          enum:
+          - asc
+          - desc
+          default: desc
+        description: Order sort attribute ascending or descending.
+      - name: orderby
+        in: query
+        schema:
+          type: string
+          enum:
+          - date
+          - modified
+          - id
+          - include
+          - title
+          - slug
+          - price
+          - popularity
+          - rating
+          - menu_order
+          - comment_count
+          default: date
+        description: Sort collection by object attribute.
+      - name: page
+        in: query
+        schema:
+          type: integer
+          minimum: 1
+          default: 1
+        description: Current page of the collection.
+      - name: parent
+        in: query
+        schema:
+          type: array
+          items:
+            type: integer
+          default: []
+        description: Limit result set to those of particular parent IDs.
+      - name: parent_exclude
+        in: query
+        schema:
+          type: array
+          items:
+            type: integer
+          default: []
+        description: Limit result set to all items except those of a particular parent ID.
+      - name: per_page
+        in: query
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100
+          default: 10
+        description: Maximum number of items to be returned in result set.
+      - name: rating
+        in: query
+        schema:
+          type: array
+          items:
+            type: integer
+            enum:
+            - 1
+            - 2
+            - 3
+            - 4
+            - 5
+          default: []
+        description: Limit result set to products with a certain average rating.
+      - name: related
+        in: query
+        schema:
+          type: integer
+        description: Limit result set to products related to a specific product ID.
+      - name: search
+        in: query
+        schema:
+          type: string
+        description: Limit results to those matching a string.
+      - name: sku
+        in: query
+        schema:
+          type: string
+        description: Limit result set to products with specific SKU(s). Use commas to separate.
+      - name: slug
+        in: query
+        schema:
+          type: string
+        description: Limit result set to products with specific slug(s). Use commas to separate.
+      - name: stock_status
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - instock
+            - outofstock
+            - onbackorder
+          default: []
+        description: Limit result set to products with specified stock status.
+      - name: tag
+        in: query
+        schema:
+          type: string
+        description: Limit result set to products assigned a set of tag IDs or slugs, separated by commas.
+      - name: tag_operator
+        in: query
+        schema:
+          type: string
+          enum:
+          - in
+          - not_in
+          - and
+          default: in
+        description: Operator to compare product tags.
+      - name: type
+        in: query
+        schema:
+          type: string
+          enum:
+          - simple
+          - grouped
+          - external
+          - variable
+          - subscription
+          - variable-subscription
+          - variation
+        description: Limit result set to products assigned a specific type.
+      responses:
+        '200':
+          description: List store products
+          headers:
+            X-WP-Total:
+              description: Total records matching the query.
+              schema:
+                type: integer
+            X-WP-TotalPages:
+              description: Total pages available at the current per_page.
+              schema:
+                type: integer
+            Link:
+              description: RFC 8288 web links; rel="next" / rel="prev" pagination.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/StoreProduct'
+        '400':
+          description: Invalid parameter. WordPress REST error envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                code: rest_invalid_param
+                message: 'Invalid parameter(s): per_page'
+                data:
+                  status: 400
+                  params:
+                    per_page: per_page must be between 1 (inclusive) and 100 (inclusive)
+  /wc/store/v1/products/{id}:
+    get:
+      operationId: getStoreProduct
+      summary: Get a store product
+      description: Retrieve a single storefront product by its numeric id.
+      tags:
+      - Store
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: Unique identifier for the resource.
+        schema:
+          type: integer
+      - name: context
+        in: query
+        schema:
+          type: string
+          enum:
+          - view
+          - embed
+          - edit
+          default: view
+        description: Scope under which the request is made; determines fields present in response.
+      responses:
+        '200':
+          description: Get a store product
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StoreProduct'
+        '404':
+          description: No route matched, or the identifier does not resolve to a published object.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                code: rest_post_invalid_id
+                message: Invalid post ID.
+                data:
+                  status: 404
+  /wc/store/v1/products/categories:
+    get:
+      operationId: listStoreProductCategories
+      summary: List store product categories
+      description: Retrieve the storefront product categories and their counts.
+      tags:
+      - Store
+      parameters:
+      - name: context
+        in: query
+        schema:
+          type: string
+          enum:
+          - view
+          - embed
+          - edit
+          default: view
+        description: Scope under which the request is made; determines fields present in response.
+      - name: exclude
+        in: query
+        schema:
+          type: array
+          items:
+            type: integer
+          default: []
+        description: Ensure result set excludes specific IDs.
+      - name: hide_empty
+        in: query
+        schema:
+          type: boolean
+          default: true
+        description: If true, empty terms will not be returned.
+      - name: include
+        in: query
+        schema:
+          type: array
+          items:
+            type: integer
+          default: []
+        description: Limit result set to specific ids.
+      - name: order
+        in: query
+        schema:
+          type: string
+          enum:
+          - asc
+          - desc
+          default: asc
+        description: Sort ascending or descending.
+      - name: orderby
+        in: query
+        schema:
+          type: string
+          enum:
+          - name
+          - slug
+          - count
+          default: name
+        description: Sort by term property.
+      - name: page
+        in: query
+        schema:
+          type: integer
+          minimum: 1
+          default: 1
+        description: Current page of the collection.
+      - name: parent
+        in: query
+        schema:
+          type: integer
+        description: Limit results to terms with a specific parent (hierarchical taxonomies only).
+      - name: per_page
+        in: query
+        schema:
+          type: integer
+          minimum: 0
+        description: Maximum number of items to be returned in result set. Defaults to no limit if left blank.
+      - name: search
+        in: query
+        schema:
+          type: string
+        description: Limit results to those matching a string.
+      responses:
+        '200':
+          description: List store product categories
+          headers:
+            X-WP-Total:
+              description: Total records matching the query.
+              schema:
+                type: integer
+            X-WP-TotalPages:
+              description: Total pages available at the current per_page.
+              schema:
+                type: integer
+            Link:
+              description: RFC 8288 web links; rel="next" / rel="prev" pagination.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/StoreProductCategory'
+        '400':
+          description: Invalid parameter. WordPress REST error envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                code: rest_invalid_param
+                message: 'Invalid parameter(s): per_page'
+                data:
+                  status: 400
+                  params:
+                    per_page: per_page must be between 1 (inclusive) and 100 (inclusive)
+  /wc/store/v1/products/categories/{id}:
+    get:
+      operationId: getStoreProductCategory
+      summary: Get a store product category
+      description: Retrieve a single storefront product category by its numeric id.
+      tags:
+      - Store
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: Unique identifier for the resource.
+        schema:
+          type: integer
+      - name: context
+        in: query
+        schema:
+          type: string
+          enum:
+          - view
+          - embed
+          - edit
+          default: view
+        description: Scope under which the request is made; determines fields present in response.
+      responses:
+        '200':
+          description: Get a store product category
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StoreProductCategory'
+        '404':
+          description: No route matched, or the identifier does not resolve to a published object.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                code: rest_post_invalid_id
+                message: Invalid post ID.
+                data:
+                  status: 404
+  /wp/v2/product:
+    get:
+      operationId: listProducts
+      summary: List products
+      description: Retrieve the product catalog as WordPress core content records.
+      tags:
+      - Products
+      parameters:
+      - name: after
+        in: query
+        schema:
+          type: string
+          format: date-time
+        description: Limit response to posts published after a given ISO8601 compliant date.
+      - name: before
+        in: query
+        schema:
+          type: string
+          format: date-time
+        description: Limit response to posts published before a given ISO8601 compliant date.
+      - name: brand
+        in: query
+        schema:
+          type: string
+        description: Limit result set to products assigned a specific brand ID.
+      - name: context
+        in: query
+        schema:
+          type: string
+          enum:
+          - view
+          - embed
+          - edit
+          default: view
+        description: Scope under which the request is made; determines fields present in response.
+      - name: exclude
+        in: query
+        schema:
+          type: array
+          items:
+            type: integer
+          default: []
+        description: Ensure result set excludes specific IDs.
+      - name: include
+        in: query
+        schema:
+          type: array
+          items:
+            type: integer
+          default: []
+        description: Limit result set to specific IDs.
+      - name: modified_after
+        in: query
+        schema:
+          type: string
+          format: date-time
+        description: Limit response to posts modified after a given ISO8601 compliant date.
+      - name: modified_before
+        in: query
+        schema:
+          type: string
+          format: date-time
+        description: Limit response to posts modified before a given ISO8601 compliant date.
+      - name: offset
+        in: query
+        schema:
+          type: integer
+        description: Offset the result set by a specific number of items.
+      - name: order
+        in: query
+        schema:
+          type: string
+          enum:
+          - asc
+          - desc
+          default: desc
+        description: Order sort attribute ascending or descending.
+      - name: orderby
+        in: query
+        schema:
+          type: string
+          enum:
+          - author
+          - date
+          - id
+          - include
+          - modified
+          - parent
+          - relevance
+          - slug
+          - include_slugs
+          - title
+          - popularity
+          - rating
+          - post__in
+          - price
+          - sales
+          - menu_order
+          - random
+          - popularity
+          - rating
+          default: date
+        description: Sort collection by post attribute.
+      - name: page
+        in: query
+        schema:
+          type: integer
+          minimum: 1
+          default: 1
+        description: Current page of the collection.
+      - name: per_page
+        in: query
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100
+          default: 10
+        description: Maximum number of items to be returned in result set.
+      - name: product_brand
+        in: query
+        schema:
+          type: object
+          oneOf:
+          - title: Term ID List
+            description: Match terms with the listed IDs.
+            type: array
+            items:
+              type: integer
+          - title: Term ID Taxonomy Query
+            description: Perform an advanced term query.
+            type: object
+            properties:
+              terms:
+                description: Term IDs.
+                type: array
+                items:
+                  type: integer
+                default: []
+              include_children:
+                description: Whether to include child terms in the terms limiting the result set.
+                type: boolean
+                default: false
+              operator:
+                description: Whether items must be assigned all or any of the specified terms.
+                type: string
+                enum:
+                - AND
+                - OR
+                default: OR
+            additionalProperties: false
+        description: Limit result set to items with specific terms assigned in the product_brand taxonomy.
+      - name: product_brand_exclude
+        in: query
+        schema:
+          type: object
+          oneOf:
+          - title: Term ID List
+            description: Match terms with the listed IDs.
+            type: array
+            items:
+              type: integer
+          - title: Term ID Taxonomy Query
+            description: Perform an advanced term query.
+            type: object
+            properties:
+              terms:
+                description: Term IDs.
+                type: array
+                items:
+                  type: integer
+                default: []
+              include_children:
+                description: Whether to include child terms in the terms limiting the result set.
+                type: boolean
+                default: false
+            additionalProperties: false
+        description: Limit result set to items except those with specific terms assigned in the product_brand taxonomy.
+      - name: product_cat
+        in: query
+        schema:
+          type: object
+          oneOf:
+          - title: Term ID List
+            description: Match terms with the listed IDs.
+            type: array
+            items:
+              type: integer
+          - title: Term ID Taxonomy Query
+            description: Perform an advanced term query.
+            type: object
+            properties:
+              terms:
+                description: Term IDs.
+                type: array
+                items:
+                  type: integer
+                default: []
+              include_children:
+                description: Whether to include child terms in the terms limiting the result set.
+                type: boolean
+                default: false
+              operator:
+                description: Whether items must be assigned all or any of the specified terms.
+                type: string
+                enum:
+                - AND
+                - OR
+                default: OR
+            additionalProperties: false
+        description: Limit result set to items with specific terms assigned in the product_cat taxonomy.
+      - name: product_cat_exclude
+        in: query
+        schema:
+          type: object
+          oneOf:
+          - title: Term ID List
+            description: Match terms with the listed IDs.
+            type: array
+            items:
+              type: integer
+          - title: Term ID Taxonomy Query
+            description: Perform an advanced term query.
+            type: object
+            properties:
+              terms:
+                description: Term IDs.
+                type: array
+                items:
+                  type: integer
+                default: []
+              include_children:
+                description: Whether to include child terms in the terms limiting the result set.
+                type: boolean
+                default: false
+            additionalProperties: false
+        description: Limit result set to items except those with specific terms assigned in the product_cat taxonomy.
+      - name: product_tag
+        in: query
+        schema:
+          type: object
+          oneOf:
+          - title: Term ID List
+            description: Match terms with the listed IDs.
+            type: array
+            items:
+              type: integer
+          - title: Term ID Taxonomy Query
+            description: Perform an advanced term query.
+            type: object
+            properties:
+              terms:
+                description: Term IDs.
+                type: array
+                items:
+                  type: integer
+                default: []
+              operator:
+                description: Whether items must be assigned all or any of the specified terms.
+                type: string
+                enum:
+                - AND
+                - OR
+                default: OR
+            additionalProperties: false
+        description: Limit result set to items with specific terms assigned in the product_tag taxonomy.
+      - name: product_tag_exclude
+        in: query
+        schema:
+          type: object
+          oneOf:
+          - title: Term ID List
+            description: Match terms with the listed IDs.
+            type: array
+            items:
+              type: integer
+          - title: Term ID Taxonomy Query
+            description: Perform an advanced term query.
+            type: object
+            properties:
+              terms:
+                description: Term IDs.
+                type: array
+                items:
+                  type: integer
+                default: []
+            additionalProperties: false
+        description: Limit result set to items except those with specific terms assigned in the product_tag taxonomy.
+      - name: search
+        in: query
+        schema:
+          type: string
+        description: Limit results to those matching a string.
+      - name: search_columns
+        in: query
+        schema:
+          type: array
+          items:
+            enum:
+            - post_title
+            - post_content
+            - post_excerpt
+            type: string
+          default: []
+        description: Array of column names to be searched.
+      - name: search_semantics
+        in: query
+        schema:
+          type: string
+          enum:
+          - exact
+        description: How to interpret the search input.
+      - name: slug
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+        description: Limit result set to posts with one or more specific slugs.
+      - name: status
+        in: query
+        schema:
+          type: array
+          items:
+            enum:
+            - publish
+            - future
+            - draft
+            - pending
+            - private
+            - trash
+            - auto-draft
+            - inherit
+            - request-pending
+            - request-confirmed
+            - request-failed
+            - request-completed
+            - acf-disabled
+            - wc-pending
+            - wc-processing
+            - wc-on-hold
+            - wc-completed
+            - wc-cancelled
+            - wc-refunded
+            - wc-failed
+            - wc-checkout-draft
+            - wc-active
+            - wc-switched
+            - wc-expired
+            - wc-pending-cancel
+            - spam
+            - jp-temp-feedback
+            - sent
+            - moderate
+            - private_post
+            - any
+            type: string
+          default: publish
+        description: Limit result set to posts assigned one or more statuses.
+      - name: tax_relation
+        in: query
+        schema:
+          type: string
+          enum:
+          - AND
+          - OR
+        description: Limit result set based on relationship between multiple taxonomies.
+      responses:
+        '200':
+          description: List products
+          headers:
+            X-WP-Total:
+              description: Total records matching the query.
+              schema:
+                type: integer
+            X-WP-TotalPages:
+              description: Total pages available at the current per_page.
+              schema:
+                type: integer
+            Link:
+              description: RFC 8288 web links; rel="next" / rel="prev" pagination.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Product'
+        '400':
+          description: Invalid parameter. WordPress REST error envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                code: rest_invalid_param
+                message: 'Invalid parameter(s): per_page'
+                data:
+                  status: 400
+                  params:
+                    per_page: per_page must be between 1 (inclusive) and 100 (inclusive)
+  /wp/v2/product/{id}:
+    get:
+      operationId: getProduct
+      summary: Get a product
+      description: Retrieve a single product content record by its numeric id.
+      tags:
+      - Products
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: Unique identifier for the resource.
+        schema:
+          type: integer
+      - name: context
+        in: query
+        schema:
+          type: string
+          enum:
+          - view
+          - embed
+          - edit
+          default: view
+        description: Scope under which the request is made; determines fields present in response.
+      - name: excerpt_length
+        in: query
+        schema:
+          type: integer
+        description: Override the default excerpt length.
+      - name: password
+        in: query
+        schema:
+          type: string
+        description: The password for the post if it is password protected.
+      responses:
+        '200':
+          description: Get a product
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+        '404':
+          description: No route matched, or the identifier does not resolve to a published object.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                code: rest_post_invalid_id
+                message: Invalid post ID.
+                data:
+                  status: 404
+components:
+  schemas:
+    Error:
+      type: object
+      description: WordPress REST error envelope. Match on `code`, never on `message`.
+      properties:
+        code:
+          type: string
+          description: Machine-readable error slug. The stable identifier.
+        message:
+          type: string
+          description: Human-readable, localized message. Not stable; do not parse.
+        data:
+          type: object
+          properties:
+            status:
+              type: integer
+              description: HTTP status, repeated in the body.
+            params:
+              type: object
+              description: 'Present on rest_invalid_param: parameter name to validation message.'
+            details:
+              type: object
+              description: 'Present on rest_invalid_param: per-parameter code/message/data detail.'
+      required:
+      - code
+      - message
+    StoreProduct:
+      $schema: http://json-schema.org/draft-04/schema#
+      title: product
+      type: object
+      properties:
+        id:
+          description: Unique identifier for the resource.
+          type: integer
+        name:
+          description: Product name.
+          type: string
+        slug:
+          description: Product slug.
+          type: string
+        parent:
+          description: ID of the parent product, if applicable.
+          type: integer
+        type:
+          description: Product type.
+          type: string
+        variation:
+          description: Product variation attributes, if applicable.
+          type: string
+        permalink:
+          description: Product URL.
+          type: string
+          format: uri
+        short_description:
+          description: Product short description in HTML format.
+          type: string
+        description:
+          description: Product full description in HTML format.
+          type: string
+        on_sale:
+          description: Is the product on sale?
+          type: boolean
+        sku:
+          description: Unique identifier.
+          type: string
+        prices:
+          description: Price data provided using the smallest unit of the currency.
+          type: object
+          properties:
+            currency_code:
+              description: Currency code (in ISO format) for returned prices.
+              type: string
+            currency_symbol:
+              description: Currency symbol for the currency which can be used to format returned prices.
+              type: string
+            currency_minor_unit:
+              description: Currency minor unit (number of digits after the decimal separator) for returned prices.
+              type: integer
+            currency_decimal_separator:
+              description: Decimal separator for the currency which can be used to format returned prices.
+              type: string
+            currency_thousand_separator:
+              description: Thousand separator for the currency which can be used to format returned prices.
+              type: string
+            currency_prefix:
+              description: Price prefix for the currency which can be used to format returned prices.
+              type: string
+            currency_suffix:
+              description: Price prefix for the currency which can be used to format returned prices.
+              type: string
+            price:
+              description: Current product price.
+              type: string
+            regular_price:
+              description: Regular product price.
+              type: string
+            sale_price:
+              description: Sale product price, if applicable.
+              type: string
+            price_range:
+              description: Price range, if applicable.
+              type:
+              - object
+              - 'null'
+              properties:
+                min_amount:
+                  description: Price amount.
+                  type: string
+                max_amount:
+                  description: Price amount.
+                  type: string
+        price_html:
+          description: Price string formatted as HTML.
+          type: string
+        average_rating:
+          description: Reviews average rating.
+          type: string
+        review_count:
+          description: Amount of reviews that the product has.
+          type: integer
+        images:
+          description: List of images.
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                description: Image ID.
+                type: integer
+              src:
+                description: Full size image URL.
+                type: string
+                format: uri
+              thumbnail:
+                description: Thumbnail URL.
+                type: string
+                format: uri
+              srcset:
+                description: Full size image srcset for responsive images.
+                type: string
+              sizes:
+                description: Full size image sizes for responsive images.
+                type: string
+              thumbnail_srcset:
+                description: Thumbnail srcset for responsive images.
+                type: string
+              thumbnail_sizes:
+                description: Thumbnail sizes for responsive images.
+                type: string
+              name:
+                description: Image name.
+                type: string
+              alt:
+                description: Image alternative text.
+                type: string
+        categories:
+          description: List of categories, if applicable.
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                description: Category ID
+                type: number
+              name:
+                description: Category name
+                type: string
+              slug:
+                description: Category slug
+                type: string
+              link:
+                description: Category link
+                type: string
+        tags:
+          description: List of tags, if applicable.
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                description: Tag ID
+                type: number
+              name:
+                description: Tag name
+                type: string
+              slug:
+                description: Tag slug
+                type: string
+              link:
+                description: Tag link.
+                type: string
+        brands:
+          description: List of brands, if applicable.
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                description: Brand ID
+                type: number
+              name:
+                description: Brand name
+                type: string
+              slug:
+                description: Brand slug
+                type: string
+              link:
+                description: Brand link
+                type: string
+        attributes:
+          description: List of attributes (taxonomy terms) assigned to the product. For variable products, these
+            are mapped to variations (see the `variations` field).
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                description: The attribute ID, or 0 if the attribute is not taxonomy based.
+                type: integer
+              name:
+                description: The attribute name.
+                type: string
+              taxonomy:
+                description: The attribute taxonomy, or null if the attribute is not taxonomy based.
+                type: string
+              has_variations:
+                description: True if this attribute is used by product variations.
+                type: boolean
+              terms:
+                description: List of assigned attribute terms.
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      description: The term ID, or 0 if the attribute is not a global attribute.
+                      type: integer
+                    name:
+                      description: The term name.
+                      type: string
+                    slug:
+                      description: The term slug.
+                      type: string
+                    default:
+                      description: If this is a default attribute
+                      type: boolean
+        variations:
+          description: List of variation IDs, if applicable.
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                description: The attribute ID, or 0 if the attribute is not taxonomy based.
+                type: integer
+              attributes:
+                description: List of variation attributes.
+                type: array
+                items:
+                  type: object
+                  properties:
+                    name:
+                      description: The attribute name.
+                      type: string
+                    value:
+                      description: The assigned attribute.
+                      type: string
+        grouped_products:
+          description: List of grouped product IDs, if applicable.
+          type: array
+          items:
+            description: List of grouped product ids.
+            type: integer
+        has_options:
+          description: Does the product have additional options before it can be added to the cart?
+          type: boolean
+        is_purchasable:
+          description: Is the product purchasable?
+          type: boolean
+        is_in_stock:
+          description: Is the product in stock?
+          type: boolean
+        is_on_backorder:
+          description: Is the product stock backordered? This will also return false if backorder notifications
+            are turned off.
+          type: boolean
+        stock_availability:
+          description: Information about the product's availability.
+          type: object
+          properties:
+            text:
+              description: Stock availability text.
+              type: string
+            class:
+              description: Stock availability class.
+              type: string
+        low_stock_remaining:
+          description: Quantity left in stock if stock is low, or null if not applicable.
+          type:
+          - number
+          - 'null'
+        sold_individually:
+          description: If true, only one item of this product is allowed for purchase in a single order.
+          type: boolean
+        weight:
+          description: Product weight (oz).
+          type: string
+        dimensions:
+          description: Product dimensions.
+          type: object
+          properties:
+            length:
+              description: Product length (in).
+              type: string
+            width:
+              description: Product width (in).
+              type: string
+            height:
+              description: Product height (in).
+              type: string
+        formatted_weight:
+          description: Product weight formatted for display (e.g. "2.5 kg").
+          type: string
+        formatted_dimensions:
+          description: Product dimensions formatted for display (e.g. "10 × 5 × 3 cm").
+          type: string
+        add_to_cart:
+          description: Add to cart button parameters.
+          type: object
+          properties:
+            text:
+              description: Button text.
+              type: string
+            description:
+              description: Button description.
+              type: string
+            url:
+              description: Add to cart URL.
+              type: string
+            minimum:
+              description: The minimum quantity that can be added to the cart.
+              type: number
+            maximum:
+              description: The maximum quantity that can be added to the cart.
+              type: number
+            multiple_of:
+              description: The amount that quantities increment by. Quantity must be an multiple of this value.
+              type: number
+            single_text:
+              description: Button text in the single product page.
+              type: string
+        is_password_protected:
+          description: Whether the product requires a password to access its content.
+          type: boolean
+        extensions:
+          type: object
+          properties: []
+    StoreProductCategory:
+      $schema: http://json-schema.org/draft-04/schema#
+      title: product-category
+      type: object
+      properties:
+        id:
+          description: Unique identifier for the resource.
+          type: integer
+        name:
+          description: Term name.
+          type: string
+        slug:
+          description: String based identifier for the term.
+          type: string
+        description:
+          description: Term description.
+          type: string
+        parent:
+          description: Parent term ID, if applicable.
+          type: integer
+        count:
+          description: Number of objects (posts of any type) assigned to the term.
+          type: integer
+        image:
+          description: Category image.
+          type: object
+          properties:
+            id:
+              description: Image ID.
+              type: integer
+            src:
+              description: Full size image URL.
+              type: string
+              format: uri
+            thumbnail:
+              description: Thumbnail URL.
+              type: string
+              format: uri
+            srcset:
+              description: Full size image srcset for responsive images.
+              type: string
+            sizes:
+              description: Full size image sizes for responsive images.
+              type: string
+            thumbnail_srcset:
+              description: Thumbnail srcset for responsive images.
+              type: string
+            thumbnail_sizes:
+              description: Thumbnail sizes for responsive images.
+              type: string
+            name:
+              description: Image name.
+              type: string
+            alt:
+              description: Image alternative text.
+              type: string
+        review_count:
+          description: Number of reviews for products in this category.
+          type: integer
+        permalink:
+          description: Category URL.
+          type: string
+          format: uri
+    Product:
+      $schema: http://json-schema.org/draft-04/schema#
+      title: product
+      type: object
+      properties:
+        date:
+          description: The date the post was published, in the site's timezone.
+          type:
+          - string
+          - 'null'
+          format: date-time
+        date_gmt:
+          description: The date the post was published, as GMT.
+          type:
+          - string
+          - 'null'
+          format: date-time
+        guid:
+          description: The globally unique identifier for the post.
+          type: object
+          properties:
+            raw:
+              description: GUID for the post, as it exists in the database.
+              type: string
+            rendered:
+              description: GUID for the post, transformed for display.
+              type: string
+        id:
+          description: Unique identifier for the post.
+          type: integer
+        link:
+          description: URL to the post.
+          type: string
+          format: uri
+        modified:
+          description: The date the post was last modified, in the site's timezone.
+          type: string
+          format: date-time
+        modified_gmt:
+          description: The date the post was last modified, as GMT.
+          type: string
+          format: date-time
+        slug:
+          description: An alphanumeric identifier for the post unique to its type.
+          type: string
+        status:
+          description: A named status for the post.
+          type: string
+          enum:
+          - publish
+          - future
+          - draft
+          - pending
+          - private
+          - acf-disabled
+          - wc-pending
+          - wc-processing
+          - wc-on-hold
+          - wc-completed
+          - wc-cancelled
+          - wc-refunded
+          - wc-failed
+          - wc-checkout-draft
+          - wc-active
+          - wc-switched
+          - wc-expired
+          - wc-pending-cancel
+          - spam
+          - moderate
+          - private_post
+        type:
+          description: Type of post.
+          type: string
+        password:
+          description: A password to protect access to the content and excerpt.
+          type: string
+        permalink_template:
+          description: Permalink template for the post.
+          type: string
+        generated_slug:
+          description: Slug automatically generated from the post title.
+          type: string
+        class_list:
+          description: An array of the class names for the post container element.
+          type: array
+          items:
+            type: string
+        title:
+          description: The title for the post.
+          type: object
+          properties:
+            raw:
+              description: Title for the post, as it exists in the database.
+              type: string
+            rendered:
+              description: HTML title for the post, transformed for display.
+              type: string
+        content:
+          description: The content for the post.
+          type: object
+          properties:
+            raw:
+              description: Content for the post, as it exists in the database.
+              type: string
+            rendered:
+              description: HTML content for the post, transformed for display.
+              type: string
+            block_version:
+              description: Version of the content block format used by the post.
+              type: integer
+            protected:
+              description: Whether the content is protected with a password.
+              type: boolean
+        excerpt:
+          description: The excerpt for the post.
+          type: object
+          properties:
+            raw:
+              description: Excerpt for the post, as it exists in the database.
+              type: string
+            rendered:
+              description: HTML excerpt for the post, transformed for display.
+              type: string
+            protected:
+              description: Whether the excerpt is protected with a password.
+              type: boolean
+        featured_media:
+          description: The ID of the featured media for the post.
+          type: integer
+        comment_status:
+          description: Whether or not comments are open on the post.
+          type: string
+          enum:
+          - open
+          - closed
+        ping_status:
+          description: Whether or not the post can be pinged.
+          type: string
+          enum:
+          - open
+          - closed
+        meta:
+          description: Meta fields.
+          type: object
+          properties:
+            inline_featured_image:
+              type: boolean
+              title: ''
+              description: ''
+        template:
+          description: The theme file to use to display the post.
+          type: string
+        product_brand:
+          description: The terms assigned to the post in the product_brand taxonomy.
+          type: array
+          items:
+            type: integer
+        product_cat:
+          description: The terms assigned to the post in the product_cat taxonomy.
+          type: array
+          items:
+            type: integer
+        product_tag:
+          description: The terms assigned to the post in the product_tag taxonomy.
+          type: array
+          items:
+            type: integer
+        jetpack_sharing_enabled:
+          description: Are sharing buttons enabled?
+          type: boolean
+      links:
+      - rel: https://api.w.org/action-publish
+        title: The current user can publish this post.
+        href: https://energyx.com/wp-json/wp/v2/product/{id}
+        targetSchema:
+          type: object
+          properties:
+            status:
+              type: string
+              enum:
+              - publish
+              - future
+      - rel: https://api.w.org/action-unfiltered-html
+        title: The current user can post unfiltered HTML markup and JavaScript.
+        href: https://energyx.com/wp-json/wp/v2/product/{id}
+        targetSchema:
+          type: object
+          properties:
+            content:
+              raw:
+                type: string
+      - rel: https://api.w.org/action-assign-product_brand
+        title: The current user can assign terms in the product_brand taxonomy.
+        href: https://energyx.com/wp-json/wp/v2/product/{id}
+        targetSchema:
+          type: object
+          properties:
+            product_brand:
+              type: array
+              items:
+                type: integer
+      - rel: https://api.w.org/action-create-product_brand
+        title: The current user can create terms in the product_brand taxonomy.
+        href: https://energyx.com/wp-json/wp/v2/product/{id}
+        targetSchema:
+          type: object
+          properties:
+            product_brand:
+              type: array
+              items:
+                type: integer
+      - rel: https://api.w.org/action-assign-product_cat
+        title: The current user can assign terms in the product_cat taxonomy.
+        href: https://energyx.com/wp-json/wp/v2/product/{id}
+        targetSchema:
+          type: object
+          properties:
+            product_cat:
+              type: array
+              items:
+                type: integer
+      - rel: https://api.w.org/action-create-product_cat
+        title: The current user can create terms in the product_cat taxonomy.
+        href: https://energyx.com/wp-json/wp/v2/product/{id}
+        targetSchema:
+          type: object
+          properties:
+            product_cat:
+              type: array
+              items:
+                type: integer
+      - rel: https://api.w.org/action-assign-product_tag
+        title: The current user can assign terms in the product_tag taxonomy.
+        href: https://energyx.com/wp-json/wp/v2/product/{id}
+        targetSchema:
+          type: object
+          properties:
+            product_tag:
+              type: array
+              items:
+                type: integer
+      - rel: https://api.w.org/action-create-product_tag
+        title: The current user can create terms in the product_tag taxonomy.
+        href: https://energyx.com/wp-json/wp/v2/product/{id}
+        targetSchema:
+          type: object
+          properties:
+            product_tag:
+              type: array
+              items:
+                type: integer

@@ -1,0 +1,84 @@
+generated: '2026-08-12'
+method: probed
+source: https://energyx.com/wp-json/
+description: >-
+  EnergyX publishes no versioning policy, no deprecation policy, no SLA and no status page for the
+  content API behind energyx.com. Everything below is what could be observed; the absences are the
+  finding.
+versioning:
+  scheme: uri-path namespace
+  current: wp/v2
+  namespaces_registered: 36
+  docs: null
+  detail: >-
+    The version is a path namespace inherited from WordPress core and its plugins, not a contract
+    EnergyX maintains. It changes when the site is upgraded, on the site owner's schedule, with no
+    announcement channel. The storefront half of the surface carries a second, independent version
+    line (wc/store/v1 alongside wc/v1, wc/v2, wc/v3), which moves on WooCommerce's release schedule
+    rather than WordPress's.
+deprecation:
+  policy_url: null
+  sunset_header: false
+  deprecation_header: false
+  detail: >-
+    No RFC 8594 Sunset or Deprecation header was observed on any response, and no deprecation policy
+    is published. The risk here is concrete rather than theoretical: nine of the fifteen APIs in
+    this repo are built on site-specific custom post types (enx-press-release, energyx-in-the-news,
+    energyx-indu-news, energyx-leadership, energyx-job-position, energyx-partner, energyx-video,
+    resource-guide) that exist only because a theme or plugin registers them. A theme change
+    deletes those routes silently, and no notice period exists.
+  no_pointer_note: >-
+    No Deprecation pointer is emitted in apis.yml — there is no deprecation policy to point at, and
+    a pointer would assert one exists.
+sla:
+  url: null
+  uptime_target: null
+status_page:
+  url: null
+  detail: >-
+    No status page exists. status.energyx.com does not resolve (NXDOMAIN), and no third-party status
+    host is linked from the site. No StatusPage pointer is emitted in apis.yml.
+changelog:
+  url: null
+  detail: >-
+    No API changelog. The nearest dated public signals are first-party: the press-release archive
+    (39 records, most recent 2026-07-06, the $225M Eni strategic investment in the Black Giant
+    lithium project in Chile), the blog (69 posts) and the RSS feed at energyx.com/feed/. All cover
+    company news rather than API change.
+support:
+  api_support_channel: null
+  general_contact: https://energyx.com/contact/
+  general_email: hello@energyx.com
+  community_forum: https://energyx.com/forum/
+  detail: >-
+    The site runs a public AnsPress Q&A forum for investors and the general public. It is not an
+    API support channel and no Support pointer is emitted on its account — an API question asked
+    there has no owner.
+deprecated_operations: []
+stability_assessment:
+  grade: unmanaged
+  detail: >-
+    Consume defensively. This is a marketing site's CMS API with no versioning commitment, no
+    deprecation notice period, no status page and no support channel. The most stable operations
+    are the WordPress core ones (posts, pages, media, categories, tags, search, users, types,
+    taxonomies, statuses) and the WooCommerce Store API. The custom post types that carry the
+    genuinely EnergyX-specific data — press releases, in-the-news coverage, leadership, job
+    positions, partners, videos, resource guides — are the most valuable and the most volatile
+    part of the surface at the same time.
+  polling_guidance: >-
+    There is no conditional-request path (no ETag, no Last-Modified, X-Cache-Status BYPASS), so a
+    consumer tracking change should use the `modified_after` query parameter that every post-type
+    collection accepts rather than re-reading full collections.
+evidence:
+- url: https://energyx.com/wp-json/
+  http_status: 200
+  finding: 1,233 routes across 36 namespaces; no versioning or deprecation metadata.
+- host: status.energyx.com
+  dns: NXDOMAIN
+  finding: No status page host.
+- url: https://energyx.com/wp-json/wp/v2/posts?per_page=2
+  http_status: 200
+  finding: No Sunset, Deprecation, ETag, Last-Modified or Cache-Control response header.
+- url: https://energyx.com/wp-json/wp/v2/enx-press-release?per_page=1
+  http_status: 200
+  finding: 'Most recent press release dated 2026-07-06; X-WP-Total 39.'

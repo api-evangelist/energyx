@@ -1,0 +1,435 @@
+generated: '2026-08-12'
+method: derived
+source: mcp/energyx-mcp.yml + openapi/
+description: 'Binding between the candidate MCP tool set and the OpenAPI operations that back it. Both sides of
+  this crosswalk are API Evangelist artifacts — EnergyX operates no MCP server and publishes no OpenAPI — so there
+  is no provider surface divergence to record. The useful finding is the third column: what the live host exposes
+  that neither side covers.'
+surfaces:
+  openapi:
+    files: 15
+    operations: 59
+    gated: false
+    note: Derived from the server's own OPTIONS schema documents; anonymously readable.
+  mcp:
+    url: null
+    gated: null
+    note: No server exists. tools/list was never reachable to introspect; the tool set is candidate.
+  graphql:
+    endpoint: null
+    note: No GraphQL surface. /graphql returned 404 and is absent from the 1,233-route index.
+coverage:
+  tools_named: 59
+  tools_bound: 59
+  tools_unbound: 0
+  mcp_only: 0
+  rest_ops_total: 59
+  rest_ops_with_tool: 59
+  live_routes_on_host: 1233
+  live_routes_documented: 59
+  binding_confidence: high
+crosswalk:
+- tool: list_job_positions
+  category: careers
+  rest:
+  - listJobPositions
+  binding: rest
+  confidence: high
+- tool: get_job_position
+  category: careers
+  rest:
+  - getJobPosition
+  binding: rest
+  confidence: high
+- tool: list_types
+  category: discovery
+  rest:
+  - listTypes
+  binding: rest
+  confidence: high
+- tool: list_taxonomies
+  category: discovery
+  rest:
+  - listTaxonomies
+  binding: rest
+  confidence: high
+- tool: list_statuses
+  category: discovery
+  rest:
+  - listStatuses
+  binding: rest
+  confidence: high
+- tool: list_users
+  category: discovery
+  rest:
+  - listUsers
+  binding: rest
+  confidence: high
+- tool: get_user
+  category: discovery
+  rest:
+  - getUser
+  binding: rest
+  confidence: high
+- tool: get_route_index
+  category: discovery
+  rest:
+  - getRouteIndex
+  binding: rest
+  confidence: high
+- tool: list_leadership
+  category: people
+  rest:
+  - listLeadership
+  binding: rest
+  confidence: high
+- tool: get_leader
+  category: people
+  rest:
+  - getLeader
+  binding: rest
+  confidence: high
+- tool: list_media
+  category: media
+  rest:
+  - listMedia
+  binding: rest
+  confidence: high
+- tool: get_media_item
+  category: media
+  rest:
+  - getMediaItem
+  binding: rest
+  confidence: high
+- tool: get_oembed
+  category: metadata
+  rest:
+  - getOembed
+  binding: rest
+  confidence: high
+- tool: list_pages
+  category: content
+  rest:
+  - listPages
+  binding: rest
+  confidence: high
+- tool: get_page
+  category: content
+  rest:
+  - getPage
+  binding: rest
+  confidence: high
+- tool: list_partners
+  category: partners
+  rest:
+  - listPartners
+  binding: rest
+  confidence: high
+- tool: get_partner
+  category: partners
+  rest:
+  - getPartner
+  binding: rest
+  confidence: high
+- tool: list_posts
+  category: content
+  rest:
+  - listPosts
+  binding: rest
+  confidence: high
+- tool: get_post
+  category: content
+  rest:
+  - getPost
+  binding: rest
+  confidence: high
+- tool: list_press_releases
+  category: news
+  rest:
+  - listPressReleases
+  binding: rest
+  confidence: high
+- tool: get_press_release
+  category: news
+  rest:
+  - getPressRelease
+  binding: rest
+  confidence: high
+- tool: list_in_the_news
+  category: news
+  rest:
+  - listInTheNews
+  binding: rest
+  confidence: high
+- tool: get_in_the_news_item
+  category: news
+  rest:
+  - getInTheNewsItem
+  binding: rest
+  confidence: high
+- tool: list_industry_news
+  category: news
+  rest:
+  - listIndustryNews
+  binding: rest
+  confidence: high
+- tool: get_industry_news_item
+  category: news
+  rest:
+  - getIndustryNewsItem
+  binding: rest
+  confidence: high
+- tool: list_resource_guides
+  category: education
+  rest:
+  - listResourceGuides
+  binding: rest
+  confidence: high
+- tool: get_resource_guide
+  category: education
+  rest:
+  - getResourceGuide
+  binding: rest
+  confidence: high
+- tool: search
+  category: search
+  rest:
+  - search
+  binding: rest
+  confidence: high
+- tool: get_seo_head
+  category: metadata
+  rest:
+  - getSeoHead
+  binding: rest
+  confidence: high
+- tool: list_store_products
+  category: commerce
+  rest:
+  - listStoreProducts
+  binding: rest
+  confidence: high
+- tool: get_store_product
+  category: commerce
+  rest:
+  - getStoreProduct
+  binding: rest
+  confidence: high
+- tool: list_store_product_categories
+  category: commerce
+  rest:
+  - listStoreProductCategories
+  binding: rest
+  confidence: high
+- tool: get_store_product_category
+  category: commerce
+  rest:
+  - getStoreProductCategory
+  binding: rest
+  confidence: high
+- tool: list_products
+  category: commerce
+  rest:
+  - listProducts
+  binding: rest
+  confidence: high
+- tool: get_product
+  category: commerce
+  rest:
+  - getProduct
+  binding: rest
+  confidence: high
+- tool: list_categories
+  category: taxonomy
+  rest:
+  - listCategories
+  binding: rest
+  confidence: high
+- tool: get_category
+  category: taxonomy
+  rest:
+  - getCategory
+  binding: rest
+  confidence: high
+- tool: list_tags
+  category: taxonomy
+  rest:
+  - listTags
+  binding: rest
+  confidence: high
+- tool: get_tag
+  category: taxonomy
+  rest:
+  - getTag
+  binding: rest
+  confidence: high
+- tool: list_leadership_types
+  category: taxonomy
+  rest:
+  - listLeadershipTypes
+  binding: rest
+  confidence: high
+- tool: get_leadership_type
+  category: taxonomy
+  rest:
+  - getLeadershipType
+  binding: rest
+  confidence: high
+- tool: list_position_areas
+  category: taxonomy
+  rest:
+  - listPositionAreas
+  binding: rest
+  confidence: high
+- tool: get_position_area
+  category: taxonomy
+  rest:
+  - getPositionArea
+  binding: rest
+  confidence: high
+- tool: list_position_locations
+  category: taxonomy
+  rest:
+  - listPositionLocations
+  binding: rest
+  confidence: high
+- tool: get_position_location
+  category: taxonomy
+  rest:
+  - getPositionLocation
+  binding: rest
+  confidence: high
+- tool: list_partner_types
+  category: taxonomy
+  rest:
+  - listPartnerTypes
+  binding: rest
+  confidence: high
+- tool: get_partner_type
+  category: taxonomy
+  rest:
+  - getPartnerType
+  binding: rest
+  confidence: high
+- tool: list_resource_guide_categories
+  category: taxonomy
+  rest:
+  - listResourceGuideCategories
+  binding: rest
+  confidence: high
+- tool: get_resource_guide_category
+  category: taxonomy
+  rest:
+  - getResourceGuideCategory
+  binding: rest
+  confidence: high
+- tool: list_faq_types
+  category: taxonomy
+  rest:
+  - listFaqTypes
+  binding: rest
+  confidence: high
+- tool: get_faq_type
+  category: taxonomy
+  rest:
+  - getFaqType
+  binding: rest
+  confidence: high
+- tool: list_product_categories
+  category: taxonomy
+  rest:
+  - listProductCategories
+  binding: rest
+  confidence: high
+- tool: get_product_category
+  category: taxonomy
+  rest:
+  - getProductCategory
+  binding: rest
+  confidence: high
+- tool: list_product_tags
+  category: taxonomy
+  rest:
+  - listProductTags
+  binding: rest
+  confidence: high
+- tool: get_product_tag
+  category: taxonomy
+  rest:
+  - getProductTag
+  binding: rest
+  confidence: high
+- tool: list_product_brands
+  category: taxonomy
+  rest:
+  - listProductBrands
+  binding: rest
+  confidence: high
+- tool: get_product_brand
+  category: taxonomy
+  rest:
+  - getProductBrand
+  binding: rest
+  confidence: high
+- tool: list_videos
+  category: media
+  rest:
+  - listVideos
+  binding: rest
+  confidence: high
+- tool: get_video
+  category: media
+  rest:
+  - getVideo
+  binding: rest
+  confidence: high
+mcp_only: []
+rest_only: []
+host_routes_not_modelled:
+  count: 1174
+  reason: The live route index carries 1,233 routes, but the overwhelming majority are administrative, plugin-management,
+    e-commerce-admin or authenticated-only and return 401 to an anonymous caller. They are deliberately excluded
+    from both the OpenAPI and the tool set — modelling them would advertise capability that no public consumer can
+    reach.
+  namespaces_excluded:
+  - namespace: wc/v1, wc/v2, wc/v3
+    note: WooCommerce admin API — orders, customers, coupons, reports, settings. Returns 401 anonymously.
+  - namespace: wc-admin, wc-analytics, wc-telemetry, wc/private, wccom-site/v3
+    note: WooCommerce store administration and analytics. Authenticated.
+  - namespace: wc/pos/v1/catalog
+    note: WooCommerce point-of-sale catalog. Authenticated.
+  - namespace: jetpack/v4 and sub-namespaces
+    note: Jetpack site management, sync, stats, Blaze campaigns, import, explat. Authenticated.
+  - namespace: jetpack-boost/v1, my-jetpack/v1
+    note: Performance scoring and product/purchase management. Authenticated.
+  - namespace: mailpoet/v1
+    note: Newsletter list and campaign management. Authenticated.
+  - namespace: klaviyo/v1
+    note: Marketing automation integration. Authenticated.
+  - namespace: gf/v2
+    note: 'Gravity Forms — form definitions and submitted entries. Authenticated, and deliberately untouched: entries
+      are third-party PII.'
+  - namespace: yoast/v1
+    note: SEO admin, indexing and integrations. Only get_head is anonymous and it IS modelled.
+  - namespace: redirection/v1
+    note: Redirect and 404-log management. Authenticated.
+  - namespace: wp-super-cache/v1
+    note: Cache administration. Authenticated.
+  - namespace: wpcom/v2, wpcom/v3
+    note: WordPress.com integrations and blogging prompts. Authenticated.
+  - namespace: wp-site-health/v1, wp-block-editor/v1, wp-abilities/v1
+    note: Site health, block editor and abilities support. Authenticated.
+  - namespace: woocommerce-email-editor/v1, wc-admin-email, woocommerce-analytics/v1
+    note: Email editing and store analytics. Authenticated.
+  - namespace: wp/v2 (write + admin subset)
+    note: Blocks, templates, plugins, themes, widgets, menus, fonts, settings, revisions, autosaves, form responses.
+      Authenticated.
+deliberate_exclusions:
+- route: /wp/v2/feedback
+  reason: Jetpack form responses — submitted contact-form entries. Third-party personal data; excluded on principle.
+- route: /gf/v2/entries
+  reason: Gravity Forms submissions — same reason.
+- route: /wc/store/v1/cart, /wc/store/v1/checkout
+  reason: Session-mutating storefront operations. Not read-only; excluded from a read-only profile.
+- route: /wp/v2/energyx-megamenu
+  reason: Site navigation chrome, not content. No consumer value.

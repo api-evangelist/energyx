@@ -1,0 +1,49 @@
+generated: '2026-08-12'
+method: searched
+source: npm registry search, PyPI, RubyGems, crates.io, GitHub
+package_count: 0
+official_package_count: 0
+packages: []
+note: >-
+  EnergyX publishes no client libraries. Searched npm, PyPI, RubyGems, crates.io and GitHub on
+  2026-08-12 and found no first-party package under any EnergyX name. There is no SDK to
+  date-check, so there is no abandonment signal to read here either — this is the absence of a
+  program, not a decayed one. The content API this repo documents is plain HTTP + JSON and needs no
+  client library. No SDKs pointer is emitted in apis.yml, because sdk_count would then be credited
+  against zero shipped SDKs.
+registries_checked:
+- {registry: npm, query: energyx, results: 1, url: 'https://registry.npmjs.org/-/v1/search?text=energyx',
+   http_status: 200, note: 'One result, create-energyx — see unverified_leads. Not attributable to this company.'}
+- {registry: pypi, query: energyx, url: 'https://pypi.org/pypi/energyx/json', http_status: 404, results: 0}
+- {registry: rubygems, query: energyx, url: 'https://rubygems.org/api/v1/gems/energyx.json', http_status: 404, results: 0}
+- {registry: crates.io, query: energyx, url: 'https://crates.io/api/v1/crates/energyx', http_status: 403,
+   results: 0, note: 'Registry answered 403 to the unauthenticated probe; treated as no result, not as a hit.'}
+- {registry: github, query: 'github.com/energyx', url: 'https://api.github.com/orgs/energyx', http_status: 200,
+   results: 0, note: 'Organization exists but belongs to a different company — see unverified_leads.'}
+unverified_leads:
+- kind: github-organization
+  url: https://github.com/energyx
+  http_status: 200
+  official: false
+  version: null
+  published: null
+  note: >-
+    The github.com/energyx organization is NOT this company. Its GitHub profile reads name
+    "Brillion Educate", blog energyxsolutions.com, location Toronto / ON / Canada, created
+    2016-10-08 — two years before Energy Exploration Technologies was founded — and its two public
+    repositories are a Rails settings gem fork and a Ruby style guide. It is a name collision. No
+    GitHubOrganization pointer is emitted in apis.yml; crediting this org to EnergyX would be a
+    misattribution.
+- kind: npm-package
+  name: create-energyx
+  url: https://www.npmjs.com/package/create-energyx
+  registry: npm
+  version: 3.4.0
+  published: null
+  official: false
+  note: >-
+    A project scaffolder ("npx create-energyx@latest project-name") with no repository field, no
+    homepage, and no description tying it to Energy Exploration Technologies. Another name
+    collision; recorded so a later pass does not re-litigate it. `published` is null because the
+    package is not attributable to this provider, so dating it would imply a relationship that has
+    not been established.

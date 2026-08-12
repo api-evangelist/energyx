@@ -1,0 +1,131 @@
+generated: '2026-08-12'
+method: probed
+source: live 4xx responses from https://energyx.com/wp-json/ + openapi/ derived responses
+format: wp-rest-error
+rfc9457: false
+description: >-
+  EnergyX publishes no error reference. This catalog is built from error envelopes observed live
+  against energyx.com/wp-json on 2026-08-12, plus the 4xx responses declared in the fifteen derived
+  OpenAPI documents. The API does NOT use RFC 9457 problem+json; it uses the WordPress REST error
+  envelope, served as application/json.
+envelope:
+  content_type: application/json
+  fields:
+    code: Machine-readable error slug, e.g. rest_post_invalid_id. This is the stable identifier — match on it, not on `message`.
+    message: Human-readable, localized message. Not stable; do not parse.
+    data.status: The HTTP status code, repeated in the body.
+    data.params: Present only on rest_invalid_param — a map of parameter name to validation message.
+    data.details: Present only on rest_invalid_param — per-parameter code/message/data detail objects.
+  example: '{"code":"rest_post_invalid_id","message":"Invalid post ID.","data":{"status":404}}'
+problems:
+- status: 400
+  code: rest_invalid_param
+  title: Invalid parameter(s)
+  detail: >-
+    One or more query parameters failed validation. data.params names each offending parameter and
+    the constraint it violated; data.details carries a nested per-parameter code such as
+    rest_out_of_bounds.
+  remediation: >-
+    Read data.params for the exact bound. The most common cause is per_page outside 1..100 — which
+    matters on this surface because the media collection holds 2,639 records and the in-the-news
+    archive 275, so a naive "fetch everything" call is the first thing to hit it.
+  observed:
+    url: https://energyx.com/wp-json/wp/v2/posts?per_page=999
+    http_status: 400
+    body: '{"code":"rest_invalid_param","message":"Invalid parameter(s): per_page","data":{"status":400,"params":{"per_page":"per_page must be between 1 (inclusive) and 100 (inclusive)"},"details":{"per_page":{"code":"rest_out_of_bounds","message":"per_page must be between 1 (inclusive) and 100 (inclusive)","data":null}}}}'
+  applies_to: every list operation
+- status: 401
+  code: rest_forbidden
+  title: Not allowed
+  detail: >-
+    The operation requires authentication or a capability the anonymous caller does not have.
+    Returned as 401 even where 403 would be more precise.
+  remediation: >-
+    This surface has no public credential path. Privileged reads and all writes require a WordPress
+    application password issued to a site user; treat these operations as unavailable. The
+    WooCommerce admin namespace (wc/v3) answers with this same shape.
+  observed:
+    url: https://energyx.com/wp-json/wp/v2/settings
+    http_status: 401
+    body: '{"code":"rest_forbidden","message":"Sorry, you are not allowed to do that.","data":{"status":401}}'
+  applies_to: GET /wp/v2/settings, the whole wc/v3 namespace, and every write method
+- status: 404
+  code: rest_no_route
+  title: No route matched
+  detail: No route was found matching the URL and request method.
+  remediation: >-
+    Verify the path against the live route index at GET /wp-json/ (1,233 routes at capture). Note
+    that a route may exist for a different method than the one used.
+  observed:
+    url: https://energyx.com/wp-json/wp/v2/nope
+    http_status: 404
+    body: '{"code":"rest_no_route","message":"No route was found matching the URL and request method.","data":{"status":404}}'
+  applies_to: any unregistered path
+- status: 404
+  code: rest_post_invalid_id
+  title: Invalid post ID
+  detail: >-
+    The numeric id in the path does not resolve to a readable object of the requested type. Also
+    returned when the object exists but is not published, so 404 does not prove non-existence.
+  remediation: List the collection first and use an id from the response rather than guessing.
+  observed:
+    url: https://energyx.com/wp-json/wp/v2/posts/99999999
+    http_status: 404
+    body: '{"code":"rest_post_invalid_id","message":"Invalid post ID.","data":{"status":404}}'
+  applies_to: every single-record GET on a post-type collection
+  source_operations:
+  - openapi/energyx-posts-api-openapi.yml#getPost
+  - openapi/energyx-pages-api-openapi.yml#getPage
+  - openapi/energyx-press-api-openapi.yml#getPressRelease
+  - openapi/energyx-press-api-openapi.yml#getInTheNewsItem
+  - openapi/energyx-press-api-openapi.yml#getIndustryNewsItem
+  - openapi/energyx-leadership-api-openapi.yml#getLeader
+  - openapi/energyx-careers-api-openapi.yml#getJobPosition
+  - openapi/energyx-partners-api-openapi.yml#getPartner
+  - openapi/energyx-videos-api-openapi.yml#getVideo
+  - openapi/energyx-resource-guides-api-openapi.yml#getResourceGuide
+  - openapi/energyx-media-api-openapi.yml#getMediaItem
+  - openapi/energyx-store-api-openapi.yml#getProduct
+- status: 404
+  code: rest_term_invalid
+  title: Invalid term ID
+  detail: The numeric id in the path does not resolve to a term in the requested taxonomy.
+  remediation: >-
+    List the taxonomy first and use an id from the response. Three of the eleven vocabularies
+    (tags, product_tag, product_brand) held zero terms at capture, so every id is invalid there.
+  applies_to: every single-term GET on the taxonomy surface
+  source_operations:
+  - openapi/energyx-taxonomy-api-openapi.yml#getCategory
+  - openapi/energyx-taxonomy-api-openapi.yml#getTag
+  - openapi/energyx-taxonomy-api-openapi.yml#getLeadershipType
+  - openapi/energyx-taxonomy-api-openapi.yml#getPositionArea
+  - openapi/energyx-taxonomy-api-openapi.yml#getPositionLocation
+  - openapi/energyx-taxonomy-api-openapi.yml#getPartnerType
+  - openapi/energyx-taxonomy-api-openapi.yml#getResourceGuideCategory
+  - openapi/energyx-taxonomy-api-openapi.yml#getFaqType
+  - openapi/energyx-taxonomy-api-openapi.yml#getProductCategory
+  note: Declared in the derived spec; not reproduced live, so recorded without an observed body.
+- status: 404
+  code: woocommerce_rest_product_invalid_id
+  title: Invalid product ID
+  detail: >-
+    The WooCommerce Store API equivalent of rest_post_invalid_id, returned by the wc/store/v1
+    namespace rather than wp/v2. It is a different code for the same condition, which is exactly
+    why an agent must match on `code` and not assume one vocabulary across the host.
+  remediation: List GET /wc/store/v1/products first and use an id from the response.
+  applies_to: getStoreProduct, getStoreProductCategory
+  source_operations:
+  - openapi/energyx-store-api-openapi.yml#getStoreProduct
+  - openapi/energyx-store-api-openapi.yml#getStoreProductCategory
+  note: Declared by the WooCommerce Store API; recorded without an observed body.
+gaps:
+- >-
+  No published error reference exists. Codes here are the WordPress core and WooCommerce Store API
+  sets observed or declared; a provider-authored catalog would be authoritative and this one is not.
+- >-
+  The API returns 401 where 403 is semantically correct for an authenticated-but-unauthorized
+  caller. An agent should not treat 401 as "retry with credentials" on this surface — there are no
+  credentials to retry with.
+- >-
+  Error codes are not namespaced consistently across the host: wp/v2 uses rest_*, WooCommerce uses
+  woocommerce_rest_*. Any client must key its handling on the full code string.

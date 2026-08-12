@@ -1,0 +1,162 @@
+generated: '2026-08-12'
+method: probed
+source: live responses from https://energyx.com/wp-json/ on 2026-08-12
+description: >-
+  Worked request/response examples for the public content API behind energyx.com. Every request
+  below was executed anonymously against the live host on 2026-08-12 and every response fragment is
+  the real body, trimmed with the `_fields` parameter for readability. EnergyX publishes no
+  examples of its own; these exist so a consumer or an agent can see the actual shape of the data
+  before writing a line of code.
+base_url: https://energyx.com/wp-json
+auth: none
+examples:
+- name: The most recent EnergyX press release
+  operation: openapi/energyx-press-api-openapi.yml#listPressReleases
+  request: 'GET /wp/v2/enx-press-release?per_page=1&_fields=id,date,slug,link,title'
+  http_status: 200
+  response_headers: {X-WP-Total: 39, X-WP-TotalPages: 39}
+  response: |
+    [
+      {
+        "id": 11324,
+        "date": "2026-07-06T08:00:08",
+        "slug": "energyx-eni-strategic-investment",
+        "link": "https://energyx.com/press-release/energyx-eni-strategic-investment/",
+        "title": {"rendered": "EnergyX Secures $225 Million Strategic Investment from Eni to Advance the Black Giant™ Lithium Project in Chile"}
+      }
+    ]
+  note: >-
+    Press releases sort newest-first by default. `title.rendered` carries HTML entities — decode
+    before display.
+- name: Cross-content search, resolving results by subtype
+  operation: openapi/energyx-search-api-openapi.yml#search
+  request: 'GET /wp/v2/search?search=lithium&per_page=2'
+  http_status: 200
+  response_headers: {X-WP-Total: 245}
+  response: |
+    [
+      {"id": 11367, "title": "The origin of battery-grade lithium precursor specifications",
+       "url": "https://energyx.com/blog/battery-grade-lithium-precursor-specifications/",
+       "type": "post", "subtype": "post"},
+      {"id": 11324, "title": "EnergyX Secures $225 Million Strategic Investment from Eni ...",
+       "url": "https://energyx.com/press-release/energyx-eni-strategic-investment/",
+       "type": "post", "subtype": "enx-press-release"}
+    ]
+  note: >-
+    `type` is always "post" for content results and is useless for routing; `subtype` is the field
+    that names the collection to fetch the full record from. Each result also carries a
+    `_links.self.href` that resolves the record directly, which is the cheaper path.
+- name: Leadership roster filtered to the board of directors
+  operation: openapi/energyx-leadership-api-openapi.yml#listLeadership
+  request: 'GET /wp/v2/energyx-leadership?leadership-type=60&per_page=2&_fields=id,slug,link,title'
+  http_status: 200
+  response_headers: {X-WP-Total: 8}
+  response: |
+    [
+      {"id": 11249, "slug": "chris-alex", "link": "https://energyx.com/company/chris-alex/",
+       "title": {"rendered": "Chris Alex"}}
+    ]
+  note: >-
+    Term id 60 is `board-of-directors`, one of 7 terms in the leadership-type vocabulary
+    (executive-leadership 7, science 8, operations 6, marketing 0, board-of-directors 8,
+    science-advisory-board 2, advisory-board 3). Resolve ids from
+    GET /wp/v2/leadership-type before filtering — the ids are site-scoped and not stable across
+    a site rebuild.
+- name: Open roles with their functional area and location
+  operation: openapi/energyx-careers-api-openapi.yml#listJobPositions
+  request: 'GET /wp/v2/energyx-job-position?per_page=2&_fields=id,slug,link,title,position-area,position-location'
+  http_status: 200
+  response_headers: {X-WP-Total: 12}
+  response: |
+    [
+      {"id": 10796, "slug": "electrical-maintenance",
+       "link": "https://energyx.com/career/electrical-maintenance/",
+       "title": {"rendered": "Electrical Maintenance Technician"},
+       "position-area": [63, 20], "position-location": [148]},
+      {"id": 10688, "slug": "control-implementation-engineer",
+       "link": "https://energyx.com/career/control-implementation-engineer/",
+       "title": {"rendered": "Control &#038; Instrumentation Engineer"},
+       "position-area": [63, 65, 15], "position-location": [143]}
+    ]
+  note: >-
+    Both taxonomy fields are arrays — a role can sit in several areas at once. Term 63 is
+    `all-positions` and is attached to all 12 records, so it is a catch-all rather than a
+    discriminator; filter on the more specific terms.
+- name: Resource guides, and the vocabulary that groups them
+  operation: openapi/energyx-taxonomy-api-openapi.yml#listResourceGuideCategories
+  request: 'GET /wp/v2/resource-guide-category?per_page=10&_fields=id,slug,name,count'
+  http_status: 200
+  response: |
+    [
+      {"id": 49, "count": 4,  "name": "Battery",        "slug": "battery"},
+      {"id": 50, "count": 11, "name": "Cleantech",      "slug": "cleantech"},
+      {"id": 47, "count": 2,  "name": "Company",        "slug": "company"},
+      {"id": 48, "count": 4,  "name": "Lithium",        "slug": "lithium"},
+      {"id": 51, "count": 7,  "name": "Sustainability", "slug": "sustainability"}
+    ]
+  note: >-
+    Term counts sum to 28 across 14 guides because a guide can carry several categories. `count` is
+    the cheapest way to size a filter before issuing it.
+- name: The merchandise catalog through the WooCommerce Store API
+  operation: openapi/energyx-store-api-openapi.yml#listStoreProducts
+  request: 'GET /wc/store/v1/products?per_page=1'
+  http_status: 200
+  response_headers: {X-WP-Total: 15}
+  response: |
+    [
+      {
+        "id": 8077,
+        "name": "T-Shirt &#8211; From Brine to Battery™",
+        "slug": "t-shirt-from-brine-to-battery",
+        "permalink": "https://energyx.com/product/t-shirt-from-brine-to-battery/",
+        "prices": {"price": "3500", "regular_price": "3500", "currency_code": "USD",
+                   "currency_minor_unit": 2, "currency_symbol": "$"},
+        "is_in_stock": true,
+        "categories": [{"id": 86, "name": "Shirts", "slug": "shirts"}]
+      }
+    ]
+  note: >-
+    Prices are strings of MINOR units — "3500" with `currency_minor_unit: 2` is $35.00. Do not
+    parse the price as a decimal. The Store API inlines category objects; the wp/v2/product
+    projection of the same id returns category ids instead and carries no price at all.
+- name: Post categories, showing what EnergyX actually writes about
+  operation: openapi/energyx-taxonomy-api-openapi.yml#listCategories
+  request: 'GET /wp/v2/categories?per_page=10&_fields=id,slug,name,count'
+  http_status: 200
+  response: |
+    [
+      {"id": 4,  "slug": "lithium",        "count": 58},
+      {"id": 6,  "slug": "cleantech",      "count": 44},
+      {"id": 7,  "slug": "sustainability", "count": 43},
+      {"id": 5,  "slug": "battery",        "count": 23},
+      {"id": 33, "slug": "company",        "count": 21},
+      {"id": 1,  "slug": "uncategorized",  "count": 5},
+      {"id": 66, "slug": "sin-categorizar","count": 0}
+    ]
+  note: >-
+    Counts exceed the 69-post total because posts carry multiple categories. `sin-categorizar` is
+    the Spanish-locale "uncategorized" term with zero records — a residue of a locale switch, not a
+    content category.
+- name: Page-size validation error
+  operation: openapi/energyx-posts-api-openapi.yml#listPosts
+  request: 'GET /wp/v2/posts?per_page=999'
+  http_status: 400
+  response: |
+    {"code":"rest_invalid_param","message":"Invalid parameter(s): per_page",
+     "data":{"status":400,
+             "params":{"per_page":"per_page must be between 1 (inclusive) and 100 (inclusive)"},
+             "details":{"per_page":{"code":"rest_out_of_bounds",
+                        "message":"per_page must be between 1 (inclusive) and 100 (inclusive)",
+                        "data":null}}}}
+  note: >-
+    The hard ceiling is 100. Paginate the 2,639-record media collection and the 275-record
+    in-the-news archive; there is no "give me everything" call.
+- name: The privileged read that is closed to the public
+  operation: n/a (deliberately outside openapi/)
+  request: 'GET /wp/v2/settings'
+  http_status: 401
+  response: |
+    {"code":"rest_forbidden","message":"Sorry, you are not allowed to do that.","data":{"status":401}}
+  note: >-
+    Recorded so the boundary of the public surface is visible. There is no public credential path,
+    so this operation is unavailable rather than merely unauthenticated.

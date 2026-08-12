@@ -1,0 +1,615 @@
+openapi: 3.1.0
+info:
+  title: EnergyX Careers API
+  version: wp/v2
+  description: Public, unauthenticated read access to open EnergyX job postings behind energyx.com/careers/, classified
+    by the site-specific position-area and position-location taxonomies. Verified live at 12 published positions
+    across 8 areas and 14 locations.
+  contact:
+    name: EnergyX
+    url: https://energyx.com/contact/
+  x-derived-from: https://energyx.com/wp-json/ route index + per-route HTTP OPTIONS schema documents
+  x-derived-on: '2026-08-12'
+  x-api-evangelist-note: Third-party profile. EnergyX publishes no developer program; this documents the anonymously
+    readable WordPress REST content API behind energyx.com. Every path, parameter and schema here was read from
+    the server's own published OPTIONS documents on 2026-08-12 — nothing is invented.
+servers:
+- url: https://energyx.com/wp-json
+  description: EnergyX WordPress REST API
+tags:
+- name: Job Positions
+  description: Open EnergyX roles, by function and location.
+paths:
+  /wp/v2/energyx-job-position:
+    get:
+      operationId: listJobPositions
+      summary: List job positions
+      description: Retrieve a paginated collection of open EnergyX job postings.
+      tags:
+      - Job Positions
+      parameters:
+      - name: after
+        in: query
+        schema:
+          type: string
+          format: date-time
+        description: Limit response to posts published after a given ISO8601 compliant date.
+      - name: before
+        in: query
+        schema:
+          type: string
+          format: date-time
+        description: Limit response to posts published before a given ISO8601 compliant date.
+      - name: context
+        in: query
+        schema:
+          type: string
+          enum:
+          - view
+          - embed
+          - edit
+          default: view
+        description: Scope under which the request is made; determines fields present in response.
+      - name: exclude
+        in: query
+        schema:
+          type: array
+          items:
+            type: integer
+          default: []
+        description: Ensure result set excludes specific IDs.
+      - name: include
+        in: query
+        schema:
+          type: array
+          items:
+            type: integer
+          default: []
+        description: Limit result set to specific IDs.
+      - name: modified_after
+        in: query
+        schema:
+          type: string
+          format: date-time
+        description: Limit response to posts modified after a given ISO8601 compliant date.
+      - name: modified_before
+        in: query
+        schema:
+          type: string
+          format: date-time
+        description: Limit response to posts modified before a given ISO8601 compliant date.
+      - name: offset
+        in: query
+        schema:
+          type: integer
+        description: Offset the result set by a specific number of items.
+      - name: order
+        in: query
+        schema:
+          type: string
+          enum:
+          - asc
+          - desc
+          default: desc
+        description: Order sort attribute ascending or descending.
+      - name: orderby
+        in: query
+        schema:
+          type: string
+          enum:
+          - author
+          - date
+          - id
+          - include
+          - modified
+          - parent
+          - relevance
+          - slug
+          - include_slugs
+          - title
+          default: date
+        description: Sort collection by post attribute.
+      - name: page
+        in: query
+        schema:
+          type: integer
+          minimum: 1
+          default: 1
+        description: Current page of the collection.
+      - name: per_page
+        in: query
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100
+          default: 10
+        description: Maximum number of items to be returned in result set.
+      - name: position-area
+        in: query
+        schema:
+          type: object
+          oneOf:
+          - title: Term ID List
+            description: Match terms with the listed IDs.
+            type: array
+            items:
+              type: integer
+          - title: Term ID Taxonomy Query
+            description: Perform an advanced term query.
+            type: object
+            properties:
+              terms:
+                description: Term IDs.
+                type: array
+                items:
+                  type: integer
+                default: []
+              include_children:
+                description: Whether to include child terms in the terms limiting the result set.
+                type: boolean
+                default: false
+              operator:
+                description: Whether items must be assigned all or any of the specified terms.
+                type: string
+                enum:
+                - AND
+                - OR
+                default: OR
+            additionalProperties: false
+        description: Limit result set to items with specific terms assigned in the position-area taxonomy.
+      - name: position-area_exclude
+        in: query
+        schema:
+          type: object
+          oneOf:
+          - title: Term ID List
+            description: Match terms with the listed IDs.
+            type: array
+            items:
+              type: integer
+          - title: Term ID Taxonomy Query
+            description: Perform an advanced term query.
+            type: object
+            properties:
+              terms:
+                description: Term IDs.
+                type: array
+                items:
+                  type: integer
+                default: []
+              include_children:
+                description: Whether to include child terms in the terms limiting the result set.
+                type: boolean
+                default: false
+            additionalProperties: false
+        description: Limit result set to items except those with specific terms assigned in the position-area taxonomy.
+      - name: position-location
+        in: query
+        schema:
+          type: object
+          oneOf:
+          - title: Term ID List
+            description: Match terms with the listed IDs.
+            type: array
+            items:
+              type: integer
+          - title: Term ID Taxonomy Query
+            description: Perform an advanced term query.
+            type: object
+            properties:
+              terms:
+                description: Term IDs.
+                type: array
+                items:
+                  type: integer
+                default: []
+              operator:
+                description: Whether items must be assigned all or any of the specified terms.
+                type: string
+                enum:
+                - AND
+                - OR
+                default: OR
+            additionalProperties: false
+        description: Limit result set to items with specific terms assigned in the position-location taxonomy.
+      - name: position-location_exclude
+        in: query
+        schema:
+          type: object
+          oneOf:
+          - title: Term ID List
+            description: Match terms with the listed IDs.
+            type: array
+            items:
+              type: integer
+          - title: Term ID Taxonomy Query
+            description: Perform an advanced term query.
+            type: object
+            properties:
+              terms:
+                description: Term IDs.
+                type: array
+                items:
+                  type: integer
+                default: []
+            additionalProperties: false
+        description: Limit result set to items except those with specific terms assigned in the position-location
+          taxonomy.
+      - name: search
+        in: query
+        schema:
+          type: string
+        description: Limit results to those matching a string.
+      - name: search_columns
+        in: query
+        schema:
+          type: array
+          items:
+            enum:
+            - post_title
+            - post_content
+            - post_excerpt
+            type: string
+          default: []
+        description: Array of column names to be searched.
+      - name: search_semantics
+        in: query
+        schema:
+          type: string
+          enum:
+          - exact
+        description: How to interpret the search input.
+      - name: slug
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+        description: Limit result set to posts with one or more specific slugs.
+      - name: status
+        in: query
+        schema:
+          type: array
+          items:
+            enum:
+            - publish
+            - future
+            - draft
+            - pending
+            - private
+            - trash
+            - auto-draft
+            - inherit
+            - request-pending
+            - request-confirmed
+            - request-failed
+            - request-completed
+            - acf-disabled
+            - wc-pending
+            - wc-processing
+            - wc-on-hold
+            - wc-completed
+            - wc-cancelled
+            - wc-refunded
+            - wc-failed
+            - wc-checkout-draft
+            - wc-active
+            - wc-switched
+            - wc-expired
+            - wc-pending-cancel
+            - spam
+            - jp-temp-feedback
+            - sent
+            - moderate
+            - private_post
+            - any
+            type: string
+          default: publish
+        description: Limit result set to posts assigned one or more statuses.
+      - name: tax_relation
+        in: query
+        schema:
+          type: string
+          enum:
+          - AND
+          - OR
+        description: Limit result set based on relationship between multiple taxonomies.
+      responses:
+        '200':
+          description: List job positions
+          headers:
+            X-WP-Total:
+              description: Total records matching the query.
+              schema:
+                type: integer
+            X-WP-TotalPages:
+              description: Total pages available at the current per_page.
+              schema:
+                type: integer
+            Link:
+              description: RFC 8288 web links; rel="next" / rel="prev" pagination.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/JobPosition'
+        '400':
+          description: Invalid parameter. WordPress REST error envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                code: rest_invalid_param
+                message: 'Invalid parameter(s): per_page'
+                data:
+                  status: 400
+                  params:
+                    per_page: per_page must be between 1 (inclusive) and 100 (inclusive)
+  /wp/v2/energyx-job-position/{id}:
+    get:
+      operationId: getJobPosition
+      summary: Get a job position
+      description: Retrieve a single job posting by its numeric id.
+      tags:
+      - Job Positions
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: Unique identifier for the resource.
+        schema:
+          type: integer
+      - name: context
+        in: query
+        schema:
+          type: string
+          enum:
+          - view
+          - embed
+          - edit
+          default: view
+        description: Scope under which the request is made; determines fields present in response.
+      - name: password
+        in: query
+        schema:
+          type: string
+        description: The password for the post if it is password protected.
+      responses:
+        '200':
+          description: Get a job position
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JobPosition'
+        '404':
+          description: No route matched, or the identifier does not resolve to a published object.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                code: rest_post_invalid_id
+                message: Invalid post ID.
+                data:
+                  status: 404
+components:
+  schemas:
+    Error:
+      type: object
+      description: WordPress REST error envelope. Match on `code`, never on `message`.
+      properties:
+        code:
+          type: string
+          description: Machine-readable error slug. The stable identifier.
+        message:
+          type: string
+          description: Human-readable, localized message. Not stable; do not parse.
+        data:
+          type: object
+          properties:
+            status:
+              type: integer
+              description: HTTP status, repeated in the body.
+            params:
+              type: object
+              description: 'Present on rest_invalid_param: parameter name to validation message.'
+            details:
+              type: object
+              description: 'Present on rest_invalid_param: per-parameter code/message/data detail.'
+      required:
+      - code
+      - message
+    JobPosition:
+      $schema: http://json-schema.org/draft-04/schema#
+      title: energyx-job-position
+      type: object
+      properties:
+        date:
+          description: The date the post was published, in the site's timezone.
+          type:
+          - string
+          - 'null'
+          format: date-time
+        date_gmt:
+          description: The date the post was published, as GMT.
+          type:
+          - string
+          - 'null'
+          format: date-time
+        guid:
+          description: The globally unique identifier for the post.
+          type: object
+          properties:
+            raw:
+              description: GUID for the post, as it exists in the database.
+              type: string
+            rendered:
+              description: GUID for the post, transformed for display.
+              type: string
+        id:
+          description: Unique identifier for the post.
+          type: integer
+        link:
+          description: URL to the post.
+          type: string
+          format: uri
+        modified:
+          description: The date the post was last modified, in the site's timezone.
+          type: string
+          format: date-time
+        modified_gmt:
+          description: The date the post was last modified, as GMT.
+          type: string
+          format: date-time
+        slug:
+          description: An alphanumeric identifier for the post unique to its type.
+          type: string
+        status:
+          description: A named status for the post.
+          type: string
+          enum:
+          - publish
+          - future
+          - draft
+          - pending
+          - private
+          - acf-disabled
+          - wc-pending
+          - wc-processing
+          - wc-on-hold
+          - wc-completed
+          - wc-cancelled
+          - wc-refunded
+          - wc-failed
+          - wc-checkout-draft
+          - wc-active
+          - wc-switched
+          - wc-expired
+          - wc-pending-cancel
+          - spam
+          - moderate
+          - private_post
+        type:
+          description: Type of post.
+          type: string
+        password:
+          description: A password to protect access to the content and excerpt.
+          type: string
+        permalink_template:
+          description: Permalink template for the post.
+          type: string
+        generated_slug:
+          description: Slug automatically generated from the post title.
+          type: string
+        class_list:
+          description: An array of the class names for the post container element.
+          type: array
+          items:
+            type: string
+        title:
+          description: The title for the post.
+          type: object
+          properties:
+            raw:
+              description: Title for the post, as it exists in the database.
+              type: string
+            rendered:
+              description: HTML title for the post, transformed for display.
+              type: string
+        content:
+          description: The content for the post.
+          type: object
+          properties:
+            raw:
+              description: Content for the post, as it exists in the database.
+              type: string
+            rendered:
+              description: HTML content for the post, transformed for display.
+              type: string
+            block_version:
+              description: Version of the content block format used by the post.
+              type: integer
+            protected:
+              description: Whether the content is protected with a password.
+              type: boolean
+        template:
+          description: The theme file to use to display the post.
+          type: string
+        position-area:
+          description: The terms assigned to the post in the position-area taxonomy.
+          type: array
+          items:
+            type: integer
+        position-location:
+          description: The terms assigned to the post in the position-location taxonomy.
+          type: array
+          items:
+            type: integer
+        jetpack_sharing_enabled:
+          description: Are sharing buttons enabled?
+          type: boolean
+      links:
+      - rel: https://api.w.org/action-publish
+        title: The current user can publish this post.
+        href: https://energyx.com/wp-json/wp/v2/energyx-job-position/{id}
+        targetSchema:
+          type: object
+          properties:
+            status:
+              type: string
+              enum:
+              - publish
+              - future
+      - rel: https://api.w.org/action-unfiltered-html
+        title: The current user can post unfiltered HTML markup and JavaScript.
+        href: https://energyx.com/wp-json/wp/v2/energyx-job-position/{id}
+        targetSchema:
+          type: object
+          properties:
+            content:
+              raw:
+                type: string
+      - rel: https://api.w.org/action-assign-position-area
+        title: The current user can assign terms in the position-area taxonomy.
+        href: https://energyx.com/wp-json/wp/v2/energyx-job-position/{id}
+        targetSchema:
+          type: object
+          properties:
+            position-area:
+              type: array
+              items:
+                type: integer
+      - rel: https://api.w.org/action-create-position-area
+        title: The current user can create terms in the position-area taxonomy.
+        href: https://energyx.com/wp-json/wp/v2/energyx-job-position/{id}
+        targetSchema:
+          type: object
+          properties:
+            position-area:
+              type: array
+              items:
+                type: integer
+      - rel: https://api.w.org/action-assign-position-location
+        title: The current user can assign terms in the position-location taxonomy.
+        href: https://energyx.com/wp-json/wp/v2/energyx-job-position/{id}
+        targetSchema:
+          type: object
+          properties:
+            position-location:
+              type: array
+              items:
+                type: integer
+      - rel: https://api.w.org/action-create-position-location
+        title: The current user can create terms in the position-location taxonomy.
+        href: https://energyx.com/wp-json/wp/v2/energyx-job-position/{id}
+        targetSchema:
+          type: object
+          properties:
+            position-location:
+              type: array
+              items:
+                type: integer

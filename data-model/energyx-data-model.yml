@@ -1,0 +1,175 @@
+generated: '2026-08-12'
+method: derived
+source: openapi/ (schemas read from the server's own HTTP OPTIONS documents) + live term/record counts
+description: >-
+  The entity-relationship graph of the public content API behind energyx.com, derived from the
+  resource schemas the server publishes and the reference fields inside them. EnergyX publishes no
+  object reference, so every relationship below was read off a declared schema property, not from
+  documentation. The shape is the WordPress content model — a set of post-type entities, each
+  optionally classified by one or more taxonomy vocabularies, all pointing at a shared media and
+  author pool — with a WooCommerce storefront model bolted alongside it.
+identifiers:
+  scheme: integer
+  detail: >-
+    Every entity on this surface is keyed by a site-scoped positive integer `id`, unique across ALL
+    post types because WordPress allocates them from one sequence. There are no prefixed ids
+    (no `pr_`, `usr_`) — an id alone does not tell you what type it is. The `type` field on each
+    record, and the `subtype` field on a search result, are what disambiguate. Every entity also
+    carries a human-stable `slug` and a canonical `link` URL, both of which are better join keys
+    for anything cross-referencing the website.
+  observed_range: 'ids seen from 47 (taxonomy terms) to 11324 (a 2026-07 press release)'
+entities:
+- name: Post
+  collection: /wp/v2/posts
+  count: 69
+  schema_properties: 28
+  description: EnergyX blog articles.
+  spec: openapi/energyx-posts-api-openapi.yml
+- name: Page
+  collection: /wp/v2/pages
+  count: 50
+  schema_properties: 26
+  description: Static marketing, product, investor and policy pages. Hierarchical.
+  spec: openapi/energyx-pages-api-openapi.yml
+- name: PressRelease
+  collection: /wp/v2/enx-press-release
+  count: 39
+  schema_properties: 19
+  description: First-party EnergyX press releases.
+  spec: openapi/energyx-press-api-openapi.yml
+- name: InTheNewsItem
+  collection: /wp/v2/energyx-in-the-news
+  count: 275
+  schema_properties: 14
+  description: Third-party media coverage of EnergyX. The largest content collection on the surface.
+  spec: openapi/energyx-press-api-openapi.yml
+- name: IndustryNewsItem
+  collection: /wp/v2/energyx-indu-news
+  count: 5
+  schema_properties: 19
+  description: Curated lithium and energy-transition industry news.
+  spec: openapi/energyx-press-api-openapi.yml
+- name: Leader
+  collection: /wp/v2/energyx-leadership
+  count: 33
+  schema_properties: 21
+  description: Executives, board members and advisors.
+  spec: openapi/energyx-leadership-api-openapi.yml
+- name: JobPosition
+  collection: /wp/v2/energyx-job-position
+  count: 12
+  schema_properties: 20
+  description: Open roles. The only entity classified by two independent taxonomies.
+  spec: openapi/energyx-careers-api-openapi.yml
+- name: Partner
+  collection: /wp/v2/energyx-partner
+  count: 8
+  schema_properties: 20
+  description: Named partners and collaborators.
+  spec: openapi/energyx-partners-api-openapi.yml
+- name: Video
+  collection: /wp/v2/energyx-video
+  count: 61
+  schema_properties: 14
+  description: Video library records. Unclassified — no taxonomy is attached to this type.
+  spec: openapi/energyx-videos-api-openapi.yml
+- name: ResourceGuide
+  collection: /wp/v2/resource-guide
+  count: 14
+  schema_properties: 21
+  description: Long-form educational guides.
+  spec: openapi/energyx-resource-guides-api-openapi.yml
+- name: Attachment
+  collection: /wp/v2/media
+  count: 2639
+  schema_properties: 32
+  description: >-
+    Media library. The shared image pool every other entity's featured_media points into, and the
+    largest collection on the host by an order of magnitude.
+  spec: openapi/energyx-media-api-openapi.yml
+- name: User
+  collection: /wp/v2/users
+  count: 10
+  schema_properties: 19
+  description: Public author records. Only Post, Page and Attachment carry an author reference.
+  spec: openapi/energyx-discovery-api-openapi.yml
+- name: Product
+  collection: /wp/v2/product
+  count: 15
+  schema_properties: 26
+  description: The merchandise catalog as WordPress core content records.
+  spec: openapi/energyx-store-api-openapi.yml
+- name: StoreProduct
+  collection: /wc/store/v1/products
+  count: 15
+  schema_properties: 36
+  description: >-
+    The same 15 products projected through the WooCommerce Store API, with prices, stock, variations
+    and image sets that the wp/v2 projection does not carry. Same ids, richer record.
+  spec: openapi/energyx-store-api-openapi.yml
+vocabularies:
+- {name: Category, collection: /wp/v2/categories, terms: 7, hierarchical: true, classifies: [Post]}
+- {name: Tag, collection: /wp/v2/tags, terms: 0, hierarchical: false, classifies: [Post]}
+- {name: LeadershipType, collection: /wp/v2/leadership-type, terms: 7, hierarchical: true, classifies: [Leader]}
+- {name: PositionArea, collection: /wp/v2/position-area, terms: 8, hierarchical: true, classifies: [JobPosition]}
+- {name: PositionLocation, collection: /wp/v2/position-location, terms: 14, hierarchical: false, classifies: [JobPosition]}
+- {name: PartnerType, collection: /wp/v2/partner-type, terms: 2, hierarchical: true, classifies: [Partner]}
+- {name: ResourceGuideCategory, collection: /wp/v2/resource-guide-category, terms: 5, hierarchical: true,
+   classifies: [ResourceGuide], terms_observed: [Battery, Cleantech, Company, Lithium, Sustainability]}
+- {name: FaqType, collection: /wp/v2/faq-type, terms: 4, hierarchical: true, classifies: [enx-faq],
+   note: 'Orphaned. The taxonomy is registered and readable, but the enx-faq post type it classifies is NOT exposed on the REST surface — the FAQ content at energyx.com/faq/ is reachable in HTML only. This is the one real gap between the website and the API.'}
+- {name: ProductCategory, collection: /wp/v2/product_cat, terms: 4, hierarchical: true, classifies: [Product, StoreProduct]}
+- {name: ProductTag, collection: /wp/v2/product_tag, terms: 0, hierarchical: false, classifies: [Product, StoreProduct]}
+- {name: ProductBrand, collection: /wp/v2/product_brand, terms: 0, hierarchical: true, classifies: [Product, StoreProduct]}
+relationships:
+- {from: Post, to: User, kind: belongs_to, via: author, cardinality: one}
+- {from: Post, to: Attachment, kind: has_one, via: featured_media, cardinality: one, note: '0 means no featured image.'}
+- {from: Post, to: Category, kind: has_many, via: categories, cardinality: many}
+- {from: Post, to: Tag, kind: has_many, via: tags, cardinality: many}
+- {from: Page, to: User, kind: belongs_to, via: author, cardinality: one}
+- {from: Page, to: Attachment, kind: has_one, via: featured_media, cardinality: one}
+- {from: Page, to: Page, kind: belongs_to, via: parent, cardinality: one, note: 'Self-referential; pages are hierarchical.'}
+- {from: PressRelease, to: Attachment, kind: has_one, via: featured_media, cardinality: one}
+- {from: InTheNewsItem, to: Attachment, kind: has_one, via: featured_media, cardinality: one}
+- {from: IndustryNewsItem, to: Attachment, kind: has_one, via: featured_media, cardinality: one}
+- {from: Leader, to: Attachment, kind: has_one, via: featured_media, cardinality: one, note: 'The headshot.'}
+- {from: Leader, to: LeadershipType, kind: has_many, via: leadership-type, cardinality: many}
+- {from: JobPosition, to: PositionArea, kind: has_many, via: position-area, cardinality: many,
+   note: 'Observed multi-valued live — one role carried three areas.'}
+- {from: JobPosition, to: PositionLocation, kind: has_many, via: position-location, cardinality: many}
+- {from: Partner, to: PartnerType, kind: has_many, via: partner-type, cardinality: many}
+- {from: Partner, to: Attachment, kind: has_one, via: featured_media, cardinality: one, note: 'The partner logo.'}
+- {from: Video, to: Attachment, kind: has_one, via: featured_media, cardinality: one, note: 'The poster frame.'}
+- {from: ResourceGuide, to: ResourceGuideCategory, kind: has_many, via: resource-guide-category, cardinality: many}
+- {from: ResourceGuide, to: Attachment, kind: has_one, via: featured_media, cardinality: one}
+- {from: Attachment, to: User, kind: belongs_to, via: author, cardinality: one}
+- {from: Attachment, to: Post, kind: belongs_to, via: post, cardinality: one,
+   note: 'The record the attachment was uploaded to. Polymorphic — the target may be any post type, not only a Post.'}
+- {from: Product, to: ProductCategory, kind: has_many, via: product_cat, cardinality: many}
+- {from: Product, to: ProductTag, kind: has_many, via: product_tag, cardinality: many}
+- {from: Product, to: ProductBrand, kind: has_many, via: product_brand, cardinality: many}
+- {from: Product, to: Attachment, kind: has_one, via: featured_media, cardinality: one}
+- {from: StoreProduct, to: StoreProductCategory, kind: has_many, via: categories, cardinality: many,
+   note: 'Embedded objects, not id references — the Store API inlines the category record.'}
+- {from: StoreProduct, to: StoreProduct, kind: belongs_to, via: parent, cardinality: one,
+   note: 'Non-zero on product variations.'}
+- {from: SearchResult, to: any, kind: polymorphic, via: 'id + type + subtype', cardinality: one,
+   note: 'A search result is a pointer, not a record. Resolve it by dispatching on subtype to the matching collection.'}
+traversal_notes:
+- >-
+  There is no server-side join. Every relationship above is an integer that must be resolved with a
+  second request — EXCEPT via `_embed`, which inlines author, featured_media and terms under
+  `_embedded` in one round trip. On this surface `_embed` is the difference between one request and
+  four for a leadership record with a headshot and a type.
+- >-
+  featured_media is `0`, not null, when absent. Treat 0 as "no image" and never issue
+  GET /wp/v2/media/0.
+- >-
+  The two product projections share ids. GET /wp/v2/product/8077 and
+  GET /wc/store/v1/products/8077 are the same object with different field sets; the Store API
+  projection is the one carrying price, currency and stock.
+- >-
+  Nine of the fourteen entities are site-specific custom post types registered by the theme. They
+  are the EnergyX-specific value on this surface and also the part with no stability commitment —
+  see lifecycle/energyx-lifecycle.yml.
+render: null

@@ -1,0 +1,34 @@
+generated: '2026-08-12'
+method: generated
+source: openapi/ (59 operations across 15 derived specs) + conventions/, errors/, lifecycle/, data-model/
+description: >-
+  Packaged Agent Skills for the public content API behind energyx.com. EnergyX publishes no
+  AGENTS.md, no skill files and no API documentation of any kind — searched the site, the sitemaps
+  and /llms.txt (404) on 2026-08-12 — so these are generated from the derived OpenAPI plus the
+  conventions, error and lifecycle artifacts in this repo. Every operationId named in every skill
+  was verified to exist verbatim in the referenced spec.
+skills:
+- file: energyx-track-company-news.md
+  name: Track EnergyX company news
+  api: openapi/energyx-press-api-openapi.yml
+  operations: [listPressReleases, getPressRelease, listInTheNews, listIndustryNews, listPosts, search]
+- file: energyx-map-leadership-and-partners.md
+  name: Map the EnergyX leadership team and partner network
+  api: openapi/energyx-leadership-api-openapi.yml
+  operations: [listLeadershipTypes, listLeadership, getLeader, listPartnerTypes, listPartners, getPartner, getMediaItem]
+- file: energyx-monitor-open-roles.md
+  name: Monitor EnergyX open roles
+  api: openapi/energyx-careers-api-openapi.yml
+  operations: [listPositionAreas, listPositionLocations, listJobPositions, getJobPosition]
+- file: energyx-harvest-research-library.md
+  name: Harvest the EnergyX research and media library
+  api: openapi/energyx-resource-guides-api-openapi.yml
+  operations: [listResourceGuideCategories, listResourceGuides, listVideos, getVideo, listMedia, getMediaItem, listCategories, listPosts]
+- file: energyx-read-store-catalog.md
+  name: Read the EnergyX merchandise catalog
+  api: openapi/energyx-store-api-openapi.yml
+  operations: [listStoreProductCategories, listStoreProducts, getStoreProduct, listProducts, getProduct]
+- file: energyx-discover-the-surface.md
+  name: Discover the EnergyX API surface from scratch
+  api: openapi/energyx-discovery-api-openapi.yml
+  operations: [getRouteIndex, listTypes, listTaxonomies, listStatuses, listUsers, getUser, search, getSeoHead, getOembed]

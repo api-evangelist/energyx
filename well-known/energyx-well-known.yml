@@ -1,0 +1,56 @@
+generated: '2026-08-12'
+method: probed
+source: live probes of https://energyx.com/.well-known/* and https://invest.energyx.com/.well-known/*
+host: https://energyx.com
+hit_count: 0
+note: >-
+  Every /.well-known/ path probed returned a real 404 — energyx.com serves its WordPress HTML 404
+  page and invest.energyx.com (a Webflow-hosted investor site) serves an explicit "Invalid
+  .well-known request" body. Neither is a soft 200 shell, so these are honest absences and not a
+  detection failure. No RFC 8615 discovery surface of any kind is served on any EnergyX host. No
+  WellKnown and no SecurityTxt pointer is emitted in apis.yml, because a pointer would assert the
+  provider serves a surface it does not serve.
+documents:
+- {path: /.well-known/security.txt, status: 404, content_type: text/html, file: null}
+- {path: /.well-known/openid-configuration, status: 404, content_type: text/html, file: null}
+- {path: /.well-known/oauth-authorization-server, status: 404, content_type: text/html, file: null}
+- {path: /.well-known/api-catalog, status: 404, content_type: text/html, file: null}
+- {path: /.well-known/ai-plugin.json, status: 404, content_type: text/html, file: null}
+- {path: /.well-known/agent-card.json, status: 404, content_type: text/html, file: null}
+- {path: /.well-known/agent.json, status: 404, content_type: text/html, file: null}
+second_host:
+  host: https://invest.energyx.com
+  note: Webflow-hosted investor site linked from the homepage. Probed separately; same result.
+  documents:
+  - {path: /.well-known/agent-card.json, status: 404, content_type: text/html, file: null}
+  - {path: /.well-known/agent.json, status: 404, content_type: text/html, file: null}
+  - {path: /.well-known/security.txt, status: 404, content_type: text/html, file: null}
+  - {path: /llms.txt, status: 404, content_type: text/html, file: null}
+  - {path: /openapi.json, status: 404, content_type: text/html, file: null}
+related_probes:
+- {path: /llms.txt, status: 404, note: 'No provider-published llms.txt; a generated one is in llms/.'}
+- {path: /robots.txt, status: 200, note: 'Two lines: User-agent: * / Disallow: /operation-obey. Nothing in this pass was blocked by robots; /wp-json is not disallowed.'}
+- {path: /sitemap_index.xml, status: 200, note: 'Yoast sitemap index; 11 child sitemaps including post, page, product, leadership, job-position, press-release and partner.'}
+- {path: /openapi.json, status: 404, note: Probed per contract discovery step 1 on the site root.}
+- {path: /swagger.json, status: 404}
+- {path: /api-docs, status: 404}
+- {path: /docs, status: 404}
+- {path: /redoc, status: 404}
+- {path: /v1/openapi.json, status: 404}
+- {path: /graphql, status: 404, note: 'No GraphQL surface; /graphql is absent from the 1,233-route index.'}
+- {path: /api, status: 404}
+- {path: /developers, status: 404}
+- {path: /wp-json/, status: 200, note: 'THE HIT. The self-describing WordPress REST route index — 1,233 routes across 36 namespaces. This is the entire machine-readable contract for this provider and it is not advertised anywhere on the site.'}
+subdomains_checked:
+- {host: api.energyx.com, dns: NXDOMAIN}
+- {host: docs.energyx.com, dns: NXDOMAIN}
+- {host: developer.energyx.com, dns: NXDOMAIN}
+- {host: developers.energyx.com, dns: NXDOMAIN}
+- {host: app.energyx.com, dns: NXDOMAIN}
+- {host: mcp.energyx.com, dns: NXDOMAIN}
+- {host: status.energyx.com, dns: NXDOMAIN}
+- {host: trust.energyx.com, dns: NXDOMAIN}
+- {host: shop.energyx.com, dns: NXDOMAIN}
+- {host: investors.energyx.com, dns: NXDOMAIN}
+- {host: ir.energyx.com, dns: NXDOMAIN}
+- {host: invest.energyx.com, dns: 'CNAME cdn.webflow.com', note: 'Resolves. Webflow investor site; probed above.'}

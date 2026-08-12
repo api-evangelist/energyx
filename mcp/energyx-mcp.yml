@@ -1,0 +1,208 @@
+generated: '2026-08-12'
+method: derived
+status: candidate
+source: openapi/ (59 operations across 15 derived specs)
+description: EnergyX operates no MCP server. Searched the site, mcp.energyx.com (NXDOMAIN), the npm registry and
+  the 1,233-route index on 2026-08-12 and found none. The tool list below is a CANDIDATE derived one-to-one from
+  the OpenAPI operations this repo harvested — it is what an MCP server over this surface would expose, not something
+  EnergyX publishes. Every tool is read-only because the whole anonymous surface is read-only. No MCPServer pointer
+  is emitted in apis.yml.
+server:
+  name: energyx
+  transport: http
+  url: null
+  published: false
+auth:
+  required: false
+  note: All listed tools work anonymously over plain HTTPS.
+tools:
+- name: list_job_positions
+  description: List job positions
+  source_operation: openapi/energyx-careers-api-openapi.yml#listJobPositions
+- name: get_job_position
+  description: Get a job position
+  source_operation: openapi/energyx-careers-api-openapi.yml#getJobPosition
+- name: list_types
+  description: List content types
+  source_operation: openapi/energyx-discovery-api-openapi.yml#listTypes
+- name: list_taxonomies
+  description: List taxonomies
+  source_operation: openapi/energyx-discovery-api-openapi.yml#listTaxonomies
+- name: list_statuses
+  description: List publication statuses
+  source_operation: openapi/energyx-discovery-api-openapi.yml#listStatuses
+- name: list_users
+  description: List authors
+  source_operation: openapi/energyx-discovery-api-openapi.yml#listUsers
+- name: get_user
+  description: Get an author
+  source_operation: openapi/energyx-discovery-api-openapi.yml#getUser
+- name: get_route_index
+  description: Get the API route index
+  source_operation: openapi/energyx-discovery-api-openapi.yml#getRouteIndex
+- name: list_leadership
+  description: List leadership records
+  source_operation: openapi/energyx-leadership-api-openapi.yml#listLeadership
+- name: get_leader
+  description: Get a leadership record
+  source_operation: openapi/energyx-leadership-api-openapi.yml#getLeader
+- name: list_media
+  description: List media
+  source_operation: openapi/energyx-media-api-openapi.yml#listMedia
+- name: get_media_item
+  description: Get a media item
+  source_operation: openapi/energyx-media-api-openapi.yml#getMediaItem
+- name: get_oembed
+  description: Get oEmbed data for a URL
+  source_operation: openapi/energyx-oembed-api-openapi.yml#getOembed
+- name: list_pages
+  description: List pages
+  source_operation: openapi/energyx-pages-api-openapi.yml#listPages
+- name: get_page
+  description: Get a page
+  source_operation: openapi/energyx-pages-api-openapi.yml#getPage
+- name: list_partners
+  description: List partners
+  source_operation: openapi/energyx-partners-api-openapi.yml#listPartners
+- name: get_partner
+  description: Get a partner
+  source_operation: openapi/energyx-partners-api-openapi.yml#getPartner
+- name: list_posts
+  description: List posts
+  source_operation: openapi/energyx-posts-api-openapi.yml#listPosts
+- name: get_post
+  description: Get a post
+  source_operation: openapi/energyx-posts-api-openapi.yml#getPost
+- name: list_press_releases
+  description: List press releases
+  source_operation: openapi/energyx-press-api-openapi.yml#listPressReleases
+- name: get_press_release
+  description: Get a press release
+  source_operation: openapi/energyx-press-api-openapi.yml#getPressRelease
+- name: list_in_the_news
+  description: List in-the-news items
+  source_operation: openapi/energyx-press-api-openapi.yml#listInTheNews
+- name: get_in_the_news_item
+  description: Get an in-the-news item
+  source_operation: openapi/energyx-press-api-openapi.yml#getInTheNewsItem
+- name: list_industry_news
+  description: List industry news
+  source_operation: openapi/energyx-press-api-openapi.yml#listIndustryNews
+- name: get_industry_news_item
+  description: Get an industry news item
+  source_operation: openapi/energyx-press-api-openapi.yml#getIndustryNewsItem
+- name: list_resource_guides
+  description: List resource guides
+  source_operation: openapi/energyx-resource-guides-api-openapi.yml#listResourceGuides
+- name: get_resource_guide
+  description: Get a resource guide
+  source_operation: openapi/energyx-resource-guides-api-openapi.yml#getResourceGuide
+- name: search
+  description: Search site content
+  source_operation: openapi/energyx-search-api-openapi.yml#search
+- name: get_seo_head
+  description: Get rendered SEO head metadata for a URL
+  source_operation: openapi/energyx-seo-api-openapi.yml#getSeoHead
+- name: list_store_products
+  description: List store products
+  source_operation: openapi/energyx-store-api-openapi.yml#listStoreProducts
+- name: get_store_product
+  description: Get a store product
+  source_operation: openapi/energyx-store-api-openapi.yml#getStoreProduct
+- name: list_store_product_categories
+  description: List store product categories
+  source_operation: openapi/energyx-store-api-openapi.yml#listStoreProductCategories
+- name: get_store_product_category
+  description: Get a store product category
+  source_operation: openapi/energyx-store-api-openapi.yml#getStoreProductCategory
+- name: list_products
+  description: List products
+  source_operation: openapi/energyx-store-api-openapi.yml#listProducts
+- name: get_product
+  description: Get a product
+  source_operation: openapi/energyx-store-api-openapi.yml#getProduct
+- name: list_categories
+  description: List post categories
+  source_operation: openapi/energyx-taxonomy-api-openapi.yml#listCategories
+- name: get_category
+  description: Get a term from post categories
+  source_operation: openapi/energyx-taxonomy-api-openapi.yml#getCategory
+- name: list_tags
+  description: List post tags
+  source_operation: openapi/energyx-taxonomy-api-openapi.yml#listTags
+- name: get_tag
+  description: Get a term from post tags
+  source_operation: openapi/energyx-taxonomy-api-openapi.yml#getTag
+- name: list_leadership_types
+  description: List leadership types
+  source_operation: openapi/energyx-taxonomy-api-openapi.yml#listLeadershipTypes
+- name: get_leadership_type
+  description: Get a term from leadership types
+  source_operation: openapi/energyx-taxonomy-api-openapi.yml#getLeadershipType
+- name: list_position_areas
+  description: List job position areas
+  source_operation: openapi/energyx-taxonomy-api-openapi.yml#listPositionAreas
+- name: get_position_area
+  description: Get a term from job position areas
+  source_operation: openapi/energyx-taxonomy-api-openapi.yml#getPositionArea
+- name: list_position_locations
+  description: List job position locations
+  source_operation: openapi/energyx-taxonomy-api-openapi.yml#listPositionLocations
+- name: get_position_location
+  description: Get a term from job position locations
+  source_operation: openapi/energyx-taxonomy-api-openapi.yml#getPositionLocation
+- name: list_partner_types
+  description: List partner types
+  source_operation: openapi/energyx-taxonomy-api-openapi.yml#listPartnerTypes
+- name: get_partner_type
+  description: Get a term from partner types
+  source_operation: openapi/energyx-taxonomy-api-openapi.yml#getPartnerType
+- name: list_resource_guide_categories
+  description: List resource guide categories
+  source_operation: openapi/energyx-taxonomy-api-openapi.yml#listResourceGuideCategories
+- name: get_resource_guide_category
+  description: Get a term from resource guide categories
+  source_operation: openapi/energyx-taxonomy-api-openapi.yml#getResourceGuideCategory
+- name: list_faq_types
+  description: List FAQ types
+  source_operation: openapi/energyx-taxonomy-api-openapi.yml#listFaqTypes
+- name: get_faq_type
+  description: Get a term from FAQ types
+  source_operation: openapi/energyx-taxonomy-api-openapi.yml#getFaqType
+- name: list_product_categories
+  description: List product categories
+  source_operation: openapi/energyx-taxonomy-api-openapi.yml#listProductCategories
+- name: get_product_category
+  description: Get a term from product categories
+  source_operation: openapi/energyx-taxonomy-api-openapi.yml#getProductCategory
+- name: list_product_tags
+  description: List product tags
+  source_operation: openapi/energyx-taxonomy-api-openapi.yml#listProductTags
+- name: get_product_tag
+  description: Get a term from product tags
+  source_operation: openapi/energyx-taxonomy-api-openapi.yml#getProductTag
+- name: list_product_brands
+  description: List product brands
+  source_operation: openapi/energyx-taxonomy-api-openapi.yml#listProductBrands
+- name: get_product_brand
+  description: Get a term from product brands
+  source_operation: openapi/energyx-taxonomy-api-openapi.yml#getProductBrand
+- name: list_videos
+  description: List videos
+  source_operation: openapi/energyx-videos-api-openapi.yml#listVideos
+- name: get_video
+  description: Get a video
+  source_operation: openapi/energyx-videos-api-openapi.yml#getVideo
+evidence:
+- url: https://energyx.com/
+  http_status: 200
+  finding: No MCP server referenced anywhere on the site.
+- host: mcp.energyx.com
+  dns: NXDOMAIN
+- url: https://energyx.com/wp-json/
+  http_status: 200
+  finding: No mcp namespace among the 36 registered namespaces.
+- registry: npm
+  query: energyx
+  results: 1
+  note: create-energyx — unrelated scaffolder, not an MCP server.

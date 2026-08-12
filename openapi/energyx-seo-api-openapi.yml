@@ -1,0 +1,89 @@
+openapi: 3.1.0
+info:
+  title: EnergyX SEO Metadata API
+  version: yoast/v1
+  description: Public Yoast SEO head endpoint returning the rendered head metadata and its parsed JSON-LD schema.org
+    graph for any energyx.com URL — a structured-data view of every page without scraping the HTML.
+  contact:
+    name: EnergyX
+    url: https://energyx.com/contact/
+  x-derived-from: https://energyx.com/wp-json/yoast/v1/get_head HTTP OPTIONS document
+  x-derived-on: '2026-08-12'
+  x-api-evangelist-note: Third-party profile. Parameters read from the server's own OPTIONS document; nothing invented.
+servers:
+- url: https://energyx.com/wp-json
+  description: EnergyX WordPress REST API
+tags:
+- name: SEO
+  description: Rendered head metadata and JSON-LD structured data.
+paths:
+  /yoast/v1/get_head:
+    get:
+      operationId: getSeoHead
+      summary: Get rendered SEO head metadata for a URL
+      description: Retrieve the rendered <head> metadata Yoast SEO emits for an energyx.com URL, together with the
+        parsed schema.org JSON-LD @graph for that page.
+      tags:
+      - SEO
+      parameters:
+      - name: url
+        in: query
+        schema:
+          type: string
+        required: true
+      responses:
+        '200':
+          description: Rendered head metadata and parsed JSON-LD graph.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SeoHead'
+        '404':
+          description: No route matched, or the identifier does not resolve to a published object.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                code: rest_post_invalid_id
+                message: Invalid post ID.
+                data:
+                  status: 404
+components:
+  schemas:
+    Error:
+      type: object
+      description: WordPress REST error envelope. Match on `code`, never on `message`.
+      properties:
+        code:
+          type: string
+          description: Machine-readable error slug. The stable identifier.
+        message:
+          type: string
+          description: Human-readable, localized message. Not stable; do not parse.
+        data:
+          type: object
+          properties:
+            status:
+              type: integer
+              description: HTTP status, repeated in the body.
+            params:
+              type: object
+              description: 'Present on rest_invalid_param: parameter name to validation message.'
+            details:
+              type: object
+              description: 'Present on rest_invalid_param: per-parameter code/message/data detail.'
+      required:
+      - code
+      - message
+    SeoHead:
+      type: object
+      properties:
+        html:
+          type: string
+          description: The rendered head markup as a string.
+        json:
+          type: object
+          description: The parsed head metadata, including the schema.org @graph.
+        status:
+          type: integer

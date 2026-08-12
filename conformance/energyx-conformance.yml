@@ -1,0 +1,87 @@
+generated: '2026-08-12'
+method: derived
+source: openapi/ + live responses from https://energyx.com/wp-json/
+description: >-
+  Cross-cutting standards this surface does and does not conform to, derived from the fifteen
+  derived OpenAPI documents and from responses observed live on 2026-08-12. EnergyX makes no
+  compliance or conformance claims of its own — it publishes no trust center, no certifications
+  page and no API documentation — so nothing here is a provider assertion.
+standards:
+- id: json-schema
+  conforms: true
+  evidence: >-
+    Every route serves a JSON Schema for its resource via HTTP OPTIONS (post 28 properties, page 26,
+    attachment 32, enx-press-release 19, energyx-leadership 21, energyx-job-position 20,
+    energyx-partner 20, resource-guide 21, energyx-video 14, energyx-in-the-news 14,
+    wc/store/v1 product 36, search-result 5, type 16, taxonomy 13, user 19). These published schemas
+    are what the OpenAPI in this repo was derived from.
+- id: rfc8288-web-linking
+  conforms: true
+  evidence: 'Link header with rel="next" observed on GET /wp/v2/posts?per_page=2.'
+- id: oembed-1.0
+  conforms: true
+  evidence: 'Provider endpoint GET /oembed/1.0/embed is registered and serves an OPTIONS document.'
+- id: schema-org-json-ld
+  conforms: true
+  evidence: 'GET /yoast/v1/get_head returns a parsed schema.org @graph for any site URL.'
+- id: rfc7617-basic-auth
+  conforms: true
+  evidence: >-
+    WordPress application passwords, declared in the API root document, are Basic over TLS. Applies
+    only to the non-public write surface.
+- id: cors
+  conforms: true
+  evidence: 'Access-Control-Expose-Headers and Access-Control-Allow-Headers present on responses.'
+- id: pagination
+  conforms: true
+  evidence: 'page/per_page/offset parameters plus X-WP-Total and X-WP-TotalPages response headers.'
+- id: tls-1.3
+  conforms: true
+  evidence: 'energyx.com negotiates TLSv1.3; certificate valid to 2026-09-28.'
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: >-
+    Errors use the WordPress envelope {code, message, data:{status}} served as application/json,
+    not application/problem+json.
+- id: oauth2
+  conforms: false
+  evidence: No oauth2 securityScheme in any spec; no authorization server on any host.
+- id: oidc
+  conforms: false
+  evidence: /.well-known/openid-configuration returned 404.
+- id: rfc9116-security-txt
+  conforms: false
+  evidence: /.well-known/security.txt returned 404.
+- id: rfc8615-well-known
+  conforms: false
+  evidence: Every /.well-known/ path probed returned 404 with the site's HTML 404 page.
+- id: rfc8594-sunset
+  conforms: false
+  evidence: No Sunset or Deprecation header observed; no deprecation policy published.
+- id: idempotency-keys
+  conforms: false
+  evidence: No Idempotency-Key header or parameter accepted or documented.
+- id: hsts
+  conforms: false
+  evidence: 'No Strict-Transport-Security header on energyx.com (probed 2026-08-12).'
+- id: dnssec
+  conforms: false
+  evidence: 'energyx.com is not DNSSEC-signed; no CAA records published.'
+- id: http-conditional-requests
+  conforms: false
+  evidence: >-
+    No ETag, Last-Modified or Cache-Control returned on API responses; X-Cache-Status is BYPASS, so
+    there is no 304 path for a polling consumer.
+- id: a2a-agent-card
+  conforms: false
+  evidence: /.well-known/agent-card.json and /.well-known/agent.json both returned 404 on energyx.com and invest.energyx.com.
+compliance_program:
+  published: false
+  certifications: []
+  detail: >-
+    No SOC 2, ISO 27001, PCI DSS, HIPAA, FedRAMP or CSA STAR claim appears anywhere on energyx.com,
+    and trust.energyx.com does not resolve (NXDOMAIN). The company's public disclosure regime is
+    securities-related — SEC filings under CIK 0001830166 for its Regulation A offering — and its
+    technical credibility story is patents and pilot-plant results, not information-security
+    certification. No Compliance pointer is emitted in apis.yml because there is no published
+    compliance program to point at.

@@ -1,0 +1,223 @@
+openapi: 3.1.0
+info:
+  title: EnergyX Search API
+  version: wp/v2
+  description: Public, unauthenticated cross-content search over energyx.com — posts, pages, press releases, in-the-news
+    coverage, leadership, job positions, partners, videos, resource guides and products — returning lightweight
+    id / title / url / type / subtype records. Verified live at 245 searchable objects.
+  contact:
+    name: EnergyX
+    url: https://energyx.com/contact/
+  x-derived-from: https://energyx.com/wp-json/ route index + per-route HTTP OPTIONS schema documents
+  x-derived-on: '2026-08-12'
+  x-api-evangelist-note: Third-party profile. EnergyX publishes no developer program; this documents the anonymously
+    readable WordPress REST content API behind energyx.com. Every path, parameter and schema here was read from
+    the server's own published OPTIONS documents on 2026-08-12 — nothing is invented.
+servers:
+- url: https://energyx.com/wp-json
+  description: EnergyX WordPress REST API
+tags:
+- name: Search
+  description: Cross-content search over every searchable object on energyx.com.
+paths:
+  /wp/v2/search:
+    get:
+      operationId: search
+      summary: Search site content
+      description: Search across every searchable content type on energyx.com.
+      tags:
+      - Search
+      parameters:
+      - name: context
+        in: query
+        schema:
+          type: string
+          enum:
+          - view
+          - embed
+          default: view
+        description: Scope under which the request is made; determines fields present in response.
+      - name: exclude
+        in: query
+        schema:
+          type: array
+          items:
+            type: integer
+          default: []
+        description: Ensure result set excludes specific IDs.
+      - name: include
+        in: query
+        schema:
+          type: array
+          items:
+            type: integer
+          default: []
+        description: Limit result set to specific IDs.
+      - name: page
+        in: query
+        schema:
+          type: integer
+          minimum: 1
+          default: 1
+        description: Current page of the collection.
+      - name: per_page
+        in: query
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100
+          default: 10
+        description: Maximum number of items to be returned in result set.
+      - name: search
+        in: query
+        schema:
+          type: string
+        description: Limit results to those matching a string.
+      - name: subtype
+        in: query
+        schema:
+          type: array
+          items:
+            enum:
+            - post
+            - page
+            - product
+            - energyx-leadership
+            - energyx-job-position
+            - enx-press-release
+            - energyx-partner
+            - resource-guide
+            - energyx-indu-news
+            - category
+            - post_tag
+            - product_brand
+            - product_cat
+            - product_tag
+            - leadership-type
+            - position-area
+            - position-location
+            - partner-type
+            - resource-guide-category
+            - any
+            type: string
+          default: any
+        description: Limit results to items of one or more object subtypes.
+      - name: type
+        in: query
+        schema:
+          type: string
+          enum:
+          - post
+          - term
+          - post-format
+          default: post
+        description: Limit results to items of an object type.
+      responses:
+        '200':
+          description: Search site content
+          headers:
+            X-WP-Total:
+              description: Total records matching the query.
+              schema:
+                type: integer
+            X-WP-TotalPages:
+              description: Total pages available at the current per_page.
+              schema:
+                type: integer
+            Link:
+              description: RFC 8288 web links; rel="next" / rel="prev" pagination.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SearchResult'
+        '400':
+          description: Invalid parameter. WordPress REST error envelope.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              example:
+                code: rest_invalid_param
+                message: 'Invalid parameter(s): per_page'
+                data:
+                  status: 400
+                  params:
+                    per_page: per_page must be between 1 (inclusive) and 100 (inclusive)
+components:
+  schemas:
+    Error:
+      type: object
+      description: WordPress REST error envelope. Match on `code`, never on `message`.
+      properties:
+        code:
+          type: string
+          description: Machine-readable error slug. The stable identifier.
+        message:
+          type: string
+          description: Human-readable, localized message. Not stable; do not parse.
+        data:
+          type: object
+          properties:
+            status:
+              type: integer
+              description: HTTP status, repeated in the body.
+            params:
+              type: object
+              description: 'Present on rest_invalid_param: parameter name to validation message.'
+            details:
+              type: object
+              description: 'Present on rest_invalid_param: per-parameter code/message/data detail.'
+      required:
+      - code
+      - message
+    SearchResult:
+      $schema: http://json-schema.org/draft-04/schema#
+      title: search-result
+      type: object
+      properties:
+        id:
+          description: Unique identifier for the object.
+          type:
+          - integer
+          - string
+        title:
+          description: The title for the object.
+          type: string
+        url:
+          description: URL to the object.
+          type: string
+          format: uri
+        type:
+          description: Object type.
+          type: string
+          enum:
+          - post
+          - term
+          - post-format
+        subtype:
+          description: Object subtype.
+          type: string
+          enum:
+          - post
+          - page
+          - product
+          - energyx-leadership
+          - energyx-job-position
+          - enx-press-release
+          - energyx-partner
+          - resource-guide
+          - energyx-indu-news
+          - category
+          - post_tag
+          - product_brand
+          - product_cat
+          - product_tag
+          - leadership-type
+          - position-area
+          - position-location
+          - partner-type
+          - resource-guide-category

@@ -1,0 +1,39 @@
+generated: '2026-08-12'
+method: searched
+source: https://energyx.com/page-sitemap.xml
+plan_count: 0
+plans: []
+note: >-
+  EnergyX sells lithium chemicals, extraction technology and equity in itself — not API access.
+  There is no API pricing page, no plans page, no developer signup and no metered tier anywhere on
+  energyx.com. The page sitemap lists 46 pages and none of them prices an API. Two commercial
+  surfaces do exist and are recorded below so they are not mistaken for API pricing: a WooCommerce
+  merchandise shop selling branded apparel (15 products, USD, e.g. a $35.00 "From Brine to
+  Battery" t-shirt), and a Regulation A securities offering routed through an investor portal.
+  Neither is an API plan. plan_count is 0 as a recorded fact, not an unchecked field, and no
+  Pricing pointer is emitted in apis.yml because emitting one would credit EnergyX with API
+  pricing it does not publish.
+commercial_model: not-applicable (materials company; API is incidental CMS infrastructure)
+api_access_cost: free, unmetered, anonymous, no signup
+non_api_commerce:
+- kind: merchandise-store
+  url: https://energyx.com/shop/
+  detail: >-
+    WooCommerce storefront, 15 products across 4 categories, prices in USD, anonymously readable
+    through the Store API at /wp-json/wc/store/v1/products. Branded apparel and accessories.
+- kind: securities-offering
+  url: https://energyx.com/investor-portal/
+  detail: >-
+    Regulation A offering; SEC filings under CIK 0001830166 (Energy Exploration Technologies, Inc.).
+    Shares also trade on the Hiive secondary marketplace. This is equity, not API access.
+contact: https://energyx.com/contact/
+evidence:
+- url: https://energyx.com/page-sitemap.xml
+  http_status: 200
+  finding: 46 pages; no /pricing or /plans page, and no developer or API page of any kind.
+- url: https://energyx.com/wp-json/wc/store/v1/products?per_page=1
+  http_status: 200
+  finding: 'Storefront catalog is merchandise; X-WP-Total 15; sample price 3500 minor units USD.'
+- url: https://energyx.com/investor-portal/
+  http_status: 200
+  finding: Investor portal for the Regulation A equity offering, not an API plan.

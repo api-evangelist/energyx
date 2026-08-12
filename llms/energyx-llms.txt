@@ -1,0 +1,91 @@
+# EnergyX
+
+> Energy Exploration Technologies, Inc. (EnergyX) is a critical-materials technology company founded in 2018 by Teague Egan, headquartered in Austin, Texas, with operations in Texarkana, Antofagasta (Chile) and San Juan (Puerto Rico). It develops direct lithium extraction (DLE) technology under the GET-Lit platform, SoLiS lithium-metal battery technology, and NUKE-it membranes for lithium isotope separation and nuclear fuel-cycle applications, and produces lithium hydroxide, lithium carbonate and lithium dihydrogen phosphate.
+
+EnergyX publishes no developer program, no API documentation, no SDKs, no CLI, no MCP server and no developer portal. It is a materials and process-technology company, not a software vendor.
+
+The one machine-readable interface it exposes is the WordPress REST content API behind energyx.com. It is anonymously readable, read-only, unmetered, requires no signup, and is not advertised anywhere on the site — it was found by probing, not by documentation. API Evangelist derived fifteen OpenAPI 3.1 documents covering 59 operations from the server's own HTTP OPTIONS schema documents on 2026-08-12. There is no provider-published specification; there is no provider claim of any kind about this surface.
+
+- Base URL: https://energyx.com/wp-json
+- Authentication: none for reads. Writes require a WordPress application password with no public issuance path.
+- Rate limits: none published, none signalled. `per_page` is capped at 100.
+- Errors: WordPress envelope `{code, message, data:{status}}`, not RFC 9457. Match on `code`.
+- Versioning: `wp/v2` path namespace, inherited from WordPress core. No versioning or deprecation policy.
+- Change tracking: no ETag, no Last-Modified, no Cache-Control. Use the `modified_after` query parameter.
+
+## APIs
+
+- [EnergyX Posts API](https://energyx.com/wp-json/wp/v2/posts): 69 blog posts on lithium, cleantech, sustainability, battery and company topics.
+- [EnergyX Pages API](https://energyx.com/wp-json/wp/v2/pages): 50 static marketing, product, investor and policy pages.
+- [EnergyX Press and News API](https://energyx.com/wp-json/wp/v2/enx-press-release): 39 press releases, 275 in-the-news records, 5 industry-news records.
+- [EnergyX Leadership API](https://energyx.com/wp-json/wp/v2/energyx-leadership): 33 executives, board members and advisors across 7 leadership types.
+- [EnergyX Careers API](https://energyx.com/wp-json/wp/v2/energyx-job-position): 12 open roles across 8 functional areas and 14 locations.
+- [EnergyX Partners API](https://energyx.com/wp-json/wp/v2/energyx-partner): 8 named partners across 2 partner types.
+- [EnergyX Videos API](https://energyx.com/wp-json/wp/v2/energyx-video): 61 video records — technology explainers, panels, TV appearances.
+- [EnergyX Resource Guides API](https://energyx.com/wp-json/wp/v2/resource-guide): 14 long-form guides across Battery, Cleantech, Company, Lithium and Sustainability.
+- [EnergyX Media API](https://energyx.com/wp-json/wp/v2/media): 2,639 attachments with generated size variants.
+- [EnergyX Taxonomy API](https://energyx.com/wp-json/wp/v2/categories): 11 classification vocabularies.
+- [EnergyX Search API](https://energyx.com/wp-json/wp/v2/search): cross-content search over 245 searchable objects.
+- [EnergyX Discovery API](https://energyx.com/wp-json/): self-describing route index — 1,233 routes across 36 namespaces — plus content types, taxonomies, statuses and 10 public authors.
+- [EnergyX Store API](https://energyx.com/wp-json/wc/store/v1/products): WooCommerce storefront, 15 merchandise products in 4 categories, USD.
+- [EnergyX oEmbed API](https://energyx.com/wp-json/oembed/1.0/embed): oEmbed 1.0 rich metadata for any energyx.com URL.
+- [EnergyX SEO Metadata API](https://energyx.com/wp-json/yoast/v1/get_head): rendered head metadata and parsed schema.org JSON-LD for any energyx.com URL.
+
+## Specs
+
+- [Posts OpenAPI](https://raw.githubusercontent.com/api-evangelist/energyx/refs/heads/main/openapi/energyx-posts-api-openapi.yml)
+- [Pages OpenAPI](https://raw.githubusercontent.com/api-evangelist/energyx/refs/heads/main/openapi/energyx-pages-api-openapi.yml)
+- [Press and News OpenAPI](https://raw.githubusercontent.com/api-evangelist/energyx/refs/heads/main/openapi/energyx-press-api-openapi.yml)
+- [Leadership OpenAPI](https://raw.githubusercontent.com/api-evangelist/energyx/refs/heads/main/openapi/energyx-leadership-api-openapi.yml)
+- [Careers OpenAPI](https://raw.githubusercontent.com/api-evangelist/energyx/refs/heads/main/openapi/energyx-careers-api-openapi.yml)
+- [Partners OpenAPI](https://raw.githubusercontent.com/api-evangelist/energyx/refs/heads/main/openapi/energyx-partners-api-openapi.yml)
+- [Videos OpenAPI](https://raw.githubusercontent.com/api-evangelist/energyx/refs/heads/main/openapi/energyx-videos-api-openapi.yml)
+- [Resource Guides OpenAPI](https://raw.githubusercontent.com/api-evangelist/energyx/refs/heads/main/openapi/energyx-resource-guides-api-openapi.yml)
+- [Media OpenAPI](https://raw.githubusercontent.com/api-evangelist/energyx/refs/heads/main/openapi/energyx-media-api-openapi.yml)
+- [Taxonomy OpenAPI](https://raw.githubusercontent.com/api-evangelist/energyx/refs/heads/main/openapi/energyx-taxonomy-api-openapi.yml)
+- [Search OpenAPI](https://raw.githubusercontent.com/api-evangelist/energyx/refs/heads/main/openapi/energyx-search-api-openapi.yml)
+- [Discovery OpenAPI](https://raw.githubusercontent.com/api-evangelist/energyx/refs/heads/main/openapi/energyx-discovery-api-openapi.yml)
+- [Store OpenAPI](https://raw.githubusercontent.com/api-evangelist/energyx/refs/heads/main/openapi/energyx-store-api-openapi.yml)
+- [oEmbed OpenAPI](https://raw.githubusercontent.com/api-evangelist/energyx/refs/heads/main/openapi/energyx-oembed-api-openapi.yml)
+- [SEO Metadata OpenAPI](https://raw.githubusercontent.com/api-evangelist/energyx/refs/heads/main/openapi/energyx-seo-api-openapi.yml)
+
+## Operating rules
+
+- [Authentication profile](https://raw.githubusercontent.com/api-evangelist/energyx/refs/heads/main/authentication/energyx-authentication.yml): anonymous reads; application-password writes with no public issuance path.
+- [API conventions](https://raw.githubusercontent.com/api-evangelist/energyx/refs/heads/main/conventions/energyx-conventions.yml): pagination, sparse fields, `_embed`, filtering, caching, CORS.
+- [Error catalog](https://raw.githubusercontent.com/api-evangelist/energyx/refs/heads/main/errors/energyx-problem-types.yml): the six error codes this surface returns.
+- [Data model](https://raw.githubusercontent.com/api-evangelist/energyx/refs/heads/main/data-model/energyx-data-model.yml): 14 entities, 11 vocabularies, 28 relationships.
+- [Examples](https://raw.githubusercontent.com/api-evangelist/energyx/refs/heads/main/examples/energyx-examples.yml): nine worked requests executed live against the host.
+- [Lifecycle](https://raw.githubusercontent.com/api-evangelist/energyx/refs/heads/main/lifecycle/energyx-lifecycle.yml): unmanaged — no status page, no SLA, no deprecation policy.
+- [Rate limits](https://raw.githubusercontent.com/api-evangelist/energyx/refs/heads/main/rate-limits/energyx-rate-limits.yml): none published; self-throttle.
+- [Agent skills](https://raw.githubusercontent.com/api-evangelist/energyx/refs/heads/main/skills/_index.yml): packaged flows grounded in real operationIds.
+- [Agentic access](https://raw.githubusercontent.com/api-evangelist/energyx/refs/heads/main/agentic-access/energyx-agentic-access.yml): recommended execution contracts per operation.
+
+## Company
+
+- [Website](https://energyx.com/)
+- [Company and leadership](https://energyx.com/company/)
+- [Technology](https://energyx.com/technology/)
+- [Projects](https://energyx.com/projects/)
+- [Sustainability](https://energyx.com/sustainability/)
+- [Blog](https://energyx.com/blog/)
+- [Press](https://energyx.com/press/)
+- [In the news](https://energyx.com/in-the-news/)
+- [Resources](https://energyx.com/resources/)
+- [Videos](https://energyx.com/videos/)
+- [Careers](https://energyx.com/careers/)
+- [Investor portal](https://energyx.com/investor-portal/)
+- [Shop](https://energyx.com/shop/)
+- [Contact](https://energyx.com/contact/) — hello@energyx.com
+- [Privacy policy](https://energyx.com/privacy-policy/)
+- [Disclaimer](https://energyx.com/disclaimer/)
+
+## Optional
+
+- [API Evangelist profile](https://apis.io/provider/energyx/)
+- [Provenance and corrections](https://apievangelist.com/about/where-our-data-comes-from)
+
+---
+generated: 2026-08-12
+method: generated
+source: apis.yml + repo artifacts; no provider-published llms.txt exists (https://energyx.com/llms.txt returned 404)
