@@ -1,0 +1,21 @@
+{
+  "repo": "energyx",
+  "feeds": [
+    {
+      "source": "https://energyx.com/company/",
+      "feed_url": "https://energyx.com/company/",
+      "title": "",
+      "saved": 0,
+      "method": "none"
+    },
+    {
+      "source": "https://energyx.com/blog/",
+      "feed_url": "https://energyx.com/blog/",
+      "title": "",
+      "saved": 0,
+      "method": "none"
+    }
+  ],
+  "post_count": 0,
+  "fetched": "2026-08-15T12:22:01Z"
+}
