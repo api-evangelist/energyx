@@ -1,0 +1,47 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "EnergyX oEmbed API",
+    "version": "oembed/1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "oEmbed",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get oEmbed data for a URL",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://energyx.com/wp-json/oembed/1.0/embed",
+            "params": [
+              {
+                "name": "format",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "maxwidth",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "url",
+                "value": "",
+                "type": "query",
+                "description": "The URL of the resource for which to fetch oEmbed data."
+              }
+            ]
+          },
+          "docs": "Retrieve oEmbed 1.0 rich metadata — title, author, provider, thumbnail and iframe embed HTML — for any energyx.com URL."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,248 @@
+{
+  "item": [
+    {
+      "id": "de114081-a916-4023-bb33-287528d2197d",
+      "name": "Search",
+      "description": {
+        "content": "Cross-content search over every searchable object on energyx.com.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "50f70aa3-dbab-4b63-9e7f-b5e9d54cd10b",
+          "name": "Search site content",
+          "request": {
+            "name": "Search site content",
+            "description": {
+              "content": "Search across every searchable content type on energyx.com.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "wp",
+                "v2",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "context",
+                  "value": "view",
+                  "description": "Scope under which the request is made; determines fields present in response."
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Current page of the collection."
+                },
+                {
+                  "disabled": false,
+                  "key": "per_page",
+                  "value": "10",
+                  "description": "Maximum number of items to be returned in result set."
+                },
+                {
+                  "disabled": false,
+                  "key": "search",
+                  "value": "<string>",
+                  "description": "Limit results to those matching a string."
+                },
+                {
+                  "disabled": false,
+                  "key": "subtype",
+                  "value": "any",
+                  "description": "Limit results to items of one or more object subtypes."
+                },
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "post",
+                  "description": "Limit results to items of an object type."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1fdaa916-e5dd-4975-a445-33a4d76e9ad8",
+              "name": "Search site content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wp",
+                    "v2",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "context",
+                      "value": "view"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "10"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "subtype",
+                      "value": "any"
+                    },
+                    {
+                      "key": "type",
+                      "value": "post"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Total records matching the query.",
+                  "key": "X-WP-Total",
+                  "value": "2837"
+                },
+                {
+                  "disabled": false,
+                  "description": "Total pages available at the current per_page.",
+                  "key": "X-WP-TotalPages",
+                  "value": "2837"
+                },
+                {
+                  "disabled": false,
+                  "description": "RFC 8288 web links; rel=\"next\" / rel=\"prev\" pagination.",
+                  "key": "Link",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": 8987,\n    \"title\": \"string\",\n    \"url\": \"http://CgAvVDGZgcMOqaR.bkxgtpMmbvK3VL0A,I\",\n    \"type\": \"post\",\n    \"subtype\": \"energyx-leadership\"\n  },\n  {\n    \"id\": 8851,\n    \"title\": \"string\",\n    \"url\": \"http://agOJhopZAMyefBMqGhhsg.jaigSasMxK\",\n    \"type\": \"post\",\n    \"subtype\": \"energyx-leadership\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0ef2edf8-84da-427e-8bed-e5c478a15deb",
+              "name": "Invalid parameter. WordPress REST error envelope.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wp",
+                    "v2",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "context",
+                      "value": "view"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "10"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "subtype",
+                      "value": "any"
+                    },
+                    {
+                      "key": "type",
+                      "value": "post"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"rest_invalid_param\",\n  \"message\": \"Invalid parameter(s): per_page\",\n  \"data\": {\n    \"status\": 400,\n    \"params\": {\n      \"per_page\": \"per_page must be between 1 (inclusive) and 100 (inclusive)\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://energyx.com/wp-json",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "bd3156ac-cf77-4c4b-8240-aabddf7a6db1",
+    "name": "EnergyX Search API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Public, unauthenticated cross-content search over energyx.com — posts, pages, press releases, in-the-news coverage, leadership, job positions, partners, videos, resource guides and products — returning lightweight id / title / url / type / subtype records. Verified live at 245 searchable objects.\n\nContact Support:\n Name: EnergyX",
+      "type": "text/plain"
+    }
+  }
+}

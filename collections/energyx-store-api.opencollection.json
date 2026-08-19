@@ -1,0 +1,560 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "EnergyX Store API",
+    "version": "wp/v2"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Store",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List store products",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://energyx.com/wp-json/wc/store/v1/products",
+            "params": [
+              {
+                "name": "after",
+                "value": "",
+                "type": "query",
+                "description": "Limit response to resources created after a given ISO8601 compliant date."
+              },
+              {
+                "name": "attribute_relation",
+                "value": "",
+                "type": "query",
+                "description": "The logical relationship between attributes when filtering across multiple at once."
+              },
+              {
+                "name": "attributes",
+                "value": "",
+                "type": "query",
+                "description": "Limit result set to products with selected global attributes."
+              },
+              {
+                "name": "before",
+                "value": "",
+                "type": "query",
+                "description": "Limit response to resources created before a given ISO8601 compliant date."
+              },
+              {
+                "name": "brand",
+                "value": "",
+                "type": "query",
+                "description": "Limit result set to products assigned a set of brand IDs or slugs, separated by commas."
+              },
+              {
+                "name": "brand_operator",
+                "value": "",
+                "type": "query",
+                "description": "Operator to compare product brand terms."
+              },
+              {
+                "name": "catalog_visibility",
+                "value": "",
+                "type": "query",
+                "description": "Determines if hidden or visible catalog products are shown."
+              },
+              {
+                "name": "category",
+                "value": "",
+                "type": "query",
+                "description": "Limit result set to products assigned a set of category IDs or slugs, separated by commas."
+              },
+              {
+                "name": "category_operator",
+                "value": "",
+                "type": "query",
+                "description": "Operator to compare product category terms."
+              },
+              {
+                "name": "context",
+                "value": "",
+                "type": "query",
+                "description": "Scope under which the request is made; determines fields present in response."
+              },
+              {
+                "name": "date_column",
+                "value": "",
+                "type": "query",
+                "description": "When limiting response using after/before, which date column to compare against."
+              },
+              {
+                "name": "exclude",
+                "value": "",
+                "type": "query",
+                "description": "Ensure result set excludes specific IDs."
+              },
+              {
+                "name": "featured",
+                "value": "",
+                "type": "query",
+                "description": "Limit result set to featured products."
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Limit result set to specific ids."
+              },
+              {
+                "name": "max_price",
+                "value": "",
+                "type": "query",
+                "description": "Limit result set to products based on a maximum price, provided using the smallest unit of the currency."
+              },
+              {
+                "name": "min_price",
+                "value": "",
+                "type": "query",
+                "description": "Limit result set to products based on a minimum price, provided using the smallest unit of the currency."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Offset the result set by a specific number of items."
+              },
+              {
+                "name": "on_sale",
+                "value": "",
+                "type": "query",
+                "description": "Limit result set to products on sale."
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "Order sort attribute ascending or descending."
+              },
+              {
+                "name": "orderby",
+                "value": "",
+                "type": "query",
+                "description": "Sort collection by object attribute."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Current page of the collection."
+              },
+              {
+                "name": "parent",
+                "value": "",
+                "type": "query",
+                "description": "Limit result set to those of particular parent IDs."
+              },
+              {
+                "name": "parent_exclude",
+                "value": "",
+                "type": "query",
+                "description": "Limit result set to all items except those of a particular parent ID."
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of items to be returned in result set."
+              },
+              {
+                "name": "rating",
+                "value": "",
+                "type": "query",
+                "description": "Limit result set to products with a certain average rating."
+              },
+              {
+                "name": "related",
+                "value": "",
+                "type": "query",
+                "description": "Limit result set to products related to a specific product ID."
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "Limit results to those matching a string."
+              },
+              {
+                "name": "sku",
+                "value": "",
+                "type": "query",
+                "description": "Limit result set to products with specific SKU(s). Use commas to separate."
+              },
+              {
+                "name": "slug",
+                "value": "",
+                "type": "query",
+                "description": "Limit result set to products with specific slug(s). Use commas to separate."
+              },
+              {
+                "name": "stock_status",
+                "value": "",
+                "type": "query",
+                "description": "Limit result set to products with specified stock status."
+              },
+              {
+                "name": "tag",
+                "value": "",
+                "type": "query",
+                "description": "Limit result set to products assigned a set of tag IDs or slugs, separated by commas."
+              },
+              {
+                "name": "tag_operator",
+                "value": "",
+                "type": "query",
+                "description": "Operator to compare product tags."
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Limit result set to products assigned a specific type."
+              }
+            ]
+          },
+          "docs": "Retrieve the anonymous storefront product catalog with prices, images and stock."
+        },
+        {
+          "info": {
+            "name": "Get a store product",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://energyx.com/wp-json/wc/store/v1/products/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the resource."
+              },
+              {
+                "name": "context",
+                "value": "",
+                "type": "query",
+                "description": "Scope under which the request is made; determines fields present in response."
+              }
+            ]
+          },
+          "docs": "Retrieve a single storefront product by its numeric id."
+        },
+        {
+          "info": {
+            "name": "List store product categories",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://energyx.com/wp-json/wc/store/v1/products/categories",
+            "params": [
+              {
+                "name": "context",
+                "value": "",
+                "type": "query",
+                "description": "Scope under which the request is made; determines fields present in response."
+              },
+              {
+                "name": "exclude",
+                "value": "",
+                "type": "query",
+                "description": "Ensure result set excludes specific IDs."
+              },
+              {
+                "name": "hide_empty",
+                "value": "",
+                "type": "query",
+                "description": "If true, empty terms will not be returned."
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Limit result set to specific ids."
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "Sort ascending or descending."
+              },
+              {
+                "name": "orderby",
+                "value": "",
+                "type": "query",
+                "description": "Sort by term property."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Current page of the collection."
+              },
+              {
+                "name": "parent",
+                "value": "",
+                "type": "query",
+                "description": "Limit results to terms with a specific parent (hierarchical taxonomies only)."
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of items to be returned in result set. Defaults to no limit if left blank."
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "Limit results to those matching a string."
+              }
+            ]
+          },
+          "docs": "Retrieve the storefront product categories and their counts."
+        },
+        {
+          "info": {
+            "name": "Get a store product category",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://energyx.com/wp-json/wc/store/v1/products/categories/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the resource."
+              },
+              {
+                "name": "context",
+                "value": "",
+                "type": "query",
+                "description": "Scope under which the request is made; determines fields present in response."
+              }
+            ]
+          },
+          "docs": "Retrieve a single storefront product category by its numeric id."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Products",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List products",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://energyx.com/wp-json/wp/v2/product",
+            "params": [
+              {
+                "name": "after",
+                "value": "",
+                "type": "query",
+                "description": "Limit response to posts published after a given ISO8601 compliant date."
+              },
+              {
+                "name": "before",
+                "value": "",
+                "type": "query",
+                "description": "Limit response to posts published before a given ISO8601 compliant date."
+              },
+              {
+                "name": "brand",
+                "value": "",
+                "type": "query",
+                "description": "Limit result set to products assigned a specific brand ID."
+              },
+              {
+                "name": "context",
+                "value": "",
+                "type": "query",
+                "description": "Scope under which the request is made; determines fields present in response."
+              },
+              {
+                "name": "exclude",
+                "value": "",
+                "type": "query",
+                "description": "Ensure result set excludes specific IDs."
+              },
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Limit result set to specific IDs."
+              },
+              {
+                "name": "modified_after",
+                "value": "",
+                "type": "query",
+                "description": "Limit response to posts modified after a given ISO8601 compliant date."
+              },
+              {
+                "name": "modified_before",
+                "value": "",
+                "type": "query",
+                "description": "Limit response to posts modified before a given ISO8601 compliant date."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Offset the result set by a specific number of items."
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "Order sort attribute ascending or descending."
+              },
+              {
+                "name": "orderby",
+                "value": "",
+                "type": "query",
+                "description": "Sort collection by post attribute."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Current page of the collection."
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of items to be returned in result set."
+              },
+              {
+                "name": "product_brand",
+                "value": "",
+                "type": "query",
+                "description": "Limit result set to items with specific terms assigned in the product_brand taxonomy."
+              },
+              {
+                "name": "product_brand_exclude",
+                "value": "",
+                "type": "query",
+                "description": "Limit result set to items except those with specific terms assigned in the product_brand taxonomy."
+              },
+              {
+                "name": "product_cat",
+                "value": "",
+                "type": "query",
+                "description": "Limit result set to items with specific terms assigned in the product_cat taxonomy."
+              },
+              {
+                "name": "product_cat_exclude",
+                "value": "",
+                "type": "query",
+                "description": "Limit result set to items except those with specific terms assigned in the product_cat taxonomy."
+              },
+              {
+                "name": "product_tag",
+                "value": "",
+                "type": "query",
+                "description": "Limit result set to items with specific terms assigned in the product_tag taxonomy."
+              },
+              {
+                "name": "product_tag_exclude",
+                "value": "",
+                "type": "query",
+                "description": "Limit result set to items except those with specific terms assigned in the product_tag taxonomy."
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "Limit results to those matching a string."
+              },
+              {
+                "name": "search_columns",
+                "value": "",
+                "type": "query",
+                "description": "Array of column names to be searched."
+              },
+              {
+                "name": "search_semantics",
+                "value": "",
+                "type": "query",
+                "description": "How to interpret the search input."
+              },
+              {
+                "name": "slug",
+                "value": "",
+                "type": "query",
+                "description": "Limit result set to posts with one or more specific slugs."
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Limit result set to posts assigned one or more statuses."
+              },
+              {
+                "name": "tax_relation",
+                "value": "",
+                "type": "query",
+                "description": "Limit result set based on relationship between multiple taxonomies."
+              }
+            ]
+          },
+          "docs": "Retrieve the product catalog as WordPress core content records."
+        },
+        {
+          "info": {
+            "name": "Get a product",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://energyx.com/wp-json/wp/v2/product/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the resource."
+              },
+              {
+                "name": "context",
+                "value": "",
+                "type": "query",
+                "description": "Scope under which the request is made; determines fields present in response."
+              },
+              {
+                "name": "excerpt_length",
+                "value": "",
+                "type": "query",
+                "description": "Override the default excerpt length."
+              },
+              {
+                "name": "password",
+                "value": "",
+                "type": "query",
+                "description": "The password for the post if it is password protected."
+              }
+            ]
+          },
+          "docs": "Retrieve a single product content record by its numeric id."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

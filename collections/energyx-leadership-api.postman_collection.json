@@ -1,0 +1,627 @@
+{
+  "item": [
+    {
+      "id": "3819dcc7-e596-4f01-b913-e530c30519c9",
+      "name": "Leadership",
+      "description": {
+        "content": "EnergyX executives, board members and advisors.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "d1ff4107-61a6-47f5-8602-314ff311b4e4",
+          "name": "List leadership records",
+          "request": {
+            "name": "List leadership records",
+            "description": {
+              "content": "Retrieve a paginated collection of published EnergyX leadership records.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "wp",
+                "v2",
+                "energyx-leadership"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "after",
+                  "value": "<dateTime>",
+                  "description": "Limit response to posts published after a given ISO8601 compliant date."
+                },
+                {
+                  "disabled": false,
+                  "key": "before",
+                  "value": "<dateTime>",
+                  "description": "Limit response to posts published before a given ISO8601 compliant date."
+                },
+                {
+                  "disabled": false,
+                  "key": "context",
+                  "value": "view",
+                  "description": "Scope under which the request is made; determines fields present in response."
+                },
+                {
+                  "disabled": false,
+                  "key": "leadership-type",
+                  "value": "<integer>",
+                  "description": "Limit result set to items with specific terms assigned in the leadership-type taxonomy."
+                },
+                {
+                  "disabled": false,
+                  "key": "leadership-type",
+                  "value": "<integer>",
+                  "description": "Limit result set to items with specific terms assigned in the leadership-type taxonomy."
+                },
+                {
+                  "disabled": false,
+                  "key": "leadership-type_exclude",
+                  "value": "<integer>",
+                  "description": "Limit result set to items except those with specific terms assigned in the leadership-type taxonomy."
+                },
+                {
+                  "disabled": false,
+                  "key": "leadership-type_exclude",
+                  "value": "<integer>",
+                  "description": "Limit result set to items except those with specific terms assigned in the leadership-type taxonomy."
+                },
+                {
+                  "disabled": false,
+                  "key": "modified_after",
+                  "value": "<dateTime>",
+                  "description": "Limit response to posts modified after a given ISO8601 compliant date."
+                },
+                {
+                  "disabled": false,
+                  "key": "modified_before",
+                  "value": "<dateTime>",
+                  "description": "Limit response to posts modified before a given ISO8601 compliant date."
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "<integer>",
+                  "description": "Offset the result set by a specific number of items."
+                },
+                {
+                  "disabled": false,
+                  "key": "order",
+                  "value": "desc",
+                  "description": "Order sort attribute ascending or descending."
+                },
+                {
+                  "disabled": false,
+                  "key": "orderby",
+                  "value": "date",
+                  "description": "Sort collection by post attribute."
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Current page of the collection."
+                },
+                {
+                  "disabled": false,
+                  "key": "per_page",
+                  "value": "10",
+                  "description": "Maximum number of items to be returned in result set."
+                },
+                {
+                  "disabled": false,
+                  "key": "search",
+                  "value": "<string>",
+                  "description": "Limit results to those matching a string."
+                },
+                {
+                  "disabled": false,
+                  "key": "search_semantics",
+                  "value": "<string>",
+                  "description": "How to interpret the search input."
+                },
+                {
+                  "disabled": false,
+                  "key": "slug",
+                  "value": "<string>",
+                  "description": "Limit result set to posts with one or more specific slugs."
+                },
+                {
+                  "disabled": false,
+                  "key": "slug",
+                  "value": "<string>",
+                  "description": "Limit result set to posts with one or more specific slugs."
+                },
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "publish",
+                  "description": "Limit result set to posts assigned one or more statuses."
+                },
+                {
+                  "disabled": false,
+                  "key": "tax_relation",
+                  "value": "<string>",
+                  "description": "Limit result set based on relationship between multiple taxonomies."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c46670b7-78c1-470c-aae3-5b4f9566754a",
+              "name": "List leadership records",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wp",
+                    "v2",
+                    "energyx-leadership"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "after",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "before",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "context",
+                      "value": "view"
+                    },
+                    {
+                      "key": "leadership-type",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "leadership-type",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "leadership-type_exclude",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "leadership-type_exclude",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "modified_after",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "modified_before",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "order",
+                      "value": "desc"
+                    },
+                    {
+                      "key": "orderby",
+                      "value": "date"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "10"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "search_semantics",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "slug",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "slug",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "publish"
+                    },
+                    {
+                      "key": "tax_relation",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Total records matching the query.",
+                  "key": "X-WP-Total",
+                  "value": "3389"
+                },
+                {
+                  "disabled": false,
+                  "description": "Total pages available at the current per_page.",
+                  "key": "X-WP-TotalPages",
+                  "value": "3389"
+                },
+                {
+                  "disabled": false,
+                  "description": "RFC 8288 web links; rel=\"next\" / rel=\"prev\" pagination.",
+                  "key": "Link",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"date\": \"1955-04-04T00:21:07.254Z\",\n    \"date_gmt\": \"1960-09-03T07:17:48.349Z\",\n    \"guid\": {\n      \"raw\": \"string\",\n      \"rendered\": \"string\"\n    },\n    \"id\": 3608,\n    \"link\": \"http://rLYbLlcCkqBlYIiLUhmQWEyIcSdiaTCQ.lefzqrev-WxlOuQ6eP3dAG28l1BHI.aP4.0q-tXdjWhaj.,p1z4rPO2QkFsEr5DPGd5406fCz\",\n    \"modified\": \"2016-02-11T11:48:19.732Z\",\n    \"modified_gmt\": \"2016-09-05T04:33:51.590Z\",\n    \"slug\": \"string\",\n    \"status\": \"wc-cancelled\",\n    \"type\": \"string\",\n    \"password\": \"string\",\n    \"permalink_template\": \"string\",\n    \"generated_slug\": \"string\",\n    \"class_list\": [\n      \"string\",\n      \"string\"\n    ],\n    \"title\": {\n      \"raw\": \"string\",\n      \"rendered\": \"string\"\n    },\n    \"content\": {\n      \"raw\": \"string\",\n      \"rendered\": \"string\",\n      \"block_version\": 2468,\n      \"protected\": true\n    },\n    \"excerpt\": {\n      \"raw\": \"string\",\n      \"rendered\": \"string\",\n      \"protected\": false\n    },\n    \"featured_media\": 254,\n    \"template\": \"string\",\n    \"leadership-type\": [\n      3594,\n      2260\n    ],\n    \"jetpack_sharing_enabled\": false\n  },\n  {\n    \"date\": \"1948-01-22T12:35:51.328Z\",\n    \"date_gmt\": \"1975-12-09T02:16:28.267Z\",\n    \"guid\": {\n      \"raw\": \"string\",\n      \"rendered\": \"string\"\n    },\n    \"id\": 860,\n    \"link\": \"http://SPofbjZAKpQjVnWLzeuNGErS.tys5eEeKs8ta.6EIlhIqULETYCE9soIHvsvgvaEJjIk,ie,74zOe7hBDS9kzJEJIQi\",\n    \"modified\": \"1990-02-02T16:38:17.493Z\",\n    \"modified_gmt\": \"2011-11-02T02:08:56.000Z\",\n    \"slug\": \"string\",\n    \"status\": \"draft\",\n    \"type\": \"string\",\n    \"password\": \"string\",\n    \"permalink_template\": \"string\",\n    \"generated_slug\": \"string\",\n    \"class_list\": [\n      \"string\",\n      \"string\"\n    ],\n    \"title\": {\n      \"raw\": \"string\",\n      \"rendered\": \"string\"\n    },\n    \"content\": {\n      \"raw\": \"string\",\n      \"rendered\": \"string\",\n      \"block_version\": 5140,\n      \"protected\": true\n    },\n    \"excerpt\": {\n      \"raw\": \"string\",\n      \"rendered\": \"string\",\n      \"protected\": false\n    },\n    \"featured_media\": 3086,\n    \"template\": \"string\",\n    \"leadership-type\": [\n      8787,\n      1487\n    ],\n    \"jetpack_sharing_enabled\": true\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2c7ac6a8-ce80-431f-8a77-33e0467ca1c9",
+              "name": "Invalid parameter. WordPress REST error envelope.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wp",
+                    "v2",
+                    "energyx-leadership"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "after",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "before",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "context",
+                      "value": "view"
+                    },
+                    {
+                      "key": "leadership-type",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "leadership-type",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "leadership-type_exclude",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "leadership-type_exclude",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "modified_after",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "modified_before",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "order",
+                      "value": "desc"
+                    },
+                    {
+                      "key": "orderby",
+                      "value": "date"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "10"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "search_semantics",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "slug",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "slug",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "publish"
+                    },
+                    {
+                      "key": "tax_relation",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"rest_invalid_param\",\n  \"message\": \"Invalid parameter(s): per_page\",\n  \"data\": {\n    \"status\": 400,\n    \"params\": {\n      \"per_page\": \"per_page must be between 1 (inclusive) and 100 (inclusive)\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bc8d8b6c-8481-4265-8665-06eb57328507",
+          "name": "Get a leadership record",
+          "request": {
+            "name": "Get a leadership record",
+            "description": {
+              "content": "Retrieve a single leadership record by its numeric id.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "wp",
+                "v2",
+                "energyx-leadership",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "context",
+                  "value": "view",
+                  "description": "Scope under which the request is made; determines fields present in response."
+                },
+                {
+                  "disabled": false,
+                  "key": "excerpt_length",
+                  "value": "<integer>",
+                  "description": "Override the default excerpt length."
+                },
+                {
+                  "disabled": false,
+                  "key": "password",
+                  "value": "<string>",
+                  "description": "The password for the post if it is password protected."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) Unique identifier for the resource."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "02c490ab-73f5-4412-8fc5-65e6734a9b43",
+              "name": "Get a leadership record",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wp",
+                    "v2",
+                    "energyx-leadership",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "context",
+                      "value": "view"
+                    },
+                    {
+                      "key": "excerpt_length",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "password",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Unique identifier for the resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"date\": \"2020-08-17T08:17:15.907Z\",\n  \"date_gmt\": \"1973-05-05T23:36:22.337Z\",\n  \"guid\": {\n    \"raw\": \"string\",\n    \"rendered\": \"string\"\n  },\n  \"id\": 2943,\n  \"link\": \"http://mMfAlurN.rbedszgeoNUw.gUaleSO1fY\",\n  \"modified\": \"2004-02-25T22:14:39.402Z\",\n  \"modified_gmt\": \"2025-06-01T21:18:04.407Z\",\n  \"slug\": \"string\",\n  \"status\": \"private\",\n  \"type\": \"string\",\n  \"password\": \"string\",\n  \"permalink_template\": \"string\",\n  \"generated_slug\": \"string\",\n  \"class_list\": [\n    \"string\",\n    \"string\"\n  ],\n  \"title\": {\n    \"raw\": \"string\",\n    \"rendered\": \"string\"\n  },\n  \"content\": {\n    \"raw\": \"string\",\n    \"rendered\": \"string\",\n    \"block_version\": 7199,\n    \"protected\": false\n  },\n  \"excerpt\": {\n    \"raw\": \"string\",\n    \"rendered\": \"string\",\n    \"protected\": false\n  },\n  \"featured_media\": 4167,\n  \"template\": \"string\",\n  \"leadership-type\": [\n    795,\n    3453\n  ],\n  \"jetpack_sharing_enabled\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "957fcdda-12e8-4107-b120-7f6267cdab6c",
+              "name": "No route matched, or the identifier does not resolve to a published object.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wp",
+                    "v2",
+                    "energyx-leadership",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "context",
+                      "value": "view"
+                    },
+                    {
+                      "key": "excerpt_length",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "password",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Unique identifier for the resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"rest_post_invalid_id\",\n  \"message\": \"Invalid post ID.\",\n  \"data\": {\n    \"status\": 404\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://energyx.com/wp-json",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "4c37ac8e-cd2d-4989-97f7-d4e81f07474b",
+    "name": "EnergyX Leadership API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Public, unauthenticated read access to the EnergyX leadership roster — executives, board members and advisors behind energyx.com/company/ — classified by the site-specific leadership-type taxonomy. Verified live at 33 published records across 7 leadership types.\n\nContact Support:\n Name: EnergyX",
+      "type": "text/plain"
+    }
+  }
+}

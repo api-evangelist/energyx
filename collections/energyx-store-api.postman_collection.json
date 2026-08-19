@@ -1,0 +1,1832 @@
+{
+  "item": [
+    {
+      "id": "fe663bbd-dd40-4fcc-b749-6814bd04f887",
+      "name": "Store",
+      "description": {
+        "content": "WooCommerce Store API — the anonymous storefront catalog.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "83bcaf7d-4b6c-4110-91f1-9cdc372f1f7e",
+          "name": "List store products",
+          "request": {
+            "name": "List store products",
+            "description": {
+              "content": "Retrieve the anonymous storefront product catalog with prices, images and stock.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "wc",
+                "store",
+                "v1",
+                "products"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "after",
+                  "value": "<dateTime>",
+                  "description": "Limit response to resources created after a given ISO8601 compliant date."
+                },
+                {
+                  "disabled": false,
+                  "key": "attribute_relation",
+                  "value": "and",
+                  "description": "The logical relationship between attributes when filtering across multiple at once."
+                },
+                {
+                  "disabled": false,
+                  "key": "before",
+                  "value": "<dateTime>",
+                  "description": "Limit response to resources created before a given ISO8601 compliant date."
+                },
+                {
+                  "disabled": false,
+                  "key": "brand",
+                  "value": "<string>",
+                  "description": "Limit result set to products assigned a set of brand IDs or slugs, separated by commas."
+                },
+                {
+                  "disabled": false,
+                  "key": "brand_operator",
+                  "value": "in",
+                  "description": "Operator to compare product brand terms."
+                },
+                {
+                  "disabled": false,
+                  "key": "catalog_visibility",
+                  "value": "<string>",
+                  "description": "Determines if hidden or visible catalog products are shown."
+                },
+                {
+                  "disabled": false,
+                  "key": "category",
+                  "value": "<string>",
+                  "description": "Limit result set to products assigned a set of category IDs or slugs, separated by commas."
+                },
+                {
+                  "disabled": false,
+                  "key": "category_operator",
+                  "value": "in",
+                  "description": "Operator to compare product category terms."
+                },
+                {
+                  "disabled": false,
+                  "key": "context",
+                  "value": "view",
+                  "description": "Scope under which the request is made; determines fields present in response."
+                },
+                {
+                  "disabled": false,
+                  "key": "date_column",
+                  "value": "date",
+                  "description": "When limiting response using after/before, which date column to compare against."
+                },
+                {
+                  "disabled": false,
+                  "key": "featured",
+                  "value": "<boolean>",
+                  "description": "Limit result set to featured products."
+                },
+                {
+                  "disabled": false,
+                  "key": "max_price",
+                  "value": "<string>",
+                  "description": "Limit result set to products based on a maximum price, provided using the smallest unit of the currency."
+                },
+                {
+                  "disabled": false,
+                  "key": "min_price",
+                  "value": "<string>",
+                  "description": "Limit result set to products based on a minimum price, provided using the smallest unit of the currency."
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "<integer>",
+                  "description": "Offset the result set by a specific number of items."
+                },
+                {
+                  "disabled": false,
+                  "key": "on_sale",
+                  "value": "<boolean>",
+                  "description": "Limit result set to products on sale."
+                },
+                {
+                  "disabled": false,
+                  "key": "order",
+                  "value": "desc",
+                  "description": "Order sort attribute ascending or descending."
+                },
+                {
+                  "disabled": false,
+                  "key": "orderby",
+                  "value": "date",
+                  "description": "Sort collection by object attribute."
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Current page of the collection."
+                },
+                {
+                  "disabled": false,
+                  "key": "per_page",
+                  "value": "10",
+                  "description": "Maximum number of items to be returned in result set."
+                },
+                {
+                  "disabled": false,
+                  "key": "related",
+                  "value": "<integer>",
+                  "description": "Limit result set to products related to a specific product ID."
+                },
+                {
+                  "disabled": false,
+                  "key": "search",
+                  "value": "<string>",
+                  "description": "Limit results to those matching a string."
+                },
+                {
+                  "disabled": false,
+                  "key": "sku",
+                  "value": "<string>",
+                  "description": "Limit result set to products with specific SKU(s). Use commas to separate."
+                },
+                {
+                  "disabled": false,
+                  "key": "slug",
+                  "value": "<string>",
+                  "description": "Limit result set to products with specific slug(s). Use commas to separate."
+                },
+                {
+                  "disabled": false,
+                  "key": "tag",
+                  "value": "<string>",
+                  "description": "Limit result set to products assigned a set of tag IDs or slugs, separated by commas."
+                },
+                {
+                  "disabled": false,
+                  "key": "tag_operator",
+                  "value": "in",
+                  "description": "Operator to compare product tags."
+                },
+                {
+                  "disabled": false,
+                  "key": "type",
+                  "value": "<string>",
+                  "description": "Limit result set to products assigned a specific type."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8d4621b9-fb65-404d-8ee8-f7519f05e412",
+              "name": "List store products",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wc",
+                    "store",
+                    "v1",
+                    "products"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "after",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "attribute_relation",
+                      "value": "and"
+                    },
+                    {
+                      "key": "before",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "brand",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "brand_operator",
+                      "value": "in"
+                    },
+                    {
+                      "key": "catalog_visibility",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "category",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "category_operator",
+                      "value": "in"
+                    },
+                    {
+                      "key": "context",
+                      "value": "view"
+                    },
+                    {
+                      "key": "date_column",
+                      "value": "date"
+                    },
+                    {
+                      "key": "featured",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "max_price",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "min_price",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "on_sale",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "order",
+                      "value": "desc"
+                    },
+                    {
+                      "key": "orderby",
+                      "value": "date"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "10"
+                    },
+                    {
+                      "key": "related",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sku",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "slug",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tag",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tag_operator",
+                      "value": "in"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Total records matching the query.",
+                  "key": "X-WP-Total",
+                  "value": "3129"
+                },
+                {
+                  "disabled": false,
+                  "description": "Total pages available at the current per_page.",
+                  "key": "X-WP-TotalPages",
+                  "value": "3129"
+                },
+                {
+                  "disabled": false,
+                  "description": "RFC 8288 web links; rel=\"next\" / rel=\"prev\" pagination.",
+                  "key": "Link",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": 6054,\n    \"name\": \"string\",\n    \"slug\": \"string\",\n    \"parent\": 8388,\n    \"type\": \"string\",\n    \"variation\": \"string\",\n    \"permalink\": \"http://FsfgpbWGziXPtsDpOOibPHbJPkjR.tojaX5bmicgIHAm.RETXGEdRtTkJe0LoDayKkVRH+04l0M2wb6o3jUjRT,nDF73S+yl\",\n    \"short_description\": \"string\",\n    \"description\": \"string\",\n    \"on_sale\": true,\n    \"sku\": \"string\",\n    \"prices\": {\n      \"currency_code\": \"string\",\n      \"currency_symbol\": \"string\",\n      \"currency_minor_unit\": 5225,\n      \"currency_decimal_separator\": \"string\",\n      \"currency_thousand_separator\": \"string\",\n      \"currency_prefix\": \"string\",\n      \"currency_suffix\": \"string\",\n      \"price\": \"string\",\n      \"regular_price\": \"string\",\n      \"sale_price\": \"string\",\n      \"price_range\": {\n        \"min_amount\": \"string\",\n        \"max_amount\": \"string\"\n      }\n    },\n    \"price_html\": \"string\",\n    \"average_rating\": \"string\",\n    \"review_count\": 4448,\n    \"images\": [\n      {\n        \"id\": 9905,\n        \"src\": \"http://txdBGoKDCepXxrKmijZGOMX.ubeoTkpX72.oIQRs4M.tg3XlVc\",\n        \"thumbnail\": \"https://WgGCIRaGZsJz.qfkyAW,jzJCYUacz1KfUPH,+C3SVQBuh75VDIYUtLE-lAv-MbH2C\",\n        \"srcset\": \"string\",\n        \"sizes\": \"string\",\n        \"thumbnail_srcset\": \"string\",\n        \"thumbnail_sizes\": \"string\",\n        \"name\": \"string\",\n        \"alt\": \"string\"\n      },\n      {\n        \"id\": 6225,\n        \"src\": \"https://wyjSftEFFvPQSNjizJvsgo.fmkgZnBQ.caY3T.eYQrmS2ejU4w9inJqb6pqO2ADI2HrS5-6gUW0Ku7o2SJa\",\n        \"thumbnail\": \"http://Eopf.etkSHC6LNNKAvOZckbFxmR6V.fQzt\",\n        \"srcset\": \"string\",\n        \"sizes\": \"string\",\n        \"thumbnail_srcset\": \"string\",\n        \"thumbnail_sizes\": \"string\",\n        \"name\": \"string\",\n        \"alt\": \"string\"\n      }\n    ],\n    \"categories\": [\n      {\n        \"id\": 9089.477605585387,\n        \"name\": \"string\",\n        \"slug\": \"string\",\n        \"link\": \"string\"\n      },\n      {\n        \"id\": 7306.480121145545,\n        \"name\": \"string\",\n        \"slug\": \"string\",\n        \"link\": \"string\"\n      }\n    ],\n    \"tags\": [\n      {\n        \"id\": 2455.3439777742483,\n        \"name\": \"string\",\n        \"slug\": \"string\",\n        \"link\": \"string\"\n      },\n      {\n        \"id\": 7706.939899042857,\n        \"name\": \"string\",\n        \"slug\": \"string\",\n        \"link\": \"string\"\n      }\n    ],\n    \"brands\": [\n      {\n        \"id\": 1022.167779262606,\n        \"name\": \"string\",\n        \"slug\": \"string\",\n        \"link\": \"string\"\n      },\n      {\n        \"id\": 7790.7083303064155,\n        \"name\": \"string\",\n        \"slug\": \"string\",\n        \"link\": \"string\"\n      }\n    ],\n    \"attributes\": [\n      {\n        \"id\": 1514,\n        \"name\": \"string\",\n        \"taxonomy\": \"string\",\n        \"has_variations\": true,\n        \"terms\": [\n          {\n            \"id\": 8429,\n            \"name\": \"string\",\n            \"slug\": \"string\",\n            \"default\": false\n          },\n          {\n            \"id\": 2625,\n            \"name\": \"string\",\n            \"slug\": \"string\",\n            \"default\": true\n          }\n        ]\n      },\n      {\n        \"id\": 1114,\n        \"name\": \"string\",\n        \"taxonomy\": \"string\",\n        \"has_variations\": true,\n        \"terms\": [\n          {\n            \"id\": 2188,\n            \"name\": \"string\",\n            \"slug\": \"string\",\n            \"default\": true\n          },\n          {\n            \"id\": 9212,\n            \"name\": \"string\",\n            \"slug\": \"string\",\n            \"default\": true\n          }\n        ]\n      }\n    ],\n    \"variations\": [\n      {\n        \"id\": 7924,\n        \"attributes\": [\n          {\n            \"name\": \"string\",\n            \"value\": \"string\"\n          },\n          {\n            \"name\": \"string\",\n            \"value\": \"string\"\n          }\n        ]\n      },\n      {\n        \"id\": 1484,\n        \"attributes\": [\n          {\n            \"name\": \"string\",\n            \"value\": \"string\"\n          },\n          {\n            \"name\": \"string\",\n            \"value\": \"string\"\n          }\n        ]\n      }\n    ],\n    \"grouped_products\": [\n      1968,\n      8981\n    ],\n    \"has_options\": false,\n    \"is_purchasable\": false,\n    \"is_in_stock\": true,\n    \"is_on_backorder\": false,\n    \"stock_availability\": {\n      \"text\": \"string\",\n      \"class\": \"string\"\n    },\n    \"low_stock_remaining\": 3529.030368377566,\n    \"sold_individually\": true,\n    \"weight\": \"string\",\n    \"dimensions\": {\n      \"length\": \"string\",\n      \"width\": \"string\",\n      \"height\": \"string\"\n    },\n    \"formatted_weight\": \"string\",\n    \"formatted_dimensions\": \"string\",\n    \"add_to_cart\": {\n      \"text\": \"string\",\n      \"description\": \"string\",\n      \"url\": \"string\",\n      \"minimum\": 1673.7131012173957,\n      \"maximum\": 2901.794535316001,\n      \"multiple_of\": 4955.818317151043,\n      \"single_text\": \"string\"\n    },\n    \"is_password_protected\": false,\n    \"extensions\": {}\n  },\n  {\n    \"id\": 5643,\n    \"name\": \"string\",\n    \"slug\": \"string\",\n    \"parent\": 7749,\n    \"type\": \"string\",\n    \"variation\": \"string\",\n    \"permalink\": \"http://izdMMpCccGddrneiHAsDxW.nusneSc,on-y9FmW5xHMleSVLumSiukhnlNHudlj1EtBrGOJ6Sz5VvChksVw9c,\",\n    \"short_description\": \"string\",\n    \"description\": \"string\",\n    \"on_sale\": true,\n    \"sku\": \"string\",\n    \"prices\": {\n      \"currency_code\": \"string\",\n      \"currency_symbol\": \"string\",\n      \"currency_minor_unit\": 1699,\n      \"currency_decimal_separator\": \"string\",\n      \"currency_thousand_separator\": \"string\",\n      \"currency_prefix\": \"string\",\n      \"currency_suffix\": \"string\",\n      \"price\": \"string\",\n      \"regular_price\": \"string\",\n      \"sale_price\": \"string\",\n      \"price_range\": {\n        \"min_amount\": \"string\",\n        \"max_amount\": \"string\"\n      }\n    },\n    \"price_html\": \"string\",\n    \"average_rating\": \"string\",\n    \"review_count\": 855,\n    \"images\": [\n      {\n        \"id\": 4810,\n        \"src\": \"https://epAiCUPFlJySIzGTFBJV.wlcD71kemo8QCxinjC\",\n        \"thumbnail\": \"http://HkbSnYxGEgNctFDGNJcwhFUR.ledwKIWivH4uniiVGgBB7fZcvDVLyuxgxH0euJ3lBxpb9hbnzAn201DnRgR\",\n        \"srcset\": \"string\",\n        \"sizes\": \"string\",\n        \"thumbnail_srcset\": \"string\",\n        \"thumbnail_sizes\": \"string\",\n        \"name\": \"string\",\n        \"alt\": \"string\"\n      },\n      {\n        \"id\": 8393,\n        \"src\": \"http://hUmlfbQo.zkcqjwRzO5MbcabwbDwU--b7ZUo+MkFTZfNDEoIqtsM4H3qLJ,1UQEXQyEtsZOL6gF\",\n        \"thumbnail\": \"https://XERqhZqjUkqFTUTOoOusluztxs.udbEwJK8CX\",\n        \"srcset\": \"string\",\n        \"sizes\": \"string\",\n        \"thumbnail_srcset\": \"string\",\n        \"thumbnail_sizes\": \"string\",\n        \"name\": \"string\",\n        \"alt\": \"string\"\n      }\n    ],\n    \"categories\": [\n      {\n        \"id\": 9555.741426272574,\n        \"name\": \"string\",\n        \"slug\": \"string\",\n        \"link\": \"string\"\n      },\n      {\n        \"id\": 7045.993314411172,\n        \"name\": \"string\",\n        \"slug\": \"string\",\n        \"link\": \"string\"\n      }\n    ],\n    \"tags\": [\n      {\n        \"id\": 7423.012720310411,\n        \"name\": \"string\",\n        \"slug\": \"string\",\n        \"link\": \"string\"\n      },\n      {\n        \"id\": 3619.9072057041594,\n        \"name\": \"string\",\n        \"slug\": \"string\",\n        \"link\": \"string\"\n      }\n    ],\n    \"brands\": [\n      {\n        \"id\": 7025.3300287354505,\n        \"name\": \"string\",\n        \"slug\": \"string\",\n        \"link\": \"string\"\n      },\n      {\n        \"id\": 9515.784442308188,\n        \"name\": \"string\",\n        \"slug\": \"string\",\n        \"link\": \"string\"\n      }\n    ],\n    \"attributes\": [\n      {\n        \"id\": 254,\n        \"name\": \"string\",\n        \"taxonomy\": \"string\",\n        \"has_variations\": true,\n        \"terms\": [\n          {\n            \"id\": 2527,\n            \"name\": \"string\",\n            \"slug\": \"string\",\n            \"default\": false\n          },\n          {\n            \"id\": 2405,\n            \"name\": \"string\",\n            \"slug\": \"string\",\n            \"default\": false\n          }\n        ]\n      },\n      {\n        \"id\": 4975,\n        \"name\": \"string\",\n        \"taxonomy\": \"string\",\n        \"has_variations\": true,\n        \"terms\": [\n          {\n            \"id\": 8504,\n            \"name\": \"string\",\n            \"slug\": \"string\",\n            \"default\": true\n          },\n          {\n            \"id\": 2168,\n            \"name\": \"string\",\n            \"slug\": \"string\",\n            \"default\": true\n          }\n        ]\n      }\n    ],\n    \"variations\": [\n      {\n        \"id\": 1914,\n        \"attributes\": [\n          {\n            \"name\": \"string\",\n            \"value\": \"string\"\n          },\n          {\n            \"name\": \"string\",\n            \"value\": \"string\"\n          }\n        ]\n      },\n      {\n        \"id\": 4653,\n        \"attributes\": [\n          {\n            \"name\": \"string\",\n            \"value\": \"string\"\n          },\n          {\n            \"name\": \"string\",\n            \"value\": \"string\"\n          }\n        ]\n      }\n    ],\n    \"grouped_products\": [\n      9204,\n      9213\n    ],\n    \"has_options\": false,\n    \"is_purchasable\": true,\n    \"is_in_stock\": true,\n    \"is_on_backorder\": false,\n    \"stock_availability\": {\n      \"text\": \"string\",\n      \"class\": \"string\"\n    },\n    \"low_stock_remaining\": 3708.724281867468,\n    \"sold_individually\": true,\n    \"weight\": \"string\",\n    \"dimensions\": {\n      \"length\": \"string\",\n      \"width\": \"string\",\n      \"height\": \"string\"\n    },\n    \"formatted_weight\": \"string\",\n    \"formatted_dimensions\": \"string\",\n    \"add_to_cart\": {\n      \"text\": \"string\",\n      \"description\": \"string\",\n      \"url\": \"string\",\n      \"minimum\": 9915.124792206976,\n      \"maximum\": 2749.0273447103673,\n      \"multiple_of\": 4979.431034042392,\n      \"single_text\": \"string\"\n    },\n    \"is_password_protected\": false,\n    \"extensions\": {}\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b2abbb77-34c1-4577-98dc-8a920738efc7",
+              "name": "Invalid parameter. WordPress REST error envelope.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wc",
+                    "store",
+                    "v1",
+                    "products"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "after",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "attribute_relation",
+                      "value": "and"
+                    },
+                    {
+                      "key": "before",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "brand",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "brand_operator",
+                      "value": "in"
+                    },
+                    {
+                      "key": "catalog_visibility",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "category",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "category_operator",
+                      "value": "in"
+                    },
+                    {
+                      "key": "context",
+                      "value": "view"
+                    },
+                    {
+                      "key": "date_column",
+                      "value": "date"
+                    },
+                    {
+                      "key": "featured",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "max_price",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "min_price",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "on_sale",
+                      "value": "<boolean>"
+                    },
+                    {
+                      "key": "order",
+                      "value": "desc"
+                    },
+                    {
+                      "key": "orderby",
+                      "value": "date"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "10"
+                    },
+                    {
+                      "key": "related",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sku",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "slug",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tag",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "tag_operator",
+                      "value": "in"
+                    },
+                    {
+                      "key": "type",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"rest_invalid_param\",\n  \"message\": \"Invalid parameter(s): per_page\",\n  \"data\": {\n    \"status\": 400,\n    \"params\": {\n      \"per_page\": \"per_page must be between 1 (inclusive) and 100 (inclusive)\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1fafbf2f-3b4d-480d-8d36-dabdfbf2d9b7",
+          "name": "Get a store product",
+          "request": {
+            "name": "Get a store product",
+            "description": {
+              "content": "Retrieve a single storefront product by its numeric id.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "wc",
+                "store",
+                "v1",
+                "products",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "context",
+                  "value": "view",
+                  "description": "Scope under which the request is made; determines fields present in response."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) Unique identifier for the resource."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "de80d610-6998-4cfd-b7dc-8d788976e702",
+              "name": "Get a store product",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wc",
+                    "store",
+                    "v1",
+                    "products",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "context",
+                      "value": "view"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Unique identifier for the resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 9072,\n  \"name\": \"string\",\n  \"slug\": \"string\",\n  \"parent\": 1788,\n  \"type\": \"string\",\n  \"variation\": \"string\",\n  \"permalink\": \"https://yzhhKWwuBUVONLbBdudgAxNRTuOxlu.hxjprEli2ztOBEaVnwxf2AuHL6x.c0X5kQwY.RAAlnSYMsvNTN4Yezzr+.bXsGpN6W7UeNMoih7rr\",\n  \"short_description\": \"string\",\n  \"description\": \"string\",\n  \"on_sale\": true,\n  \"sku\": \"string\",\n  \"prices\": {\n    \"currency_code\": \"string\",\n    \"currency_symbol\": \"string\",\n    \"currency_minor_unit\": 8875,\n    \"currency_decimal_separator\": \"string\",\n    \"currency_thousand_separator\": \"string\",\n    \"currency_prefix\": \"string\",\n    \"currency_suffix\": \"string\",\n    \"price\": \"string\",\n    \"regular_price\": \"string\",\n    \"sale_price\": \"string\",\n    \"price_range\": {\n      \"min_amount\": \"string\",\n      \"max_amount\": \"string\"\n    }\n  },\n  \"price_html\": \"string\",\n  \"average_rating\": \"string\",\n  \"review_count\": 8582,\n  \"images\": [\n    {\n      \"id\": 8411,\n      \"src\": \"http://Jfx.ulfyRcF7pX7oCH0feHwU+tOy9BZY5w\",\n      \"thumbnail\": \"http://CMiGXweikAeLjSHBwErMDg.kbRkwphFjCQL-.uoBRLY5paV2aWKoKjsCfaW-lH1Uhpr6NS9OHAkL8zLo-\",\n      \"srcset\": \"string\",\n      \"sizes\": \"string\",\n      \"thumbnail_srcset\": \"string\",\n      \"thumbnail_sizes\": \"string\",\n      \"name\": \"string\",\n      \"alt\": \"string\"\n    },\n    {\n      \"id\": 9468,\n      \"src\": \"http://x.bahL-c1qZBGGfl-m4Zx+GCM1Bgnp+P,gGP,AUCmLFp\",\n      \"thumbnail\": \"http://zlNCHKeh.tzwPa+OV8ytWhHmyGdUXSvgkyVlxoSc-DGp01FjQz5lDWAfaH8BQ3RRikIyMrIp\",\n      \"srcset\": \"string\",\n      \"sizes\": \"string\",\n      \"thumbnail_srcset\": \"string\",\n      \"thumbnail_sizes\": \"string\",\n      \"name\": \"string\",\n      \"alt\": \"string\"\n    }\n  ],\n  \"categories\": [\n    {\n      \"id\": 7529.183506095446,\n      \"name\": \"string\",\n      \"slug\": \"string\",\n      \"link\": \"string\"\n    },\n    {\n      \"id\": 6377.883415584921,\n      \"name\": \"string\",\n      \"slug\": \"string\",\n      \"link\": \"string\"\n    }\n  ],\n  \"tags\": [\n    {\n      \"id\": 4258.732275686755,\n      \"name\": \"string\",\n      \"slug\": \"string\",\n      \"link\": \"string\"\n    },\n    {\n      \"id\": 6647.261618732815,\n      \"name\": \"string\",\n      \"slug\": \"string\",\n      \"link\": \"string\"\n    }\n  ],\n  \"brands\": [\n    {\n      \"id\": 7124.583160574306,\n      \"name\": \"string\",\n      \"slug\": \"string\",\n      \"link\": \"string\"\n    },\n    {\n      \"id\": 5076.066304089448,\n      \"name\": \"string\",\n      \"slug\": \"string\",\n      \"link\": \"string\"\n    }\n  ],\n  \"attributes\": [\n    {\n      \"id\": 6554,\n      \"name\": \"string\",\n      \"taxonomy\": \"string\",\n      \"has_variations\": true,\n      \"terms\": [\n        {\n          \"id\": 9965,\n          \"name\": \"string\",\n          \"slug\": \"string\",\n          \"default\": true\n        },\n        {\n          \"id\": 299,\n          \"name\": \"string\",\n          \"slug\": \"string\",\n          \"default\": false\n        }\n      ]\n    },\n    {\n      \"id\": 2780,\n      \"name\": \"string\",\n      \"taxonomy\": \"string\",\n      \"has_variations\": false,\n      \"terms\": [\n        {\n          \"id\": 4681,\n          \"name\": \"string\",\n          \"slug\": \"string\",\n          \"default\": true\n        },\n        {\n          \"id\": 6558,\n          \"name\": \"string\",\n          \"slug\": \"string\",\n          \"default\": true\n        }\n      ]\n    }\n  ],\n  \"variations\": [\n    {\n      \"id\": 6430,\n      \"attributes\": [\n        {\n          \"name\": \"string\",\n          \"value\": \"string\"\n        },\n        {\n          \"name\": \"string\",\n          \"value\": \"string\"\n        }\n      ]\n    },\n    {\n      \"id\": 9417,\n      \"attributes\": [\n        {\n          \"name\": \"string\",\n          \"value\": \"string\"\n        },\n        {\n          \"name\": \"string\",\n          \"value\": \"string\"\n        }\n      ]\n    }\n  ],\n  \"grouped_products\": [\n    1503,\n    2311\n  ],\n  \"has_options\": true,\n  \"is_purchasable\": false,\n  \"is_in_stock\": true,\n  \"is_on_backorder\": true,\n  \"stock_availability\": {\n    \"text\": \"string\",\n    \"class\": \"string\"\n  },\n  \"low_stock_remaining\": 7097.0465527039905,\n  \"sold_individually\": false,\n  \"weight\": \"string\",\n  \"dimensions\": {\n    \"length\": \"string\",\n    \"width\": \"string\",\n    \"height\": \"string\"\n  },\n  \"formatted_weight\": \"string\",\n  \"formatted_dimensions\": \"string\",\n  \"add_to_cart\": {\n    \"text\": \"string\",\n    \"description\": \"string\",\n    \"url\": \"string\",\n    \"minimum\": 9007.498533580361,\n    \"maximum\": 6634.056964210476,\n    \"multiple_of\": 7009.336268626168,\n    \"single_text\": \"string\"\n  },\n  \"is_password_protected\": false,\n  \"extensions\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "846df587-78db-4359-80a5-f624a2905b66",
+              "name": "No route matched, or the identifier does not resolve to a published object.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wc",
+                    "store",
+                    "v1",
+                    "products",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "context",
+                      "value": "view"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Unique identifier for the resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"rest_post_invalid_id\",\n  \"message\": \"Invalid post ID.\",\n  \"data\": {\n    \"status\": 404\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e0c12216-bd39-435f-8223-2e3680c616b8",
+          "name": "List store product categories",
+          "request": {
+            "name": "List store product categories",
+            "description": {
+              "content": "Retrieve the storefront product categories and their counts.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "wc",
+                "store",
+                "v1",
+                "products",
+                "categories"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "context",
+                  "value": "view",
+                  "description": "Scope under which the request is made; determines fields present in response."
+                },
+                {
+                  "disabled": false,
+                  "key": "hide_empty",
+                  "value": "true",
+                  "description": "If true, empty terms will not be returned."
+                },
+                {
+                  "disabled": false,
+                  "key": "order",
+                  "value": "asc",
+                  "description": "Sort ascending or descending."
+                },
+                {
+                  "disabled": false,
+                  "key": "orderby",
+                  "value": "name",
+                  "description": "Sort by term property."
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Current page of the collection."
+                },
+                {
+                  "disabled": false,
+                  "key": "parent",
+                  "value": "<integer>",
+                  "description": "Limit results to terms with a specific parent (hierarchical taxonomies only)."
+                },
+                {
+                  "disabled": false,
+                  "key": "per_page",
+                  "value": "<integer>",
+                  "description": "Maximum number of items to be returned in result set. Defaults to no limit if left blank."
+                },
+                {
+                  "disabled": false,
+                  "key": "search",
+                  "value": "<string>",
+                  "description": "Limit results to those matching a string."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "418e9e32-33ed-489a-ad9a-55435fd1129d",
+              "name": "List store product categories",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wc",
+                    "store",
+                    "v1",
+                    "products",
+                    "categories"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "context",
+                      "value": "view"
+                    },
+                    {
+                      "key": "hide_empty",
+                      "value": "true"
+                    },
+                    {
+                      "key": "order",
+                      "value": "asc"
+                    },
+                    {
+                      "key": "orderby",
+                      "value": "name"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "parent",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Total records matching the query.",
+                  "key": "X-WP-Total",
+                  "value": "3129"
+                },
+                {
+                  "disabled": false,
+                  "description": "Total pages available at the current per_page.",
+                  "key": "X-WP-TotalPages",
+                  "value": "3129"
+                },
+                {
+                  "disabled": false,
+                  "description": "RFC 8288 web links; rel=\"next\" / rel=\"prev\" pagination.",
+                  "key": "Link",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": 7186,\n    \"name\": \"string\",\n    \"slug\": \"string\",\n    \"description\": \"string\",\n    \"parent\": 2221,\n    \"count\": 2766,\n    \"image\": {\n      \"id\": 3045,\n      \"src\": \"http://aSNZzCRlBTytWtuIFmZgGArz.ygrEE98U6fpRYjRQc\",\n      \"thumbnail\": \"https://kwJvDyeBkZZOCqvLpnRXfmG.plyrp6yJaEsfHyjOGErKMtttRuYD9UVB-\",\n      \"srcset\": \"string\",\n      \"sizes\": \"string\",\n      \"thumbnail_srcset\": \"string\",\n      \"thumbnail_sizes\": \"string\",\n      \"name\": \"string\",\n      \"alt\": \"string\"\n    },\n    \"review_count\": 4747,\n    \"permalink\": \"https://XGz.oonoVI1ZGwc.vxsJuy1jszurKEiwnrRFn8ysE91mhL-qJ5VO-XWauDLEC4lUCytePc1fH.xGzXP\"\n  },\n  {\n    \"id\": 2388,\n    \"name\": \"string\",\n    \"slug\": \"string\",\n    \"description\": \"string\",\n    \"parent\": 2356,\n    \"count\": 9972,\n    \"image\": {\n      \"id\": 6376,\n      \"src\": \"http://tv.xckidOXk,AVUcEwmIQj7CGeWkzdhTARKZfcg\",\n      \"thumbnail\": \"https://VLqwY.ipclyFEXbqUnsgF.Vm2txknN6jn9KqunozoGda8uNFUAQbx\",\n      \"srcset\": \"string\",\n      \"sizes\": \"string\",\n      \"thumbnail_srcset\": \"string\",\n      \"thumbnail_sizes\": \"string\",\n      \"name\": \"string\",\n      \"alt\": \"string\"\n    },\n    \"review_count\": 6690,\n    \"permalink\": \"http://oWPwDxxLRQNHIDyo.mkbonShbqxRlZld.DCvxQ+GZPydv,hcuyV8K5cHblEE5T,Q8JZQT2s\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5a9850f4-adbe-4541-9444-4ccc1838bc35",
+              "name": "Invalid parameter. WordPress REST error envelope.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wc",
+                    "store",
+                    "v1",
+                    "products",
+                    "categories"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "context",
+                      "value": "view"
+                    },
+                    {
+                      "key": "hide_empty",
+                      "value": "true"
+                    },
+                    {
+                      "key": "order",
+                      "value": "asc"
+                    },
+                    {
+                      "key": "orderby",
+                      "value": "name"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "parent",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"rest_invalid_param\",\n  \"message\": \"Invalid parameter(s): per_page\",\n  \"data\": {\n    \"status\": 400,\n    \"params\": {\n      \"per_page\": \"per_page must be between 1 (inclusive) and 100 (inclusive)\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "76728bf0-536f-4aa7-87c6-39221f9c3820",
+          "name": "Get a store product category",
+          "request": {
+            "name": "Get a store product category",
+            "description": {
+              "content": "Retrieve a single storefront product category by its numeric id.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "wc",
+                "store",
+                "v1",
+                "products",
+                "categories",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "context",
+                  "value": "view",
+                  "description": "Scope under which the request is made; determines fields present in response."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) Unique identifier for the resource."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8abab5cb-1b7e-4e4d-837d-7729a0a4e7fc",
+              "name": "Get a store product category",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wc",
+                    "store",
+                    "v1",
+                    "products",
+                    "categories",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "context",
+                      "value": "view"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Unique identifier for the resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": 5368,\n  \"name\": \"string\",\n  \"slug\": \"string\",\n  \"description\": \"string\",\n  \"parent\": 7692,\n  \"count\": 2506,\n  \"image\": {\n    \"id\": 1782,\n    \"src\": \"http://onZFzWCVhWmVtUiMP.mlgzu8x.SF3lXSawQI,UQhuyE8dDkBHpikmDiwpcTQDWaDkJ\",\n    \"thumbnail\": \"https://AqlSWrPotIjcGIBmkUUPHPnpYvbVLPo.skcwgB02C4J6AHzso3YC-boE9aQQNr2xKt5b73V\",\n    \"srcset\": \"string\",\n    \"sizes\": \"string\",\n    \"thumbnail_srcset\": \"string\",\n    \"thumbnail_sizes\": \"string\",\n    \"name\": \"string\",\n    \"alt\": \"string\"\n  },\n  \"review_count\": 3733,\n  \"permalink\": \"http://ZaFTOwzoGHHoTfUtDOv.bvoiy0Qd3F4qh.3dvsRezhjeLODrdBrf+UKcmJvXbPEil+AUPX+Q3C\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a7e82cc1-6d9e-4c3a-b0a6-420c380b1596",
+              "name": "No route matched, or the identifier does not resolve to a published object.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wc",
+                    "store",
+                    "v1",
+                    "products",
+                    "categories",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "context",
+                      "value": "view"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Unique identifier for the resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"rest_post_invalid_id\",\n  \"message\": \"Invalid post ID.\",\n  \"data\": {\n    \"status\": 404\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "9b9cbf48-4e47-4485-8a45-d4b5a993534b",
+      "name": "Products",
+      "description": {
+        "content": "The product catalog as WordPress core content records.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "b714a155-7d65-4e24-a46c-0ee957f7cd91",
+          "name": "List products",
+          "request": {
+            "name": "List products",
+            "description": {
+              "content": "Retrieve the product catalog as WordPress core content records.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "wp",
+                "v2",
+                "product"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "after",
+                  "value": "<dateTime>",
+                  "description": "Limit response to posts published after a given ISO8601 compliant date."
+                },
+                {
+                  "disabled": false,
+                  "key": "before",
+                  "value": "<dateTime>",
+                  "description": "Limit response to posts published before a given ISO8601 compliant date."
+                },
+                {
+                  "disabled": false,
+                  "key": "brand",
+                  "value": "<string>",
+                  "description": "Limit result set to products assigned a specific brand ID."
+                },
+                {
+                  "disabled": false,
+                  "key": "context",
+                  "value": "view",
+                  "description": "Scope under which the request is made; determines fields present in response."
+                },
+                {
+                  "disabled": false,
+                  "key": "modified_after",
+                  "value": "<dateTime>",
+                  "description": "Limit response to posts modified after a given ISO8601 compliant date."
+                },
+                {
+                  "disabled": false,
+                  "key": "modified_before",
+                  "value": "<dateTime>",
+                  "description": "Limit response to posts modified before a given ISO8601 compliant date."
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "<integer>",
+                  "description": "Offset the result set by a specific number of items."
+                },
+                {
+                  "disabled": false,
+                  "key": "order",
+                  "value": "desc",
+                  "description": "Order sort attribute ascending or descending."
+                },
+                {
+                  "disabled": false,
+                  "key": "orderby",
+                  "value": "date",
+                  "description": "Sort collection by post attribute."
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Current page of the collection."
+                },
+                {
+                  "disabled": false,
+                  "key": "per_page",
+                  "value": "10",
+                  "description": "Maximum number of items to be returned in result set."
+                },
+                {
+                  "disabled": false,
+                  "key": "product_brand",
+                  "value": "<integer>",
+                  "description": "Limit result set to items with specific terms assigned in the product_brand taxonomy."
+                },
+                {
+                  "disabled": false,
+                  "key": "product_brand",
+                  "value": "<integer>",
+                  "description": "Limit result set to items with specific terms assigned in the product_brand taxonomy."
+                },
+                {
+                  "disabled": false,
+                  "key": "product_brand_exclude",
+                  "value": "<integer>",
+                  "description": "Limit result set to items except those with specific terms assigned in the product_brand taxonomy."
+                },
+                {
+                  "disabled": false,
+                  "key": "product_brand_exclude",
+                  "value": "<integer>",
+                  "description": "Limit result set to items except those with specific terms assigned in the product_brand taxonomy."
+                },
+                {
+                  "disabled": false,
+                  "key": "product_cat",
+                  "value": "<integer>",
+                  "description": "Limit result set to items with specific terms assigned in the product_cat taxonomy."
+                },
+                {
+                  "disabled": false,
+                  "key": "product_cat",
+                  "value": "<integer>",
+                  "description": "Limit result set to items with specific terms assigned in the product_cat taxonomy."
+                },
+                {
+                  "disabled": false,
+                  "key": "product_cat_exclude",
+                  "value": "<integer>",
+                  "description": "Limit result set to items except those with specific terms assigned in the product_cat taxonomy."
+                },
+                {
+                  "disabled": false,
+                  "key": "product_cat_exclude",
+                  "value": "<integer>",
+                  "description": "Limit result set to items except those with specific terms assigned in the product_cat taxonomy."
+                },
+                {
+                  "disabled": false,
+                  "key": "product_tag",
+                  "value": "<integer>",
+                  "description": "Limit result set to items with specific terms assigned in the product_tag taxonomy."
+                },
+                {
+                  "disabled": false,
+                  "key": "product_tag",
+                  "value": "<integer>",
+                  "description": "Limit result set to items with specific terms assigned in the product_tag taxonomy."
+                },
+                {
+                  "disabled": false,
+                  "key": "product_tag_exclude",
+                  "value": "<integer>",
+                  "description": "Limit result set to items except those with specific terms assigned in the product_tag taxonomy."
+                },
+                {
+                  "disabled": false,
+                  "key": "product_tag_exclude",
+                  "value": "<integer>",
+                  "description": "Limit result set to items except those with specific terms assigned in the product_tag taxonomy."
+                },
+                {
+                  "disabled": false,
+                  "key": "search",
+                  "value": "<string>",
+                  "description": "Limit results to those matching a string."
+                },
+                {
+                  "disabled": false,
+                  "key": "search_semantics",
+                  "value": "<string>",
+                  "description": "How to interpret the search input."
+                },
+                {
+                  "disabled": false,
+                  "key": "slug",
+                  "value": "<string>",
+                  "description": "Limit result set to posts with one or more specific slugs."
+                },
+                {
+                  "disabled": false,
+                  "key": "slug",
+                  "value": "<string>",
+                  "description": "Limit result set to posts with one or more specific slugs."
+                },
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "publish",
+                  "description": "Limit result set to posts assigned one or more statuses."
+                },
+                {
+                  "disabled": false,
+                  "key": "tax_relation",
+                  "value": "<string>",
+                  "description": "Limit result set based on relationship between multiple taxonomies."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "dfcd0579-6bc6-4ad9-834b-1aaae4188686",
+              "name": "List products",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wp",
+                    "v2",
+                    "product"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "after",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "before",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "brand",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "context",
+                      "value": "view"
+                    },
+                    {
+                      "key": "modified_after",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "modified_before",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "order",
+                      "value": "desc"
+                    },
+                    {
+                      "key": "orderby",
+                      "value": "date"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "10"
+                    },
+                    {
+                      "key": "product_brand",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "product_brand",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "product_brand_exclude",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "product_brand_exclude",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "product_cat",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "product_cat",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "product_cat_exclude",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "product_cat_exclude",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "product_tag",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "product_tag",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "product_tag_exclude",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "product_tag_exclude",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "search_semantics",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "slug",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "slug",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "publish"
+                    },
+                    {
+                      "key": "tax_relation",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Total records matching the query.",
+                  "key": "X-WP-Total",
+                  "value": "3129"
+                },
+                {
+                  "disabled": false,
+                  "description": "Total pages available at the current per_page.",
+                  "key": "X-WP-TotalPages",
+                  "value": "3129"
+                },
+                {
+                  "disabled": false,
+                  "description": "RFC 8288 web links; rel=\"next\" / rel=\"prev\" pagination.",
+                  "key": "Link",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"date\": \"2013-08-03T18:29:15.615Z\",\n    \"date_gmt\": \"2008-02-19T21:14:18.239Z\",\n    \"guid\": {\n      \"raw\": \"string\",\n      \"rendered\": \"string\"\n    },\n    \"id\": 2732,\n    \"link\": \"http://FuGOshrdVTfX.zlcvX.cduStU4uEDbVFrYBCybdQ7n502jVEdlCKkaGPN8iTude\",\n    \"modified\": \"2005-09-24T06:28:26.912Z\",\n    \"modified_gmt\": \"1959-08-20T18:06:04.057Z\",\n    \"slug\": \"string\",\n    \"status\": \"wc-active\",\n    \"type\": \"string\",\n    \"password\": \"string\",\n    \"permalink_template\": \"string\",\n    \"generated_slug\": \"string\",\n    \"class_list\": [\n      \"string\",\n      \"string\"\n    ],\n    \"title\": {\n      \"raw\": \"string\",\n      \"rendered\": \"string\"\n    },\n    \"content\": {\n      \"raw\": \"string\",\n      \"rendered\": \"string\",\n      \"block_version\": 4923,\n      \"protected\": false\n    },\n    \"excerpt\": {\n      \"raw\": \"string\",\n      \"rendered\": \"string\",\n      \"protected\": false\n    },\n    \"featured_media\": 9714,\n    \"comment_status\": \"open\",\n    \"ping_status\": \"closed\",\n    \"meta\": {\n      \"inline_featured_image\": true\n    },\n    \"template\": \"string\",\n    \"product_brand\": [\n      1427,\n      9871\n    ],\n    \"product_cat\": [\n      8518,\n      9195\n    ],\n    \"product_tag\": [\n      2816,\n      521\n    ],\n    \"jetpack_sharing_enabled\": false\n  },\n  {\n    \"date\": \"2006-10-10T09:25:56.783Z\",\n    \"date_gmt\": \"1957-12-02T14:50:19.980Z\",\n    \"guid\": {\n      \"raw\": \"string\",\n      \"rendered\": \"string\"\n    },\n    \"id\": 1982,\n    \"link\": \"https://atqtmLLwCsuLl.guipVya8STHiSF6Be-KTEXuTd5H\",\n    \"modified\": \"2013-08-17T01:40:13.615Z\",\n    \"modified_gmt\": \"1954-10-18T06:41:27.539Z\",\n    \"slug\": \"string\",\n    \"status\": \"private\",\n    \"type\": \"string\",\n    \"password\": \"string\",\n    \"permalink_template\": \"string\",\n    \"generated_slug\": \"string\",\n    \"class_list\": [\n      \"string\",\n      \"string\"\n    ],\n    \"title\": {\n      \"raw\": \"string\",\n      \"rendered\": \"string\"\n    },\n    \"content\": {\n      \"raw\": \"string\",\n      \"rendered\": \"string\",\n      \"block_version\": 3617,\n      \"protected\": false\n    },\n    \"excerpt\": {\n      \"raw\": \"string\",\n      \"rendered\": \"string\",\n      \"protected\": false\n    },\n    \"featured_media\": 6404,\n    \"comment_status\": \"closed\",\n    \"ping_status\": \"open\",\n    \"meta\": {\n      \"inline_featured_image\": true\n    },\n    \"template\": \"string\",\n    \"product_brand\": [\n      8274,\n      6947\n    ],\n    \"product_cat\": [\n      7000,\n      8272\n    ],\n    \"product_tag\": [\n      4756,\n      9393\n    ],\n    \"jetpack_sharing_enabled\": true\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7d5e7f59-9c9c-4c94-b47d-3cef7ce28600",
+              "name": "Invalid parameter. WordPress REST error envelope.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wp",
+                    "v2",
+                    "product"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "after",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "before",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "brand",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "context",
+                      "value": "view"
+                    },
+                    {
+                      "key": "modified_after",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "modified_before",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "order",
+                      "value": "desc"
+                    },
+                    {
+                      "key": "orderby",
+                      "value": "date"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "10"
+                    },
+                    {
+                      "key": "product_brand",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "product_brand",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "product_brand_exclude",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "product_brand_exclude",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "product_cat",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "product_cat",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "product_cat_exclude",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "product_cat_exclude",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "product_tag",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "product_tag",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "product_tag_exclude",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "product_tag_exclude",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "search_semantics",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "slug",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "slug",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "publish"
+                    },
+                    {
+                      "key": "tax_relation",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"rest_invalid_param\",\n  \"message\": \"Invalid parameter(s): per_page\",\n  \"data\": {\n    \"status\": 400,\n    \"params\": {\n      \"per_page\": \"per_page must be between 1 (inclusive) and 100 (inclusive)\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "466329f1-c365-457d-a464-e38578e16e9d",
+          "name": "Get a product",
+          "request": {
+            "name": "Get a product",
+            "description": {
+              "content": "Retrieve a single product content record by its numeric id.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "wp",
+                "v2",
+                "product",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "context",
+                  "value": "view",
+                  "description": "Scope under which the request is made; determines fields present in response."
+                },
+                {
+                  "disabled": false,
+                  "key": "excerpt_length",
+                  "value": "<integer>",
+                  "description": "Override the default excerpt length."
+                },
+                {
+                  "disabled": false,
+                  "key": "password",
+                  "value": "<string>",
+                  "description": "The password for the post if it is password protected."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) Unique identifier for the resource."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9f7301ae-34cb-48a2-b869-4d2c086d58a7",
+              "name": "Get a product",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wp",
+                    "v2",
+                    "product",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "context",
+                      "value": "view"
+                    },
+                    {
+                      "key": "excerpt_length",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "password",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Unique identifier for the resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"date\": \"2023-12-06T23:45:55.390Z\",\n  \"date_gmt\": \"1976-12-01T08:42:38.814Z\",\n  \"guid\": {\n    \"raw\": \"string\",\n    \"rendered\": \"string\"\n  },\n  \"id\": 7450,\n  \"link\": \"http://TCRYbxmdcwlHvRjgapSTv.hwzl6rzI1.Ykm2Wp5yDpjpEjNoyUGa-6\",\n  \"modified\": \"1956-04-30T23:41:35.740Z\",\n  \"modified_gmt\": \"2012-09-26T16:30:58.250Z\",\n  \"slug\": \"string\",\n  \"status\": \"moderate\",\n  \"type\": \"string\",\n  \"password\": \"string\",\n  \"permalink_template\": \"string\",\n  \"generated_slug\": \"string\",\n  \"class_list\": [\n    \"string\",\n    \"string\"\n  ],\n  \"title\": {\n    \"raw\": \"string\",\n    \"rendered\": \"string\"\n  },\n  \"content\": {\n    \"raw\": \"string\",\n    \"rendered\": \"string\",\n    \"block_version\": 1225,\n    \"protected\": false\n  },\n  \"excerpt\": {\n    \"raw\": \"string\",\n    \"rendered\": \"string\",\n    \"protected\": false\n  },\n  \"featured_media\": 9576,\n  \"comment_status\": \"open\",\n  \"ping_status\": \"closed\",\n  \"meta\": {\n    \"inline_featured_image\": false\n  },\n  \"template\": \"string\",\n  \"product_brand\": [\n    8269,\n    3222\n  ],\n  \"product_cat\": [\n    2570,\n    6535\n  ],\n  \"product_tag\": [\n    3029,\n    3994\n  ],\n  \"jetpack_sharing_enabled\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "30ef5042-96c4-484b-94d4-83aa705ac7f0",
+              "name": "No route matched, or the identifier does not resolve to a published object.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "wp",
+                    "v2",
+                    "product",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "context",
+                      "value": "view"
+                    },
+                    {
+                      "key": "excerpt_length",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "password",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) Unique identifier for the resource."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"rest_post_invalid_id\",\n  \"message\": \"Invalid post ID.\",\n  \"data\": {\n    \"status\": 404\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://energyx.com/wp-json",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "013a0077-3ee2-481f-8fb9-543c9ecdfd24",
+    "name": "EnergyX Store API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Public, unauthenticated read access to the EnergyX merchandise catalog behind energyx.com/shop/, exposed twice: through the WooCommerce Store API (wc/store/v1), which is the anonymous storefront contract, and through the WordPress core product post type (wp/v2/product). Verified live at 15 products in 4 categories on both. The WooCommerce admin API (wc/v3) on the same host returns 401 to an anonymous caller and is deliberately not modelled.\n\nContact Support:\n Name: EnergyX",
+      "type": "text/plain"
+    }
+  }
+}

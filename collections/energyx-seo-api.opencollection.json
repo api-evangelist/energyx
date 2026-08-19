@@ -1,0 +1,36 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "EnergyX SEO Metadata API",
+    "version": "yoast/v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "SEO",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get rendered SEO head metadata for a URL",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://energyx.com/wp-json/yoast/v1/get_head",
+            "params": [
+              {
+                "name": "url",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Retrieve the rendered <head> metadata Yoast SEO emits for an energyx.com URL, together with the parsed schema.org JSON-LD @graph for that page."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

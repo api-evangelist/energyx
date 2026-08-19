@@ -1,0 +1,186 @@
+{
+  "item": [
+    {
+      "id": "8c6667bb-7908-4ae0-88f1-aa9e8f2600ce",
+      "name": "oEmbed",
+      "description": {
+        "content": "oEmbed 1.0 provider endpoint.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "393f3b5d-dbc9-4c50-9d72-bd17df391f61",
+          "name": "Get oEmbed data for a URL",
+          "request": {
+            "name": "Get oEmbed data for a URL",
+            "description": {
+              "content": "Retrieve oEmbed 1.0 rich metadata — title, author, provider, thumbnail and iframe embed HTML — for any energyx.com URL.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "oembed",
+                "1.0",
+                "embed"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "json"
+                },
+                {
+                  "disabled": false,
+                  "key": "maxwidth",
+                  "value": "600"
+                },
+                {
+                  "disabled": false,
+                  "key": "url",
+                  "value": "<uri>",
+                  "description": "(Required) The URL of the resource for which to fetch oEmbed data."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "49c3a23b-92bd-4e60-b05a-8f4f642e9958",
+              "name": "oEmbed 1.0 response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "oembed",
+                    "1.0",
+                    "embed"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "maxwidth",
+                      "value": "600"
+                    },
+                    {
+                      "key": "url",
+                      "value": "<uri>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"version\": \"string\",\n  \"provider_name\": \"string\",\n  \"provider_url\": \"https://fJrcveKWIbB.sdnfAgA1TQEinIBro9DmeUsTJTaW+TSc0mtoYSWDPWMcYvC5kz\",\n  \"author_name\": \"string\",\n  \"author_url\": \"http://CuIUhCdomBZOxyNwGYICgPZDAkNIA.rfX5,jZI28WOwZuvzIUk4SuhlH4dBMrD+r.x0R.ha\",\n  \"title\": \"string\",\n  \"type\": \"string\",\n  \"width\": 9840,\n  \"height\": 8621,\n  \"html\": \"string\",\n  \"thumbnail_url\": \"http://xTRpCcdYbSnskqW.ydT68Re7PB9AHavHanVZtCxxmBJ5jsic8WfL,zzCo7h8ZuMQlOo\",\n  \"thumbnail_width\": 9613,\n  \"thumbnail_height\": 2313\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6a21325b-7a33-4a96-9c2a-d61abdbe2573",
+              "name": "No route matched, or the identifier does not resolve to a published object.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "oembed",
+                    "1.0",
+                    "embed"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "format",
+                      "value": "json"
+                    },
+                    {
+                      "key": "maxwidth",
+                      "value": "600"
+                    },
+                    {
+                      "key": "url",
+                      "value": "<uri>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"rest_post_invalid_id\",\n  \"message\": \"Invalid post ID.\",\n  \"data\": {\n    \"status\": 404\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://energyx.com/wp-json",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "ac1dcbba-03fb-445c-9737-4b3ffc6e1327",
+    "name": "EnergyX oEmbed API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Public oEmbed 1.0 provider endpoint for energyx.com URLs, returning embeddable rich metadata — title, author, thumbnail and iframe HTML — for any post, page, press release, video or product on the site.\n\nContact Support:\n Name: EnergyX",
+      "type": "text/plain"
+    }
+  }
+}

@@ -2,11 +2,11 @@ generated: '2026-08-12'
 method: derived
 status: candidate
 source: openapi/ (59 operations across 15 derived specs)
-description: EnergyX operates no MCP server. Searched the site, mcp.energyx.com (NXDOMAIN), the npm registry and
-  the 1,233-route index on 2026-08-12 and found none. The tool list below is a CANDIDATE derived one-to-one from
-  the OpenAPI operations this repo harvested — it is what an MCP server over this surface would expose, not something
-  EnergyX publishes. Every tool is read-only because the whole anonymous surface is read-only. No MCPServer pointer
-  is emitted in apis.yml.
+description: EnergyX operates no MCP server. Searched the site, mcp.energyx.com (NXDOMAIN), the npm registry
+  and the 1,233-route index on 2026-08-12 and found none. The tool list below is a CANDIDATE derived one-to-one
+  from the OpenAPI operations this repo harvested — it is what an MCP server over this surface would expose,
+  not something EnergyX publishes. Every tool is read-only because the whole anonymous surface is read-only.
+  No MCPServer pointer is emitted in apis.yml.
 server:
   name: energyx
   transport: http
@@ -206,3 +206,9 @@ evidence:
   query: energyx
   results: 1
   note: create-energyx — unrelated scaffolder, not an MCP server.
+deployment:
+  mode: none
+  verified: derived
+  tools: 59
+  checked: '2026-08-12'
+  source: catalog MCP census
