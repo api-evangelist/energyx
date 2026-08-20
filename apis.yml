@@ -166,6 +166,10 @@ apis:
   baseURL: https://energyx.com/wp-json
   tags:
   - Careers
+  - Job
+  - Content
+  tags_raw:
+  - Careers
   - Jobs
   - Content
   properties:
@@ -277,6 +281,10 @@ apis:
   humanURL: https://energyx.com/wp-json/
   baseURL: https://energyx.com/wp-json
   tags:
+  - Media
+  - Image
+  - Content
+  tags_raw:
   - Media
   - Images
   - Content
@@ -390,6 +398,10 @@ apis:
   humanURL: https://energyx.com/wp-json/
   baseURL: https://energyx.com/wp-json
   tags:
+  - Store
+  - E-Commerce
+  - Product
+  tags_raw:
   - Store
   - Ecommerce
   - Products
