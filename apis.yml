@@ -48,8 +48,9 @@ tags:
 apis:
 - aid: energyx:energyx-posts-api
   name: EnergyX Posts API
-  description: Public, unauthenticated read access to the EnergyX blog and article archive at energyx.com/blog/
-    via the WordPress core REST API. Verified live at 69 published posts, filterable by category, author,
+  description: >-
+    Public, unauthenticated read access to the EnergyX blog and article archive at energyx.com/blog/ via
+    the WordPress core REST API. Verified live at 69 published posts, filterable by category, author,
     date window and free-text search.
   humanURL: https://energyx.com/wp-json/
   baseURL: https://energyx.com/wp-json
@@ -75,9 +76,10 @@ apis:
     url: overlays/energyx-posts-api-overlay.yaml
 - aid: energyx:energyx-pages-api
   name: EnergyX Pages API
-  description: Public, unauthenticated read access to the static marketing, product, investor and policy
-    pages of energyx.com — Technology, Lithium, Battery, Nuclear, Membranes, Projects, Sustainability,
-    Careers, Investor Portal, FAQ, Privacy Policy and Disclaimer. Verified live at 50 published pages.
+  description: >-
+    Public, unauthenticated read access to the static marketing, product, investor and policy pages of
+    energyx.com — Technology, Lithium, Battery, Nuclear, Membranes, Projects, Sustainability, Careers,
+    Investor Portal, FAQ, Privacy Policy and Disclaimer. Verified live at 50 published pages.
   humanURL: https://energyx.com/wp-json/
   baseURL: https://energyx.com/wp-json
   tags:
@@ -100,40 +102,12 @@ apis:
     url: lifecycle/energyx-lifecycle.yml
   - type: Overlay
     url: overlays/energyx-pages-api-overlay.yaml
-- aid: energyx:energyx-press-api
-  name: EnergyX Press and News API
-  description: 'Public, unauthenticated read access to the three EnergyX news archives, each a site-specific
-    WordPress custom post type: company press releases (39 published), third-party coverage of EnergyX
-    in the news (275 published), and curated lithium and energy-transition industry news (5 published).
-    The 275-record in-the-news archive is the largest single corpus on this surface.'
-  humanURL: https://energyx.com/wp-json/
-  baseURL: https://energyx.com/wp-json
-  tags:
-  - Press
-  - News
-  - Content
-  properties:
-  - type: OpenAPI
-    url: openapi/energyx-press-api-openapi.yml
-  - type: Authentication
-    url: authentication/energyx-authentication.yml
-  - type: ErrorCatalog
-    url: errors/energyx-problem-types.yml
-  - type: Conventions
-    url: conventions/energyx-conventions.yml
-  - type: DataModel
-    url: data-model/energyx-data-model.yml
-  - type: Conformance
-    url: conformance/energyx-conformance.yml
-  - type: Lifecycle
-    url: lifecycle/energyx-lifecycle.yml
-  - type: Overlay
-    url: overlays/energyx-press-api-overlay.yaml
 - aid: energyx:energyx-leadership-api
   name: EnergyX Leadership API
-  description: Public, unauthenticated read access to the EnergyX leadership roster — executives, board
-    members and advisors behind energyx.com/company/ — classified by the site-specific leadership-type
-    taxonomy. Verified live at 33 published records across 7 leadership types.
+  description: >-
+    Public, unauthenticated read access to the EnergyX leadership roster — executives, board members and
+    advisors behind energyx.com/company/ — classified by the site-specific leadership-type taxonomy. Verified
+    live at 33 published records across 7 leadership types.
   humanURL: https://energyx.com/wp-json/
   baseURL: https://energyx.com/wp-json
   tags:
@@ -157,42 +131,11 @@ apis:
     url: lifecycle/energyx-lifecycle.yml
   - type: Overlay
     url: overlays/energyx-leadership-api-overlay.yaml
-- aid: energyx:energyx-careers-api
-  name: EnergyX Careers API
-  description: Public, unauthenticated read access to open EnergyX job postings behind energyx.com/careers/,
-    classified by the site-specific position-area and position-location taxonomies. Verified live at 12
-    open positions across 8 functional areas and 14 locations.
-  humanURL: https://energyx.com/wp-json/
-  baseURL: https://energyx.com/wp-json
-  tags:
-  - Careers
-  - Job
-  - Content
-  tags_raw:
-  - Careers
-  - Jobs
-  - Content
-  properties:
-  - type: OpenAPI
-    url: openapi/energyx-careers-api-openapi.yml
-  - type: Authentication
-    url: authentication/energyx-authentication.yml
-  - type: ErrorCatalog
-    url: errors/energyx-problem-types.yml
-  - type: Conventions
-    url: conventions/energyx-conventions.yml
-  - type: DataModel
-    url: data-model/energyx-data-model.yml
-  - type: Conformance
-    url: conformance/energyx-conformance.yml
-  - type: Lifecycle
-    url: lifecycle/energyx-lifecycle.yml
-  - type: Overlay
-    url: overlays/energyx-careers-api-overlay.yaml
 - aid: energyx:energyx-partners-api
   name: EnergyX Partners API
-  description: Public, unauthenticated read access to the EnergyX partner roster — the operators, institutions
-    and research bodies EnergyX names as partners — classified by the site-specific partner-type taxonomy.
+  description: >-
+    Public, unauthenticated read access to the EnergyX partner roster — the operators, institutions and
+    research bodies EnergyX names as partners — classified by the site-specific partner-type taxonomy.
     Verified live at 8 published partners across 2 partner types.
   humanURL: https://energyx.com/wp-json/
   baseURL: https://energyx.com/wp-json
@@ -218,9 +161,10 @@ apis:
     url: overlays/energyx-partners-api-overlay.yaml
 - aid: energyx:energyx-videos-api
   name: EnergyX Videos API
-  description: Public, unauthenticated read access to the EnergyX video library behind energyx.com/videos/
-    — technology explainers, facility tours, investor updates and media appearances. Verified live at
-    61 published video records.
+  description: >-
+    Public, unauthenticated read access to the EnergyX video library behind energyx.com/videos/ — technology
+    explainers, facility tours, investor updates and media appearances. Verified live at 61 published
+    video records.
   humanURL: https://energyx.com/wp-json/
   baseURL: https://energyx.com/wp-json
   tags:
@@ -246,8 +190,9 @@ apis:
     url: overlays/energyx-videos-api-overlay.yaml
 - aid: energyx:energyx-resource-guides-api
   name: EnergyX Resource Guides API
-  description: Public, unauthenticated read access to the EnergyX resource guides behind energyx.com/resources/
-    — long-form explainers on direct lithium extraction, brine chemistry, battery materials and the lithium
+  description: >-
+    Public, unauthenticated read access to the EnergyX resource guides behind energyx.com/resources/ —
+    long-form explainers on direct lithium extraction, brine chemistry, battery materials and the lithium
     market — classified by the resource-guide-category taxonomy. Verified live at 14 guides across the
     Battery, Cleantech, Company, Lithium and Sustainability categories.
   humanURL: https://energyx.com/wp-json/
@@ -275,9 +220,10 @@ apis:
     url: overlays/energyx-resource-guides-api-overlay.yaml
 - aid: energyx:energyx-media-api
   name: EnergyX Media API
-  description: Public, unauthenticated read access to the media library behind energyx.com — facility
-    and laboratory photography, technology diagrams, leadership headshots and press assets, each with
-    its generated size variants. Verified live at 2,639 attachments.
+  description: >-
+    Public, unauthenticated read access to the media library behind energyx.com — facility and laboratory
+    photography, technology diagrams, leadership headshots and press assets, each with its generated size
+    variants. Verified live at 2,639 attachments.
   humanURL: https://energyx.com/wp-json/
   baseURL: https://energyx.com/wp-json
   tags:
@@ -307,11 +253,12 @@ apis:
     url: overlays/energyx-media-api-overlay.yaml
 - aid: energyx:energyx-taxonomy-api
   name: EnergyX Taxonomy API
-  description: 'Public, unauthenticated read access to the eleven classification vocabularies behind energyx.com:
+  description: >-
+    Public, unauthenticated read access to the eleven classification vocabularies behind energyx.com:
     post categories and tags, the site-specific leadership-type, position-area, position-location, partner-type,
     resource-guide-category and faq-type taxonomies, and the WooCommerce product category, tag and brand
     taxonomies. These are the controlled vocabularies every other collection on this surface is filtered
-    by.'
+    by.
   humanURL: https://energyx.com/wp-json/
   baseURL: https://energyx.com/wp-json
   tags:
@@ -337,9 +284,10 @@ apis:
     url: overlays/energyx-taxonomy-api-overlay.yaml
 - aid: energyx:energyx-search-api
   name: EnergyX Search API
-  description: Public, unauthenticated cross-content search over energyx.com — posts, pages, press releases,
-    in-the-news coverage, leadership, job positions, partners, videos, resource guides and products —
-    returning lightweight id / title / url / type / subtype records. Verified live at 245 searchable objects.
+  description: >-
+    Public, unauthenticated cross-content search over energyx.com — posts, pages, press releases, in-the-news
+    coverage, leadership, job positions, partners, videos, resource guides and products — returning lightweight
+    id / title / url / type / subtype records. Verified live at 245 searchable objects.
   humanURL: https://energyx.com/wp-json/
   baseURL: https://energyx.com/wp-json
   tags:
@@ -362,10 +310,11 @@ apis:
     url: overlays/energyx-search-api-overlay.yaml
 - aid: energyx:energyx-discovery-api
   name: EnergyX Discovery API
-  description: Public, unauthenticated discovery metadata for energyx.com — the self-describing route
-    index (1,233 routes across 36 namespaces at capture), the 26 registered content types, the 13 registered
-    taxonomies, the publication statuses, and the 10 public author records. This is the surface that makes
-    the rest of the API machine-readable even though EnergyX publishes no API documentation of any kind.
+  description: >-
+    Public, unauthenticated discovery metadata for energyx.com — the self-describing route index (1,233
+    routes across 36 namespaces at capture), the 26 registered content types, the 13 registered taxonomies,
+    the publication statuses, and the 10 public author records. This is the surface that makes the rest
+    of the API machine-readable even though EnergyX publishes no API documentation of any kind.
   humanURL: https://energyx.com/wp-json/
   baseURL: https://energyx.com/wp-json
   tags:
@@ -390,11 +339,12 @@ apis:
     url: overlays/energyx-discovery-api-overlay.yaml
 - aid: energyx:energyx-store-api
   name: EnergyX Store API
-  description: 'Public, unauthenticated read access to the EnergyX merchandise catalog behind energyx.com/shop/,
-    exposed twice: through the WooCommerce Store API (wc/store/v1), which is the anonymous storefront
-    contract carrying prices, images and stock, and through the WordPress core product post type (wp/v2/product).
+  description: >-
+    Public, unauthenticated read access to the EnergyX merchandise catalog behind energyx.com/shop/, exposed
+    twice: through the WooCommerce Store API (wc/store/v1), which is the anonymous storefront contract
+    carrying prices, images and stock, and through the WordPress core product post type (wp/v2/product).
     Verified live at 15 products in 4 categories on both. The WooCommerce admin API (wc/v3) on the same
-    host returns 401 anonymously and is deliberately not modelled.'
+    host returns 401 anonymously and is deliberately not modelled.
   humanURL: https://energyx.com/wp-json/
   baseURL: https://energyx.com/wp-json
   tags:
@@ -424,9 +374,9 @@ apis:
     url: overlays/energyx-store-api-overlay.yaml
 - aid: energyx:energyx-oembed-api
   name: EnergyX oEmbed API
-  description: Public oEmbed 1.0 provider endpoint for energyx.com URLs, returning embeddable rich metadata
-    — title, author, thumbnail and iframe HTML — for any post, page, press release, video or product on
-    the site.
+  description: >-
+    Public oEmbed 1.0 provider endpoint for energyx.com URLs, returning embeddable rich metadata — title,
+    author, thumbnail and iframe HTML — for any post, page, press release, video or product on the site.
   humanURL: https://energyx.com/wp-json/
   baseURL: https://energyx.com/wp-json
   tags:
@@ -449,9 +399,9 @@ apis:
     url: overlays/energyx-oembed-api-overlay.yaml
 - aid: energyx:energyx-seo-api
   name: EnergyX SEO Metadata API
-  description: Public Yoast SEO head endpoint returning the rendered head metadata and its parsed JSON-LD
-    schema.org graph for any energyx.com URL — a structured-data view of every page without scraping the
-    HTML.
+  description: >-
+    Public Yoast SEO head endpoint returning the rendered head metadata and its parsed JSON-LD schema.org
+    graph for any energyx.com URL — a structured-data view of every page without scraping the HTML.
   humanURL: https://energyx.com/wp-json/
   baseURL: https://energyx.com/wp-json
   tags:
@@ -473,12 +423,126 @@ apis:
     url: lifecycle/energyx-lifecycle.yml
   - type: Overlay
     url: overlays/energyx-seo-api-overlay.yaml
+- aid: energyx:energyx-in-the-news-api
+  name: EnergyX In The News API
+  description: Third-party media coverage of EnergyX.
+  humanURL: https://energyx.com/wp-json/
+  baseURL: https://energyx.com/wp-json
+  tags:
+  - In The News
+  properties:
+  - type: OpenAPI
+    url: openapi/energyx-in-the-news-api-openapi.yml
+  - type: Authentication
+    url: authentication/energyx-authentication.yml
+  - type: ErrorCatalog
+    url: errors/energyx-problem-types.yml
+  - type: Conventions
+    url: conventions/energyx-conventions.yml
+  - type: DataModel
+    url: data-model/energyx-data-model.yml
+  - type: Conformance
+    url: conformance/energyx-conformance.yml
+  - type: Lifecycle
+    url: lifecycle/energyx-lifecycle.yml
+- aid: energyx:energyx-industry-news-api
+  name: EnergyX Industry News API
+  description: Curated lithium and energy-transition industry news.
+  humanURL: https://energyx.com/wp-json/
+  baseURL: https://energyx.com/wp-json
+  tags:
+  - Industry News
+  properties:
+  - type: OpenAPI
+    url: openapi/energyx-industry-news-api-openapi.yml
+  - type: Authentication
+    url: authentication/energyx-authentication.yml
+  - type: ErrorCatalog
+    url: errors/energyx-problem-types.yml
+  - type: Conventions
+    url: conventions/energyx-conventions.yml
+  - type: DataModel
+    url: data-model/energyx-data-model.yml
+  - type: Conformance
+    url: conformance/energyx-conformance.yml
+  - type: Lifecycle
+    url: lifecycle/energyx-lifecycle.yml
+- aid: energyx:energyx-job-positions-api
+  name: EnergyX Job Positions API
+  description: Open EnergyX roles, by function and location.
+  humanURL: https://energyx.com/wp-json/
+  baseURL: https://energyx.com/wp-json
+  tags:
+  - Job Positions
+  properties:
+  - type: OpenAPI
+    url: openapi/energyx-job-positions-api-openapi.yml
+  - type: Authentication
+    url: authentication/energyx-authentication.yml
+  - type: ErrorCatalog
+    url: errors/energyx-problem-types.yml
+  - type: Conventions
+    url: conventions/energyx-conventions.yml
+  - type: DataModel
+    url: data-model/energyx-data-model.yml
+  - type: Conformance
+    url: conformance/energyx-conformance.yml
+  - type: Lifecycle
+    url: lifecycle/energyx-lifecycle.yml
+- aid: energyx:energyx-press-releases-api
+  name: EnergyX Press Releases API
+  description: First-party EnergyX press releases.
+  humanURL: https://energyx.com/wp-json/
+  baseURL: https://energyx.com/wp-json
+  tags:
+  - Press Releases
+  properties:
+  - type: OpenAPI
+    url: openapi/energyx-press-releases-api-openapi.yml
+  - type: Authentication
+    url: authentication/energyx-authentication.yml
+  - type: ErrorCatalog
+    url: errors/energyx-problem-types.yml
+  - type: Conventions
+    url: conventions/energyx-conventions.yml
+  - type: DataModel
+    url: data-model/energyx-data-model.yml
+  - type: Conformance
+    url: conformance/energyx-conformance.yml
+  - type: Lifecycle
+    url: lifecycle/energyx-lifecycle.yml
+- aid: energyx:energyx-products-api
+  name: EnergyX Products API
+  description: The product catalog as WordPress core content records.
+  humanURL: https://energyx.com/wp-json/
+  baseURL: https://energyx.com/wp-json
+  tags:
+  - Products
+  properties:
+  - type: OpenAPI
+    url: openapi/energyx-products-api-openapi.yml
+  - type: Authentication
+    url: authentication/energyx-authentication.yml
+  - type: ErrorCatalog
+    url: errors/energyx-problem-types.yml
+  - type: Conventions
+    url: conventions/energyx-conventions.yml
+  - type: DataModel
+    url: data-model/energyx-data-model.yml
+  - type: Conformance
+    url: conformance/energyx-conformance.yml
+  - type: Lifecycle
+    url: lifecycle/energyx-lifecycle.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: Overlay
+  url: overlays/energyx-press-api-overlay.yaml
+- type: Overlay
+  url: overlays/energyx-careers-api-overlay.yaml
 - type: Website
   url: https://energyx.com/
 - type: About
