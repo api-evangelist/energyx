@@ -551,6 +551,9 @@ maintainers:
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: CapabilityMap
+  url: capabilities/energyx-capability-edges.yml
+  name: EnergyX Business Capability Map
 - type: Overlay
   url: overlays/energyx-press-api-overlay.yaml
 - type: Overlay

@@ -1,0 +1,34 @@
+slug: energyx
+provider: EnergyX
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Mining & Metals
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 2
+edges:
+- tag: Job Positions
+  spec_file: energyx-job-positions-api-openapi.yml
+  capability_id: BC-300.10
+  capability_id_l1: BC-300
+  capability_name: Talent Acquisition Management
+  confidence: 0.9
+  evidence: '"Public, unauthenticated read access to open EnergyX job postings behind energyx.com/careers/"
+    — "listJobPositions  List job positions"'
+  reason: Publishing and retrieving open job requisitions classified by area and location is recruitment/job-posting
+    distribution, i.e. Talent Acquisition Management.
+- tag: Press Releases
+  spec_file: energyx-press-releases-api-openapi.yml
+  capability_id: BC-850.40
+  capability_id_l1: BC-850
+  capability_name: Media Relations Management
+  confidence: 0.78
+  evidence: '"company press releases (39 published)" — "listPressReleases  List press releases"'
+  reason: Publication and retrieval of official company press releases is media relations within corporate
+    communications; slight ambiguity with external communications generally.
