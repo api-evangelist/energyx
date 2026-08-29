@@ -1,8 +1,8 @@
 openapi: 3.2.0
 info:
-  title: EnergyX Posts API
+  title: EnergyX Press and News Press Releases API
   version: wp/v2
-  description: 'Public, unauthenticated read access to the EnergyX blog and article archive at energyx.com/blog/ via the WordPress core REST API. Verified live at 69 published posts. Anonymous access is read-only: the collection answers `Allow: GET` without credentials. Write methods exist on the same routes but require WordPress application-password authentication and are not part of the public surface.'
+  description: 'Public, unauthenticated read access to the three EnergyX news archives, each a site-specific WordPress custom post type: company press releases (39 published), third-party coverage of EnergyX in the news (275 published), and curated lithium/energy industry news (5 published). This is the richest EnergyX-specific corpus on the surface.'
   contact:
     name: EnergyX
     url: https://energyx.com/contact/
@@ -13,16 +13,16 @@ servers:
 - url: https://energyx.com/wp-json
   description: EnergyX WordPress REST API
 tags:
-- name: Posts
-  description: EnergyX blog articles on lithium extraction, batteries and the energy transition.
+- name: Press Releases
+  description: First-party EnergyX press releases.
 paths:
-  /wp/v2/posts:
+  /wp/v2/enx-press-release:
     get:
-      operationId: listPosts
-      summary: List posts
-      description: Retrieve a paginated collection of published EnergyX blog posts.
+      operationId: listPressReleases
+      summary: List press releases
+      description: Retrieve a paginated collection of published EnergyX press releases.
       tags:
-      - Posts
+      - Press Releases
       parameters:
       - name: after
         in: query
@@ -30,87 +30,12 @@ paths:
           type: string
           format: date-time
         description: Limit response to posts published after a given ISO8601 compliant date.
-      - name: author
-        in: query
-        schema:
-          type: array
-          items:
-            type: integer
-          default: []
-        description: Limit result set to posts assigned to specific authors.
-      - name: author_exclude
-        in: query
-        schema:
-          type: array
-          items:
-            type: integer
-          default: []
-        description: Ensure result set excludes posts assigned to specific authors.
       - name: before
         in: query
         schema:
           type: string
           format: date-time
         description: Limit response to posts published before a given ISO8601 compliant date.
-      - name: categories
-        in: query
-        schema:
-          type: object
-          oneOf:
-          - title: Term ID List
-            description: Match terms with the listed IDs.
-            type: array
-            items:
-              type: integer
-          - title: Term ID Taxonomy Query
-            description: Perform an advanced term query.
-            type: object
-            properties:
-              terms:
-                description: Term IDs.
-                type: array
-                items:
-                  type: integer
-                default: []
-              include_children:
-                description: Whether to include child terms in the terms limiting the result set.
-                type: boolean
-                default: false
-              operator:
-                description: Whether items must be assigned all or any of the specified terms.
-                type: string
-                enum:
-                - AND
-                - OR
-                default: OR
-            additionalProperties: false
-        description: Limit result set to items with specific terms assigned in the categories taxonomy.
-      - name: categories_exclude
-        in: query
-        schema:
-          type: object
-          oneOf:
-          - title: Term ID List
-            description: Match terms with the listed IDs.
-            type: array
-            items:
-              type: integer
-          - title: Term ID Taxonomy Query
-            description: Perform an advanced term query.
-            type: object
-            properties:
-              terms:
-                description: Term IDs.
-                type: array
-                items:
-                  type: integer
-                default: []
-              include_children:
-                description: Whether to include child terms in the terms limiting the result set.
-                type: boolean
-                default: false
-            additionalProperties: false
-        description: Limit result set to items except those with specific terms assigned in the categories taxonomy.
       - name: context
         in: query
         schema:
@@ -129,30 +54,6 @@ paths:
             type: integer
           default: []
         description: Ensure result set excludes specific IDs.
-      - name: format
-        in: query
-        schema:
-          type: array
-          items:
-            enum:
-            - standard
-            - aside
-            - chat
-            - gallery
-            - link
-            - image
-            - quote
-            - status
-            - video
-            - audio
-            type: string
-        description: Limit result set to items assigned one or more given formats.
-      - name: ignore_sticky
-        in: query
-        schema:
-          type: boolean
-          default: true
-        description: Whether to ignore sticky posts or not.
       - name: include
         in: query
         schema:
@@ -290,73 +191,9 @@ paths:
             type: string
           default: publish
         description: Limit result set to posts assigned one or more statuses.
-      - name: sticky
-        in: query
-        schema:
-          type: boolean
-        description: Limit result set to items that are sticky.
-      - name: tags
-        in: query
-        schema:
-          type: object
-          oneOf:
-          - title: Term ID List
-            description: Match terms with the listed IDs.
-            type: array
-            items:
-              type: integer
-          - title: Term ID Taxonomy Query
-            description: Perform an advanced term query.
-            type: object
-            properties:
-              terms:
-                description: Term IDs.
-                type: array
-                items:
-                  type: integer
-                default: []
-              operator:
-                description: Whether items must be assigned all or any of the specified terms.
-                type: string
-                enum:
-                - AND
-                - OR
-                default: OR
-            additionalProperties: false
-        description: Limit result set to items with specific terms assigned in the tags taxonomy.
-      - name: tags_exclude
-        in: query
-        schema:
-          type: object
-          oneOf:
-          - title: Term ID List
-            description: Match terms with the listed IDs.
-            type: array
-            items:
-              type: integer
-          - title: Term ID Taxonomy Query
-            description: Perform an advanced term query.
-            type: object
-            properties:
-              terms:
-                description: Term IDs.
-                type: array
-                items:
-                  type: integer
-                default: []
-            additionalProperties: false
-        description: Limit result set to items except those with specific terms assigned in the tags taxonomy.
-      - name: tax_relation
-        in: query
-        schema:
-          type: string
-          enum:
-          - AND
-          - OR
-        description: Limit result set based on relationship between multiple taxonomies.
       responses:
         '200':
-          description: List posts
+          description: List press releases
           headers:
             X-WP-Total:
               description: Total records matching the query.
@@ -375,7 +212,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Post'
+                  $ref: '#/components/schemas/PressRelease'
         '400':
           description: Invalid parameter. WordPress REST error envelope.
           content:
@@ -389,13 +226,13 @@ paths:
                   status: 400
                   params:
                     per_page: per_page must be between 1 (inclusive) and 100 (inclusive)
-  /wp/v2/posts/{id}:
+  /wp/v2/enx-press-release/{id}:
     get:
-      operationId: getPost
-      summary: Get a post
-      description: Retrieve a single published EnergyX blog post by its numeric id.
+      operationId: getPressRelease
+      summary: Get a press release
+      description: Retrieve a single published EnergyX press release by its numeric id.
       tags:
-      - Posts
+      - Press Releases
       parameters:
       - name: id
         in: path
@@ -413,11 +250,6 @@ paths:
           - edit
           default: view
         description: Scope under which the request is made; determines fields present in response.
-      - name: excerpt_length
-        in: query
-        schema:
-          type: integer
-        description: Override the default excerpt length.
       - name: password
         in: query
         schema:
@@ -425,11 +257,11 @@ paths:
         description: The password for the post if it is password protected.
       responses:
         '200':
-          description: Get a post
+          description: Get a press release
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Post'
+                $ref: '#/components/schemas/PressRelease'
         '404':
           description: No route matched, or the identifier does not resolve to a published object.
           content:
@@ -468,9 +300,9 @@ components:
       required:
       - code
       - message
-    Post:
+    PressRelease:
       $schema: http://json-schema.org/draft-04/schema#
-      title: post
+      title: enx-press-release
       type: object
       properties:
         date:
@@ -581,90 +413,19 @@ components:
             protected:
               description: Whether the content is protected with a password.
               type: boolean
-        author:
-          description: The ID for the author of the post.
-          type: integer
-        excerpt:
-          description: The excerpt for the post.
-          type: object
-          properties:
-            raw:
-              description: Excerpt for the post, as it exists in the database.
-              type: string
-            rendered:
-              description: HTML excerpt for the post, transformed for display.
-              type: string
-            protected:
-              description: Whether the excerpt is protected with a password.
-              type: boolean
         featured_media:
           description: The ID of the featured media for the post.
           type: integer
-        comment_status:
-          description: Whether or not comments are open on the post.
-          type: string
-          enum:
-          - open
-          - closed
-        ping_status:
-          description: Whether or not the post can be pinged.
-          type: string
-          enum:
-          - open
-          - closed
-        format:
-          description: The format for the post.
-          type: string
-          enum:
-          - standard
-          - aside
-          - chat
-          - gallery
-          - link
-          - image
-          - quote
-          - status
-          - video
-          - audio
-        meta:
-          description: Meta fields.
-          type: object
-          properties:
-            inline_featured_image:
-              type: boolean
-              title: ''
-              description: ''
-            _jetpack_memberships_contains_paid_content:
-              type: boolean
-              title: ''
-              description: ''
-            footnotes:
-              type: string
-              title: ''
-              description: ''
-        sticky:
-          description: Whether or not the post should be treated as sticky.
-          type: boolean
         template:
           description: The theme file to use to display the post.
           type: string
-        categories:
-          description: The terms assigned to the post in the category taxonomy.
-          type: array
-          items:
-            type: integer
-        tags:
-          description: The terms assigned to the post in the post_tag taxonomy.
-          type: array
-          items:
-            type: integer
         jetpack_sharing_enabled:
           description: Are sharing buttons enabled?
           type: boolean
       links:
       - rel: https://api.w.org/action-publish
         title: The current user can publish this post.
-        href: https://energyx.com/wp-json/wp/v2/posts/{id}
+        href: https://energyx.com/wp-json/wp/v2/enx-press-release/{id}
         targetSchema:
           type: object
           properties:
@@ -675,66 +436,10 @@ components:
               - future
       - rel: https://api.w.org/action-unfiltered-html
         title: The current user can post unfiltered HTML markup and JavaScript.
-        href: https://energyx.com/wp-json/wp/v2/posts/{id}
+        href: https://energyx.com/wp-json/wp/v2/enx-press-release/{id}
         targetSchema:
           type: object
           properties:
             content:
               raw:
                 type: string
-      - rel: https://api.w.org/action-sticky
-        title: The current user can sticky this post.
-        href: https://energyx.com/wp-json/wp/v2/posts/{id}
-        targetSchema:
-          type: object
-          properties:
-            sticky:
-              type: boolean
-      - rel: https://api.w.org/action-assign-author
-        title: The current user can change the author on this post.
-        href: https://energyx.com/wp-json/wp/v2/posts/{id}
-        targetSchema:
-          type: object
-          properties:
-            author:
-              type: integer
-      - rel: https://api.w.org/action-assign-categories
-        title: The current user can assign terms in the category taxonomy.
-        href: https://energyx.com/wp-json/wp/v2/posts/{id}
-        targetSchema:
-          type: object
-          properties:
-            categories:
-              type: array
-              items:
-                type: integer
-      - rel: https://api.w.org/action-create-categories
-        title: The current user can create terms in the category taxonomy.
-        href: https://energyx.com/wp-json/wp/v2/posts/{id}
-        targetSchema:
-          type: object
-          properties:
-            categories:
-              type: array
-              items:
-                type: integer
-      - rel: https://api.w.org/action-assign-tags
-        title: The current user can assign terms in the post_tag taxonomy.
-        href: https://energyx.com/wp-json/wp/v2/posts/{id}
-        targetSchema:
-          type: object
-          properties:
-            tags:
-              type: array
-              items:
-                type: integer
-      - rel: https://api.w.org/action-create-tags
-        title: The current user can create terms in the post_tag taxonomy.
-        href: https://energyx.com/wp-json/wp/v2/posts/{id}
-        targetSchema:
-          type: object
-          properties:
-            tags:
-              type: array
-              items:
-                type: integer

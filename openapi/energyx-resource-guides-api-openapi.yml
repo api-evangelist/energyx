@@ -1,18 +1,14 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   title: EnergyX Resource Guides API
   version: wp/v2
-  description: Public, unauthenticated read access to the EnergyX resource guides behind energyx.com/resources/
-    — long-form explainers on direct lithium extraction, brine chemistry, battery materials and the lithium market
-    — classified by the resource-guide-category taxonomy. Verified live at 14 published guides across 5 categories.
+  description: Public, unauthenticated read access to the EnergyX resource guides behind energyx.com/resources/ — long-form explainers on direct lithium extraction, brine chemistry, battery materials and the lithium market — classified by the resource-guide-category taxonomy. Verified live at 14 published guides across 5 categories.
   contact:
     name: EnergyX
     url: https://energyx.com/contact/
   x-derived-from: https://energyx.com/wp-json/ route index + per-route HTTP OPTIONS schema documents
   x-derived-on: '2026-08-12'
-  x-api-evangelist-note: Third-party profile. EnergyX publishes no developer program; this documents the anonymously
-    readable WordPress REST content API behind energyx.com. Every path, parameter and schema here was read from
-    the server's own published OPTIONS documents on 2026-08-12 — nothing is invented.
+  x-api-evangelist-note: Third-party profile. EnergyX publishes no developer program; this documents the anonymously readable WordPress REST content API behind energyx.com. Every path, parameter and schema here was read from the server's own published OPTIONS documents on 2026-08-12 — nothing is invented.
 servers:
 - url: https://energyx.com/wp-json
   description: EnergyX WordPress REST API
@@ -182,8 +178,7 @@ paths:
                 type: boolean
                 default: false
             additionalProperties: false
-        description: Limit result set to items except those with specific terms assigned in the resource-guide-category
-          taxonomy.
+        description: Limit result set to items except those with specific terms assigned in the resource-guide-category taxonomy.
       - name: search
         in: query
         schema:

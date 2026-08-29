@@ -1,9 +1,8 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: EnergyX oEmbed API
+  title: EnergyX O Embed API
   version: oembed/1.0
-  description: Public oEmbed 1.0 provider endpoint for energyx.com URLs, returning embeddable rich metadata — title,
-    author, thumbnail and iframe HTML — for any post, page, press release, video or product on the site.
+  description: Public oEmbed 1.0 provider endpoint for energyx.com URLs, returning embeddable rich metadata — title, author, thumbnail and iframe HTML — for any post, page, press release, video or product on the site.
   contact:
     name: EnergyX
     url: https://energyx.com/contact/
@@ -21,8 +20,7 @@ paths:
     get:
       operationId: getOembed
       summary: Get oEmbed data for a URL
-      description: Retrieve oEmbed 1.0 rich metadata — title, author, provider, thumbnail and iframe embed HTML
-        — for any energyx.com URL.
+      description: Retrieve oEmbed 1.0 rich metadata — title, author, provider, thumbnail and iframe embed HTML — for any energyx.com URL.
       tags:
       - oEmbed
       parameters:

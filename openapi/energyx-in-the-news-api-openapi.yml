@@ -1,8 +1,8 @@
 openapi: 3.2.0
 info:
-  title: EnergyX Leadership API
+  title: EnergyX Press and News In The News API
   version: wp/v2
-  description: Public, unauthenticated read access to the EnergyX leadership roster — executives, board members and advisors behind energyx.com/company/ — classified by the site-specific leadership-type taxonomy. Verified live at 33 published records across 7 leadership types.
+  description: 'Public, unauthenticated read access to the three EnergyX news archives, each a site-specific WordPress custom post type: company press releases (39 published), third-party coverage of EnergyX in the news (275 published), and curated lithium/energy industry news (5 published). This is the richest EnergyX-specific corpus on the surface.'
   contact:
     name: EnergyX
     url: https://energyx.com/contact/
@@ -13,16 +13,16 @@ servers:
 - url: https://energyx.com/wp-json
   description: EnergyX WordPress REST API
 tags:
-- name: Leadership
-  description: EnergyX executives, board members and advisors.
+- name: In The News
+  description: Third-party media coverage of EnergyX.
 paths:
-  /wp/v2/energyx-leadership:
+  /wp/v2/energyx-in-the-news:
     get:
-      operationId: listLeadership
-      summary: List leadership records
-      description: Retrieve a paginated collection of published EnergyX leadership records.
+      operationId: listInTheNews
+      summary: List in-the-news items
+      description: Retrieve a paginated collection of third-party media coverage of EnergyX.
       tags:
-      - Leadership
+      - In The News
       parameters:
       - name: after
         in: query
@@ -62,65 +62,6 @@ paths:
             type: integer
           default: []
         description: Limit result set to specific IDs.
-      - name: leadership-type
-        in: query
-        schema:
-          type: object
-          oneOf:
-          - title: Term ID List
-            description: Match terms with the listed IDs.
-            type: array
-            items:
-              type: integer
-          - title: Term ID Taxonomy Query
-            description: Perform an advanced term query.
-            type: object
-            properties:
-              terms:
-                description: Term IDs.
-                type: array
-                items:
-                  type: integer
-                default: []
-              include_children:
-                description: Whether to include child terms in the terms limiting the result set.
-                type: boolean
-                default: false
-              operator:
-                description: Whether items must be assigned all or any of the specified terms.
-                type: string
-                enum:
-                - AND
-                - OR
-                default: OR
-            additionalProperties: false
-        description: Limit result set to items with specific terms assigned in the leadership-type taxonomy.
-      - name: leadership-type_exclude
-        in: query
-        schema:
-          type: object
-          oneOf:
-          - title: Term ID List
-            description: Match terms with the listed IDs.
-            type: array
-            items:
-              type: integer
-          - title: Term ID Taxonomy Query
-            description: Perform an advanced term query.
-            type: object
-            properties:
-              terms:
-                description: Term IDs.
-                type: array
-                items:
-                  type: integer
-                default: []
-              include_children:
-                description: Whether to include child terms in the terms limiting the result set.
-                type: boolean
-                default: false
-            additionalProperties: false
-        description: Limit result set to items except those with specific terms assigned in the leadership-type taxonomy.
       - name: modified_after
         in: query
         schema:
@@ -250,17 +191,9 @@ paths:
             type: string
           default: publish
         description: Limit result set to posts assigned one or more statuses.
-      - name: tax_relation
-        in: query
-        schema:
-          type: string
-          enum:
-          - AND
-          - OR
-        description: Limit result set based on relationship between multiple taxonomies.
       responses:
         '200':
-          description: List leadership records
+          description: List in-the-news items
           headers:
             X-WP-Total:
               description: Total records matching the query.
@@ -279,7 +212,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Leader'
+                  $ref: '#/components/schemas/InTheNewsItem'
         '400':
           description: Invalid parameter. WordPress REST error envelope.
           content:
@@ -293,13 +226,13 @@ paths:
                   status: 400
                   params:
                     per_page: per_page must be between 1 (inclusive) and 100 (inclusive)
-  /wp/v2/energyx-leadership/{id}:
+  /wp/v2/energyx-in-the-news/{id}:
     get:
-      operationId: getLeader
-      summary: Get a leadership record
-      description: Retrieve a single leadership record by its numeric id.
+      operationId: getInTheNewsItem
+      summary: Get an in-the-news item
+      description: Retrieve a single in-the-news record by its numeric id.
       tags:
-      - Leadership
+      - In The News
       parameters:
       - name: id
         in: path
@@ -317,11 +250,6 @@ paths:
           - edit
           default: view
         description: Scope under which the request is made; determines fields present in response.
-      - name: excerpt_length
-        in: query
-        schema:
-          type: integer
-        description: Override the default excerpt length.
       - name: password
         in: query
         schema:
@@ -329,11 +257,11 @@ paths:
         description: The password for the post if it is password protected.
       responses:
         '200':
-          description: Get a leadership record
+          description: Get an in-the-news item
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Leader'
+                $ref: '#/components/schemas/InTheNewsItem'
         '404':
           description: No route matched, or the identifier does not resolve to a published object.
           content:
@@ -372,9 +300,9 @@ components:
       required:
       - code
       - message
-    Leader:
+    InTheNewsItem:
       $schema: http://json-schema.org/draft-04/schema#
-      title: energyx-leadership
+      title: energyx-in-the-news
       type: object
       properties:
         date:
@@ -448,17 +376,6 @@ components:
         password:
           description: A password to protect access to the content and excerpt.
           type: string
-        permalink_template:
-          description: Permalink template for the post.
-          type: string
-        generated_slug:
-          description: Slug automatically generated from the post title.
-          type: string
-        class_list:
-          description: An array of the class names for the post container element.
-          type: array
-          items:
-            type: string
         title:
           description: The title for the post.
           type: object
@@ -469,53 +386,16 @@ components:
             rendered:
               description: HTML title for the post, transformed for display.
               type: string
-        content:
-          description: The content for the post.
-          type: object
-          properties:
-            raw:
-              description: Content for the post, as it exists in the database.
-              type: string
-            rendered:
-              description: HTML content for the post, transformed for display.
-              type: string
-            block_version:
-              description: Version of the content block format used by the post.
-              type: integer
-            protected:
-              description: Whether the content is protected with a password.
-              type: boolean
-        excerpt:
-          description: The excerpt for the post.
-          type: object
-          properties:
-            raw:
-              description: Excerpt for the post, as it exists in the database.
-              type: string
-            rendered:
-              description: HTML excerpt for the post, transformed for display.
-              type: string
-            protected:
-              description: Whether the excerpt is protected with a password.
-              type: boolean
         featured_media:
           description: The ID of the featured media for the post.
           type: integer
         template:
           description: The theme file to use to display the post.
           type: string
-        leadership-type:
-          description: The terms assigned to the post in the leadership-type taxonomy.
-          type: array
-          items:
-            type: integer
-        jetpack_sharing_enabled:
-          description: Are sharing buttons enabled?
-          type: boolean
       links:
       - rel: https://api.w.org/action-publish
         title: The current user can publish this post.
-        href: https://energyx.com/wp-json/wp/v2/energyx-leadership/{id}
+        href: https://energyx.com/wp-json/wp/v2/energyx-in-the-news/{id}
         targetSchema:
           type: object
           properties:
@@ -526,30 +406,10 @@ components:
               - future
       - rel: https://api.w.org/action-unfiltered-html
         title: The current user can post unfiltered HTML markup and JavaScript.
-        href: https://energyx.com/wp-json/wp/v2/energyx-leadership/{id}
+        href: https://energyx.com/wp-json/wp/v2/energyx-in-the-news/{id}
         targetSchema:
           type: object
           properties:
             content:
               raw:
                 type: string
-      - rel: https://api.w.org/action-assign-leadership-type
-        title: The current user can assign terms in the leadership-type taxonomy.
-        href: https://energyx.com/wp-json/wp/v2/energyx-leadership/{id}
-        targetSchema:
-          type: object
-          properties:
-            leadership-type:
-              type: array
-              items:
-                type: integer
-      - rel: https://api.w.org/action-create-leadership-type
-        title: The current user can create terms in the leadership-type taxonomy.
-        href: https://energyx.com/wp-json/wp/v2/energyx-leadership/{id}
-        targetSchema:
-          type: object
-          properties:
-            leadership-type:
-              type: array
-              items:
-                type: integer

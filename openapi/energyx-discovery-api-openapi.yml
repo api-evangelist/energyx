@@ -1,19 +1,14 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   title: EnergyX Discovery API
   version: wp/v2
-  description: Public, unauthenticated discovery metadata for energyx.com — the self-describing route index (1,233
-    routes across 36 namespaces at capture), the 26 registered content types, the 13 registered taxonomies, the
-    publication statuses, and the public author records. This is the surface that makes the rest of the API machine-readable
-    even though EnergyX publishes no API documentation at all.
+  description: Public, unauthenticated discovery metadata for energyx.com — the self-describing route index (1,233 routes across 36 namespaces at capture), the 26 registered content types, the 13 registered taxonomies, the publication statuses, and the public author records. This is the surface that makes the rest of the API machine-readable even though EnergyX publishes no API documentation at all.
   contact:
     name: EnergyX
     url: https://energyx.com/contact/
   x-derived-from: https://energyx.com/wp-json/ route index + per-route HTTP OPTIONS schema documents
   x-derived-on: '2026-08-12'
-  x-api-evangelist-note: Third-party profile. EnergyX publishes no developer program; this documents the anonymously
-    readable WordPress REST content API behind energyx.com. Every path, parameter and schema here was read from
-    the server's own published OPTIONS documents on 2026-08-12 — nothing is invented.
+  x-api-evangelist-note: Third-party profile. EnergyX publishes no developer program; this documents the anonymously readable WordPress REST content API behind energyx.com. Every path, parameter and schema here was read from the server's own published OPTIONS documents on 2026-08-12 — nothing is invented.
 servers:
 - url: https://energyx.com/wp-json
   description: EnergyX WordPress REST API
@@ -199,8 +194,7 @@ paths:
           type: array
           items:
             type: string
-        description: Limit result set to users matching at least one specific capability provided. Accepts csv list
-          or single capability.
+        description: Limit result set to users matching at least one specific capability provided. Accepts csv list or single capability.
       - name: context
         in: query
         schema:
@@ -311,8 +305,7 @@ paths:
           type: array
           items:
             type: string
-        description: Limit result set to users matching at least one specific role provided. Accepts csv list or
-          single role.
+        description: Limit result set to users matching at least one specific role provided. Accepts csv list or single role.
       - name: search
         in: query
         schema:
@@ -427,10 +420,7 @@ paths:
     get:
       operationId: getRouteIndex
       summary: Get the API route index
-      description: 'Retrieve the self-describing root document: site name and description, the registered namespaces,
-        every route with its methods and args, the declared authentication methods, and the site icon. 1,233 routes
-        across 36 namespaces at capture. This is the document that makes the whole surface machine-readable without
-        any published documentation.'
+      description: 'Retrieve the self-describing root document: site name and description, the registered namespaces, every route with its methods and args, the declared authentication methods, and the site icon. 1,233 routes across 36 namespaces at capture. This is the document that makes the whole surface machine-readable without any published documentation.'
       tags:
       - Discovery
       parameters:
@@ -463,172 +453,6 @@ paths:
                 $ref: '#/components/schemas/RouteIndex'
 components:
   schemas:
-    Error:
-      type: object
-      description: WordPress REST error envelope. Match on `code`, never on `message`.
-      properties:
-        code:
-          type: string
-          description: Machine-readable error slug. The stable identifier.
-        message:
-          type: string
-          description: Human-readable, localized message. Not stable; do not parse.
-        data:
-          type: object
-          properties:
-            status:
-              type: integer
-              description: HTTP status, repeated in the body.
-            params:
-              type: object
-              description: 'Present on rest_invalid_param: parameter name to validation message.'
-            details:
-              type: object
-              description: 'Present on rest_invalid_param: per-parameter code/message/data detail.'
-      required:
-      - code
-      - message
-    Type:
-      $schema: http://json-schema.org/draft-04/schema#
-      title: type
-      type: object
-      properties:
-        capabilities:
-          description: All capabilities used by the post type.
-          type: object
-        description:
-          description: A human-readable description of the post type.
-          type: string
-        hierarchical:
-          description: Whether or not the post type should have children.
-          type: boolean
-        viewable:
-          description: Whether or not the post type can be viewed.
-          type: boolean
-        labels:
-          description: Human-readable labels for the post type for various contexts.
-          type: object
-        name:
-          description: The title for the post type.
-          type: string
-        slug:
-          description: An alphanumeric identifier for the post type.
-          type: string
-        supports:
-          description: All features, supported by the post type.
-          type: object
-        has_archive:
-          description: If the value is a string, the value will be used as the archive slug. If the value is false
-            the post type has no archive.
-          type:
-          - string
-          - boolean
-        taxonomies:
-          description: Taxonomies associated with post type.
-          type: array
-          items:
-            type: string
-        rest_base:
-          description: REST base route for the post type.
-          type: string
-        rest_namespace:
-          description: REST route's namespace for the post type.
-          type: string
-        visibility:
-          description: The visibility settings for the post type.
-          type: object
-          properties:
-            show_ui:
-              description: Whether to generate a default UI for managing this post type.
-              type: boolean
-            show_in_nav_menus:
-              description: Whether to make the post type available for selection in navigation menus.
-              type: boolean
-        icon:
-          description: The icon for the post type.
-          type:
-          - string
-          - 'null'
-        template:
-          type:
-          - array
-          description: The block template associated with the post type.
-        template_lock:
-          type:
-          - string
-          - boolean
-          enum:
-          - all
-          - insert
-          - contentOnly
-          - false
-          description: The template_lock associated with the post type, or false if none.
-    Taxonomy:
-      $schema: http://json-schema.org/draft-04/schema#
-      title: taxonomy
-      type: object
-      properties:
-        capabilities:
-          description: All capabilities used by the taxonomy.
-          type: object
-        description:
-          description: A human-readable description of the taxonomy.
-          type: string
-        hierarchical:
-          description: Whether or not the taxonomy should have children.
-          type: boolean
-        labels:
-          description: Human-readable labels for the taxonomy for various contexts.
-          type: object
-        name:
-          description: The title for the taxonomy.
-          type: string
-        slug:
-          description: An alphanumeric identifier for the taxonomy.
-          type: string
-        show_cloud:
-          description: Whether or not the term cloud should be displayed.
-          type: boolean
-        types:
-          description: Types associated with the taxonomy.
-          type: array
-          items:
-            type: string
-        rest_base:
-          description: REST base route for the taxonomy.
-          type: string
-        rest_namespace:
-          description: REST namespace route for the taxonomy.
-          type: string
-        visibility:
-          description: The visibility settings for the taxonomy.
-          type: object
-          properties:
-            public:
-              description: Whether a taxonomy is intended for use publicly either via the admin interface or by
-                front-end users.
-              type: boolean
-            publicly_queryable:
-              description: Whether the taxonomy is publicly queryable.
-              type: boolean
-            show_ui:
-              description: Whether to generate a default UI for managing this taxonomy.
-              type: boolean
-            show_admin_column:
-              description: Whether to allow automatic creation of taxonomy columns on associated post-types table.
-              type: boolean
-            show_in_nav_menus:
-              description: Whether to make the taxonomy available for selection in navigation menus.
-              type: boolean
-            show_in_quick_edit:
-              description: Whether to show the taxonomy in the quick/bulk edit panel.
-              type: boolean
-        radio_no_term:
-          description: Radio taxonomy should show no term option.
-          type: bool
-        default_term:
-          description: Taxonomy default term ID.
-          type: int
     Status:
       $schema: http://json-schema.org/draft-04/schema#
       title: status
@@ -796,3 +620,167 @@ components:
           format: uri
         _links:
           type: object
+    Taxonomy:
+      $schema: http://json-schema.org/draft-04/schema#
+      title: taxonomy
+      type: object
+      properties:
+        capabilities:
+          description: All capabilities used by the taxonomy.
+          type: object
+        description:
+          description: A human-readable description of the taxonomy.
+          type: string
+        hierarchical:
+          description: Whether or not the taxonomy should have children.
+          type: boolean
+        labels:
+          description: Human-readable labels for the taxonomy for various contexts.
+          type: object
+        name:
+          description: The title for the taxonomy.
+          type: string
+        slug:
+          description: An alphanumeric identifier for the taxonomy.
+          type: string
+        show_cloud:
+          description: Whether or not the term cloud should be displayed.
+          type: boolean
+        types:
+          description: Types associated with the taxonomy.
+          type: array
+          items:
+            type: string
+        rest_base:
+          description: REST base route for the taxonomy.
+          type: string
+        rest_namespace:
+          description: REST namespace route for the taxonomy.
+          type: string
+        visibility:
+          description: The visibility settings for the taxonomy.
+          type: object
+          properties:
+            public:
+              description: Whether a taxonomy is intended for use publicly either via the admin interface or by front-end users.
+              type: boolean
+            publicly_queryable:
+              description: Whether the taxonomy is publicly queryable.
+              type: boolean
+            show_ui:
+              description: Whether to generate a default UI for managing this taxonomy.
+              type: boolean
+            show_admin_column:
+              description: Whether to allow automatic creation of taxonomy columns on associated post-types table.
+              type: boolean
+            show_in_nav_menus:
+              description: Whether to make the taxonomy available for selection in navigation menus.
+              type: boolean
+            show_in_quick_edit:
+              description: Whether to show the taxonomy in the quick/bulk edit panel.
+              type: boolean
+        radio_no_term:
+          description: Radio taxonomy should show no term option.
+          type: bool
+        default_term:
+          description: Taxonomy default term ID.
+          type: int
+    Type:
+      $schema: http://json-schema.org/draft-04/schema#
+      title: type
+      type: object
+      properties:
+        capabilities:
+          description: All capabilities used by the post type.
+          type: object
+        description:
+          description: A human-readable description of the post type.
+          type: string
+        hierarchical:
+          description: Whether or not the post type should have children.
+          type: boolean
+        viewable:
+          description: Whether or not the post type can be viewed.
+          type: boolean
+        labels:
+          description: Human-readable labels for the post type for various contexts.
+          type: object
+        name:
+          description: The title for the post type.
+          type: string
+        slug:
+          description: An alphanumeric identifier for the post type.
+          type: string
+        supports:
+          description: All features, supported by the post type.
+          type: object
+        has_archive:
+          description: If the value is a string, the value will be used as the archive slug. If the value is false the post type has no archive.
+          type:
+          - string
+          - boolean
+        taxonomies:
+          description: Taxonomies associated with post type.
+          type: array
+          items:
+            type: string
+        rest_base:
+          description: REST base route for the post type.
+          type: string
+        rest_namespace:
+          description: REST route's namespace for the post type.
+          type: string
+        visibility:
+          description: The visibility settings for the post type.
+          type: object
+          properties:
+            show_ui:
+              description: Whether to generate a default UI for managing this post type.
+              type: boolean
+            show_in_nav_menus:
+              description: Whether to make the post type available for selection in navigation menus.
+              type: boolean
+        icon:
+          description: The icon for the post type.
+          type:
+          - string
+          - 'null'
+        template:
+          type:
+          - array
+          description: The block template associated with the post type.
+        template_lock:
+          type:
+          - string
+          - boolean
+          enum:
+          - all
+          - insert
+          - contentOnly
+          - false
+          description: The template_lock associated with the post type, or false if none.
+    Error:
+      type: object
+      description: WordPress REST error envelope. Match on `code`, never on `message`.
+      properties:
+        code:
+          type: string
+          description: Machine-readable error slug. The stable identifier.
+        message:
+          type: string
+          description: Human-readable, localized message. Not stable; do not parse.
+        data:
+          type: object
+          properties:
+            status:
+              type: integer
+              description: HTTP status, repeated in the body.
+            params:
+              type: object
+              description: 'Present on rest_invalid_param: parameter name to validation message.'
+            details:
+              type: object
+              description: 'Present on rest_invalid_param: per-parameter code/message/data detail.'
+      required:
+      - code
+      - message
