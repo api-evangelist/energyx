@@ -3,7 +3,7 @@ provider: EnergyX
 generated_by: planning/capability-mapping/scripts/classify_capabilities.py
 model: claude-opus-5
 frame:
-- Electrical Components & Equipment
+- Chemicals
 min_confidence: 0.7
 capability_model:
   source: https://github.com/vincentmakes/turbo-ea-capabilities
@@ -18,16 +18,20 @@ edges:
   capability_id: BC-300.10
   capability_id_l1: BC-300
   capability_name: Talent Acquisition Management
-  confidence: 0.88
-  evidence: '"Public, unauthenticated read access to open EnergyX job postings behind energyx.com/careers/"'
-  reason: Publishing of open job postings classified by area and location is the recruiting/job-advertisement
-    surface of talent acquisition.
+  confidence: 0.85
+  evidence: '"Public, unauthenticated read access to open EnergyX job postings behind energyx.com/careers/"
+    ... "listJobPositions  List job positions"'
+  reason: Publication of open job requisitions classified by area and location is the external-facing
+    part of recruiting, i.e. Talent Acquisition Management. Clear, though the surface is read-only job
+    advertising rather than full recruiting workflow.
 - tag: Press Releases
   spec_file: energyx-press-releases-api-openapi.yml
   capability_id: BC-850.40
   capability_id_l1: BC-850
   capability_name: Media Relations Management
-  confidence: 0.78
-  evidence: '"company press releases (39 published)"'
-  reason: Company press release archive maps directly to media relations (press releases, briefings) within
-    corporate communications.
+  confidence: 0.7
+  evidence: '"company press releases (39 published), third-party coverage of EnergyX in the news (275
+    published)" — GET /wp/v2/enx-press-release listPressReleases'
+  reason: The collection is explicitly the company's press release archive plus media coverage of the
+    company, which is the artefact of media relations / press release management. Distribution channel
+    is a CMS, so confidence is moderate rather than high.
