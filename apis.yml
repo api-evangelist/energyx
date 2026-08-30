@@ -529,6 +529,8 @@ apis:
   humanURL: https://energyx.com/wp-json/
   baseURL: https://energyx.com/wp-json
   tags:
+  - Product
+  tags_raw:
   - Products
   properties:
   - type: OpenAPI
