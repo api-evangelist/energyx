@@ -384,31 +384,6 @@ apis:
     url: lifecycle/energyx-lifecycle.yml
   - type: Overlay
     url: overlays/energyx-store-api-overlay.yaml
-- aid: energyx:energyx-oembed-api
-  name: EnergyX oEmbed API
-  description: >-
-    Public oEmbed 1.0 provider endpoint for energyx.com URLs, returning embeddable rich metadata — title,
-    author, thumbnail and iframe HTML — for any post, page, press release, video or product on the site.
-  humanURL: https://energyx.com/wp-json/
-  baseURL: https://energyx.com/wp-json
-  tags:
-  - oEmbed
-  - Metadata
-  properties:
-  - type: OpenAPI
-    url: openapi/energyx-oembed-api-openapi.yml
-  - type: Authentication
-    url: authentication/energyx-authentication.yml
-  - type: ErrorCatalog
-    url: errors/energyx-problem-types.yml
-  - type: Conventions
-    url: conventions/energyx-conventions.yml
-  - type: Conformance
-    url: conformance/energyx-conformance.yml
-  - type: Lifecycle
-    url: lifecycle/energyx-lifecycle.yml
-  - type: Overlay
-    url: overlays/energyx-oembed-api-overlay.yaml
 - aid: energyx:energyx-seo-api
   name: EnergyX SEO Metadata API
   description: >-
@@ -547,12 +522,34 @@ apis:
     url: conformance/energyx-conformance.yml
   - type: Lifecycle
     url: lifecycle/energyx-lifecycle.yml
+- aid: energyx:energyx-o-embed-api
+  name: EnergyX o Embed API
+  description: oEmbed 1.0 provider endpoint.
+  humanURL: https://energyx.com/wp-json/
+  baseURL: https://energyx.com/wp-json
+  tags:
+  - o Embed
+  properties:
+  - type: OpenAPI
+    url: openapi/energyx-o-embed-api-openapi.yml
+  - type: Authentication
+    url: authentication/energyx-authentication.yml
+  - type: ErrorCatalog
+    url: errors/energyx-problem-types.yml
+  - type: Conventions
+    url: conventions/energyx-conventions.yml
+  - type: Conformance
+    url: conformance/energyx-conformance.yml
+  - type: Lifecycle
+    url: lifecycle/energyx-lifecycle.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: Overlay
+  url: overlays/energyx-oembed-api-overlay.yaml
 - type: CapabilityMap
   url: capabilities/energyx-capability-edges.yml
   name: EnergyX Business Capability Map
