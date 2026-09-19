@@ -528,6 +528,8 @@ apis:
   humanURL: https://energyx.com/wp-json/
   baseURL: https://energyx.com/wp-json
   tags:
+  - oEmbed
+  tags_raw:
   - o Embed
   properties:
   - type: OpenAPI
