@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: EnergyX O Embed API
+  title: EnergyX o Embed API
   version: oembed/1.0
   description: Public oEmbed 1.0 provider endpoint for energyx.com URLs, returning embeddable rich metadata — title, author, thumbnail and iframe HTML — for any post, page, press release, video or product on the site.
   contact:
@@ -13,7 +13,7 @@ servers:
 - url: https://energyx.com/wp-json
   description: EnergyX WordPress REST API
 tags:
-- name: oEmbed
+- name: o Embed
   description: oEmbed 1.0 provider endpoint.
 paths:
   /oembed/1.0/embed:
@@ -22,7 +22,7 @@ paths:
       summary: Get oEmbed data for a URL
       description: Retrieve oEmbed 1.0 rich metadata — title, author, provider, thumbnail and iframe embed HTML — for any energyx.com URL.
       tags:
-      - oEmbed
+      - o Embed
       parameters:
       - name: format
         in: query

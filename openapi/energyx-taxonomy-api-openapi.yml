@@ -2023,9 +2023,34 @@ components:
           description: Meta fields.
           type: object
           properties: []
-    LeadershipType:
+    Error:
+      type: object
+      description: WordPress REST error envelope. Match on `code`, never on `message`.
+      properties:
+        code:
+          type: string
+          description: Machine-readable error slug. The stable identifier.
+        message:
+          type: string
+          description: Human-readable, localized message. Not stable; do not parse.
+        data:
+          type: object
+          properties:
+            status:
+              type: integer
+              description: HTTP status, repeated in the body.
+            params:
+              type: object
+              description: 'Present on rest_invalid_param: parameter name to validation message.'
+            details:
+              type: object
+              description: 'Present on rest_invalid_param: per-parameter code/message/data detail.'
+      required:
+      - code
+      - message
+    Category:
       $schema: http://json-schema.org/draft-04/schema#
-      title: leadership-type
+      title: category
       type: object
       properties:
         id:
@@ -2051,10 +2076,43 @@ components:
           description: Type attribution for the term.
           type: string
           enum:
-          - leadership-type
+          - category
         parent:
           description: The parent term ID.
           type: integer
+        meta:
+          description: Meta fields.
+          type: object
+          properties: []
+    ProductTag:
+      $schema: http://json-schema.org/draft-04/schema#
+      title: product_tag
+      type: object
+      properties:
+        id:
+          description: Unique identifier for the term.
+          type: integer
+        count:
+          description: Number of published posts for the term.
+          type: integer
+        description:
+          description: HTML description of the term.
+          type: string
+        link:
+          description: URL of the term.
+          type: string
+          format: uri
+        name:
+          description: HTML title for the term.
+          type: string
+        slug:
+          description: An alphanumeric identifier for the term unique to its type.
+          type: string
+        taxonomy:
+          description: Type attribution for the term.
+          type: string
+          enum:
+          - product_tag
         meta:
           description: Meta fields.
           type: object
@@ -2098,42 +2156,6 @@ components:
         menu_order:
           description: Menu order, used to custom sort the term.
           type: integer
-    FaqType:
-      $schema: http://json-schema.org/draft-04/schema#
-      title: faq-type
-      type: object
-      properties:
-        id:
-          description: Unique identifier for the term.
-          type: integer
-        count:
-          description: Number of published posts for the term.
-          type: integer
-        description:
-          description: HTML description of the term.
-          type: string
-        link:
-          description: URL of the term.
-          type: string
-          format: uri
-        name:
-          description: HTML title for the term.
-          type: string
-        slug:
-          description: An alphanumeric identifier for the term unique to its type.
-          type: string
-        taxonomy:
-          description: Type attribution for the term.
-          type: string
-          enum:
-          - faq-type
-        parent:
-          description: The parent term ID.
-          type: integer
-        meta:
-          description: Meta fields.
-          type: object
-          properties: []
     ResourceGuideCategory:
       $schema: http://json-schema.org/draft-04/schema#
       title: resource-guide-category
@@ -2163,75 +2185,6 @@ components:
           type: string
           enum:
           - resource-guide-category
-        parent:
-          description: The parent term ID.
-          type: integer
-        meta:
-          description: Meta fields.
-          type: object
-          properties: []
-    ProductTag:
-      $schema: http://json-schema.org/draft-04/schema#
-      title: product_tag
-      type: object
-      properties:
-        id:
-          description: Unique identifier for the term.
-          type: integer
-        count:
-          description: Number of published posts for the term.
-          type: integer
-        description:
-          description: HTML description of the term.
-          type: string
-        link:
-          description: URL of the term.
-          type: string
-          format: uri
-        name:
-          description: HTML title for the term.
-          type: string
-        slug:
-          description: An alphanumeric identifier for the term unique to its type.
-          type: string
-        taxonomy:
-          description: Type attribution for the term.
-          type: string
-          enum:
-          - product_tag
-        meta:
-          description: Meta fields.
-          type: object
-          properties: []
-    ProductBrand:
-      $schema: http://json-schema.org/draft-04/schema#
-      title: product_brand
-      type: object
-      properties:
-        id:
-          description: Unique identifier for the term.
-          type: integer
-        count:
-          description: Number of published posts for the term.
-          type: integer
-        description:
-          description: HTML description of the term.
-          type: string
-        link:
-          description: URL of the term.
-          type: string
-          format: uri
-        name:
-          description: HTML title for the term.
-          type: string
-        slug:
-          description: An alphanumeric identifier for the term unique to its type.
-          type: string
-        taxonomy:
-          description: Type attribution for the term.
-          type: string
-          enum:
-          - product_brand
         parent:
           description: The parent term ID.
           type: integer
@@ -2272,42 +2225,6 @@ components:
           description: Meta fields.
           type: object
           properties: []
-    Category:
-      $schema: http://json-schema.org/draft-04/schema#
-      title: category
-      type: object
-      properties:
-        id:
-          description: Unique identifier for the term.
-          type: integer
-        count:
-          description: Number of published posts for the term.
-          type: integer
-        description:
-          description: HTML description of the term.
-          type: string
-        link:
-          description: URL of the term.
-          type: string
-          format: uri
-        name:
-          description: HTML title for the term.
-          type: string
-        slug:
-          description: An alphanumeric identifier for the term unique to its type.
-          type: string
-        taxonomy:
-          description: Type attribution for the term.
-          type: string
-          enum:
-          - category
-        parent:
-          description: The parent term ID.
-          type: integer
-        meta:
-          description: Meta fields.
-          type: object
-          properties: []
     Tag:
       $schema: http://json-schema.org/draft-04/schema#
       title: tag
@@ -2341,31 +2258,6 @@ components:
           description: Meta fields.
           type: object
           properties: []
-    Error:
-      type: object
-      description: WordPress REST error envelope. Match on `code`, never on `message`.
-      properties:
-        code:
-          type: string
-          description: Machine-readable error slug. The stable identifier.
-        message:
-          type: string
-          description: Human-readable, localized message. Not stable; do not parse.
-        data:
-          type: object
-          properties:
-            status:
-              type: integer
-              description: HTTP status, repeated in the body.
-            params:
-              type: object
-              description: 'Present on rest_invalid_param: parameter name to validation message.'
-            details:
-              type: object
-              description: 'Present on rest_invalid_param: per-parameter code/message/data detail.'
-      required:
-      - code
-      - message
     PositionArea:
       $schema: http://json-schema.org/draft-04/schema#
       title: position-area
@@ -2395,6 +2287,114 @@ components:
           type: string
           enum:
           - position-area
+        parent:
+          description: The parent term ID.
+          type: integer
+        meta:
+          description: Meta fields.
+          type: object
+          properties: []
+    FaqType:
+      $schema: http://json-schema.org/draft-04/schema#
+      title: faq-type
+      type: object
+      properties:
+        id:
+          description: Unique identifier for the term.
+          type: integer
+        count:
+          description: Number of published posts for the term.
+          type: integer
+        description:
+          description: HTML description of the term.
+          type: string
+        link:
+          description: URL of the term.
+          type: string
+          format: uri
+        name:
+          description: HTML title for the term.
+          type: string
+        slug:
+          description: An alphanumeric identifier for the term unique to its type.
+          type: string
+        taxonomy:
+          description: Type attribution for the term.
+          type: string
+          enum:
+          - faq-type
+        parent:
+          description: The parent term ID.
+          type: integer
+        meta:
+          description: Meta fields.
+          type: object
+          properties: []
+    ProductBrand:
+      $schema: http://json-schema.org/draft-04/schema#
+      title: product_brand
+      type: object
+      properties:
+        id:
+          description: Unique identifier for the term.
+          type: integer
+        count:
+          description: Number of published posts for the term.
+          type: integer
+        description:
+          description: HTML description of the term.
+          type: string
+        link:
+          description: URL of the term.
+          type: string
+          format: uri
+        name:
+          description: HTML title for the term.
+          type: string
+        slug:
+          description: An alphanumeric identifier for the term unique to its type.
+          type: string
+        taxonomy:
+          description: Type attribution for the term.
+          type: string
+          enum:
+          - product_brand
+        parent:
+          description: The parent term ID.
+          type: integer
+        meta:
+          description: Meta fields.
+          type: object
+          properties: []
+    LeadershipType:
+      $schema: http://json-schema.org/draft-04/schema#
+      title: leadership-type
+      type: object
+      properties:
+        id:
+          description: Unique identifier for the term.
+          type: integer
+        count:
+          description: Number of published posts for the term.
+          type: integer
+        description:
+          description: HTML description of the term.
+          type: string
+        link:
+          description: URL of the term.
+          type: string
+          format: uri
+        name:
+          description: HTML title for the term.
+          type: string
+        slug:
+          description: An alphanumeric identifier for the term unique to its type.
+          type: string
+        taxonomy:
+          description: Type attribution for the term.
+          type: string
+          enum:
+          - leadership-type
         parent:
           description: The parent term ID.
           type: integer

@@ -547,31 +547,6 @@ paths:
                   status: 404
 components:
   schemas:
-    Error:
-      type: object
-      description: WordPress REST error envelope. Match on `code`, never on `message`.
-      properties:
-        code:
-          type: string
-          description: Machine-readable error slug. The stable identifier.
-        message:
-          type: string
-          description: Human-readable, localized message. Not stable; do not parse.
-        data:
-          type: object
-          properties:
-            status:
-              type: integer
-              description: HTTP status, repeated in the body.
-            params:
-              type: object
-              description: 'Present on rest_invalid_param: parameter name to validation message.'
-            details:
-              type: object
-              description: 'Present on rest_invalid_param: per-parameter code/message/data detail.'
-      required:
-      - code
-      - message
     StoreProductCategory:
       $schema: http://json-schema.org/draft-04/schema#
       title: product-category
@@ -635,6 +610,31 @@ components:
           description: Category URL.
           type: string
           format: uri
+    Error:
+      type: object
+      description: WordPress REST error envelope. Match on `code`, never on `message`.
+      properties:
+        code:
+          type: string
+          description: Machine-readable error slug. The stable identifier.
+        message:
+          type: string
+          description: Human-readable, localized message. Not stable; do not parse.
+        data:
+          type: object
+          properties:
+            status:
+              type: integer
+              description: HTTP status, repeated in the body.
+            params:
+              type: object
+              description: 'Present on rest_invalid_param: parameter name to validation message.'
+            details:
+              type: object
+              description: 'Present on rest_invalid_param: per-parameter code/message/data detail.'
+      required:
+      - code
+      - message
     StoreProduct:
       $schema: http://json-schema.org/draft-04/schema#
       title: product
